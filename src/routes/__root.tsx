@@ -62,4 +62,3 @@ export const Route = createRootRoute({
   component: RootLayout,
   notFoundComponent: NotFound,
 });
-

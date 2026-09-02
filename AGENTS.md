@@ -1,6 +1,8 @@
 # Mote Website
 
-- Use React, TypeScript, Vite, Bun, TanStack Router, and Tailwind CSS.
+- Use React, TypeScript, Vite+, Bun, TanStack Router, and Tailwind CSS.
+- Use `vp dev`, `vp check`, `vp test`, and `vp build` for the development
+  lifecycle. Vite+ provides Vite, Vitest, Oxlint, Oxfmt, and type-aware checks.
 - Use TanStack Router's generated file-based routes and registered router types.
 - Build simple marketing components with semantic HTML and Tailwind. Add
   shadcn/ui components backed by Base UI selectively for complex interactive

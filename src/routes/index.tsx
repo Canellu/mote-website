@@ -20,18 +20,15 @@ function HomePage() {
           Your lights, exactly where you work.
         </h1>
         <p className="mt-8 max-w-2xl text-[clamp(1.125rem,2vw,1.35rem)] leading-relaxed text-mote-muted">
-          Mote Desktop puts everyday Philips Hue controls, scenes, and focused
-          widgets within easy reach on Windows.
+          Mote Desktop puts everyday Philips Hue controls, scenes, and focused widgets within easy
+          reach on Windows.
         </p>
         <p className="mt-8 w-fit rounded-xl border border-mote-line bg-mote-panel px-4 py-3 font-semibold text-neutral-300">
           Microsoft Store release coming soon
         </p>
       </section>
 
-      <section
-        className="border-t border-mote-line py-24"
-        aria-labelledby="highlights-title"
-      >
+      <section className="border-t border-mote-line py-24" aria-labelledby="highlights-title">
         <h2
           id="highlights-title"
           className="max-w-3xl text-[clamp(2rem,5vw,4rem)] leading-[1.05] font-semibold tracking-[-0.04em] text-balance"
@@ -54,4 +51,3 @@ function HomePage() {
 }
 
 export const Route = createFileRoute("/")({ component: HomePage });
-

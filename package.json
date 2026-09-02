@@ -1,12 +1,17 @@
 {
   "name": "mote-website",
-  "private": true,
   "version": "0.1.0",
+  "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "preview": "vite preview"
+    "dev": "vp dev",
+    "check": "vp check",
+    "check:fix": "vp check --fix",
+    "test": "vp test run",
+    "test:watch": "vp test",
+    "build": "vp check && vp test run && vp build",
+    "preview": "vp preview",
+    "prepare": "vp config"
   },
   "dependencies": {
     "@tanstack/react-router": "^1.170.32",
@@ -21,6 +26,17 @@
     "@vitejs/plugin-react": "^6.1.1",
     "tailwindcss": "^4.3.3",
     "typescript": "^7.0.2",
-    "vite": "^8.2.2"
+    "vite": "npm:@voidzero-dev/vite-plus-core@0.3.0",
+    "vite-plus": "0.3.0"
+  },
+  "overrides": {
+    "vite": "npm:@voidzero-dev/vite-plus-core@0.3.0"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "bun",
+      "version": "1.4.0",
+      "onFail": "download"
+    }
   }
 }
