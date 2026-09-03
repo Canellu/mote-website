@@ -29,12 +29,19 @@
 
   html {
     color-scheme: dark;
+    scrollbar-color: var(--color-mote-line) #0b0d10;
   }
 
   body {
     min-width: 320px;
     min-height: 100vh;
     margin: 0;
+    background: #0b0d10;
+  }
+
+  a {
+    color: inherit;
+    text-underline-offset: 0.22em;
   }
 
   ::selection {
@@ -45,6 +52,68 @@
   :focus-visible {
     outline: 2px solid var(--color-mote-mint);
     outline-offset: 3px;
+  }
+
+  @media (hover: hover) {
+    a {
+      transition:
+        color 160ms ease,
+        background-color 160ms ease;
+    }
+
+    .site-nav a:hover,
+    .footer-link:hover {
+      color: #f4f6f8;
+    }
+  }
+
+  .site-nav a[aria-current="page"] {
+    color: #f4f6f8;
+    background: var(--color-mote-panel);
+  }
+}
+
+@utility page-shell {
+  width: min(70rem, calc(100% - 2rem));
+  margin-inline: auto;
+  padding-block: 5rem;
+}
+
+@utility readable {
+  max-width: 44rem;
+}
+
+@utility prose-page {
+  max-width: 44rem;
+  padding-block: 3rem 5rem;
+
+  & section + section {
+    margin-top: 3rem;
+  }
+
+  & h2 {
+    color: #f4f6f8;
+    font-size: 1.5rem;
+    line-height: 1.25;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  & p {
+    margin-top: 1rem;
+    color: var(--color-mote-muted);
+    font-size: 1.0625rem;
+    line-height: 1.75;
+  }
+
+  & p + p {
+    margin-top: 1.25rem;
+  }
+}
+
+@media (max-width: 40rem) {
+  .page-shell {
+    padding-block: 3.5rem;
   }
 }
 

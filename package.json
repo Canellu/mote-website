@@ -9,12 +9,13 @@
     "check:fix": "vp check --fix",
     "test": "vp test run",
     "test:watch": "vp test",
-    "build": "vp check && vp test run && vp build",
+    "build": "vp check && vp test run && vp build && node scripts/verify-static-output.mjs",
     "preview": "vp preview",
     "prepare": "vp config"
   },
   "dependencies": {
     "@tanstack/react-router": "^1.170.32",
+    "@tanstack/react-start": "^1.168.49",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },
@@ -38,5 +39,8 @@
       "version": "1.4.0",
       "onFail": "download"
     }
+  },
+  "patchedDependencies": {
+    "@tanstack/start-plugin-core@1.171.39": "patches/@tanstack%2Fstart-plugin-core@1.171.39.patch"
   }
 }

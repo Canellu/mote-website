@@ -1,0 +1,91 @@
+diff --git a/dist/esm/vite/dev-server-plugin/plugin.js b/dist/esm/vite/dev-server-plugin/plugin.js
+index a254198e794ea97e80ca69bd98cb19b3b919f0f9..f9bfeb6ed7d857e0e19e1642447e976f423cf46d 100644
+--- a/dist/esm/vite/dev-server-plugin/plugin.js
++++ b/dist/esm/vite/dev-server-plugin/plugin.js
+@@ -1,8 +1,11 @@
+ import { ENTRY_POINTS, VITE_ENVIRONMENT_NAMES } from "../../constants.js";
+ import { CSS_MODULES_REGEX, collectDevStyles, normalizeCssModuleCacheKey } from "./dev-styles.js";
+-import { isRunnableDevEnvironment } from "vite";
+ import { NodeRequest, sendNodeResponse } from "srvx/node";
+ //#region src/vite/dev-server-plugin/plugin.ts
++function hasImportableRunner(environment) {
++	const runner = environment.runner;
++	return typeof runner?.import === "function";
++}
+ function devServerPlugin({ getConfig: _getConfig, devSsrStylesEnabled, installDevServerMiddleware }) {
+ 	let isTest = false;
+ 	const cssModulesCache = {};
+@@ -55,9 +58,9 @@ function devServerPlugin({ getConfig: _getConfig, devSsrStylesEnabled, installDe
+ 				if (installMiddleware === false) return;
+ 				if (installMiddleware == void 0) {
+ 					if (viteDevServer.config.server.middlewareMode) return;
+-					if (!isRunnableDevEnvironment(serverEnv) || "dispatchFetch" in serverEnv) return;
++					if (!hasImportableRunner(serverEnv)) return;
+ 				}
+-				if (!isRunnableDevEnvironment(serverEnv)) throw new Error("cannot install vite dev server middleware for TanStack Start since the SSR environment is not a RunnableDevEnvironment");
++				if (!hasImportableRunner(serverEnv)) throw new Error("cannot install vite dev server middleware for TanStack Start since the SSR environment does not have an import-capable runner");
+ 				viteDevServer.middlewares.use(async (req, res) => {
+ 					if (req.originalUrl) req.url = req.originalUrl;
+ 					const webReq = new NodeRequest({
+diff --git a/src/vite/dev-server-plugin/plugin.ts b/src/vite/dev-server-plugin/plugin.ts
+index 064c7623d4bc7b7140d7b59a8801a8ee423c4f97..371bbbf0dd172e22adf0859f77f942ba59f66b6d 100644
+--- a/src/vite/dev-server-plugin/plugin.ts
++++ b/src/vite/dev-server-plugin/plugin.ts
+@@ -1,4 +1,3 @@
+-import { isRunnableDevEnvironment } from 'vite'
+ import { NodeRequest, sendNodeResponse } from 'srvx/node'
+ import { ENTRY_POINTS, VITE_ENVIRONMENT_NAMES } from '../../constants'
+ import {
+@@ -6,7 +5,12 @@ import {
+   collectDevStyles,
+   normalizeCssModuleCacheKey,
+ } from './dev-styles'
+-import type { Connect, DevEnvironment, PluginOption } from 'vite'
++import type {
++  Connect,
++  DevEnvironment,
++  PluginOption,
++  RunnableDevEnvironment,
++} from 'vite'
+ import type { GetConfigFn } from '../../types'
+ 
+ export function devServerPlugin({
+@@ -143,19 +147,16 @@ export function devServerPlugin({
+               return
+             }
+ 
+-            // do not install middleware if SSR env in case another plugin already did
+-            if (
+-              !isRunnableDevEnvironment(serverEnv) ||
+-              // do not check via `isFetchableDevEnvironment` since nitro does implement the `FetchableDevEnvironment` interface but not via inheritance (which this helper checks)
+-              'dispatchFetch' in serverEnv
+-            ) {
++            // Only install middleware when the SSR environment can import the
++            // server entry point itself.
++            if (!hasImportableRunner(serverEnv)) {
+               return
+             }
+           }
+ 
+-          if (!isRunnableDevEnvironment(serverEnv)) {
++          if (!hasImportableRunner(serverEnv)) {
+             throw new Error(
+-              'cannot install vite dev server middleware for TanStack Start since the SSR environment is not a RunnableDevEnvironment',
++              'cannot install vite dev server middleware for TanStack Start since the SSR environment does not have an import-capable runner',
+             )
+           }
+           viteDevServer.middlewares.use(async (req, res) => {
+@@ -255,6 +256,13 @@ export function devServerPlugin({
+   ]
+ }
+ 
++function hasImportableRunner(
++  environment: DevEnvironment,
++): environment is DevEnvironment & Pick<RunnableDevEnvironment, 'runner'> {
++  const runner = (environment as Partial<RunnableDevEnvironment>).runner
++  return typeof runner?.import === 'function'
++}
++
+ /**
+  * Formats error for SSR message in error overlay
+  * @param req

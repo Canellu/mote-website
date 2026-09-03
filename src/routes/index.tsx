@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { pageHead } from "../lib/seo";
 
 const highlights = [
   "Control rooms, zones, lights, and scenes",
@@ -50,4 +51,13 @@ function HomePage() {
   );
 }
 
-export const Route = createFileRoute("/")({ component: HomePage });
+export const Route = createFileRoute("/")({
+  head: () =>
+    pageHead({
+      title: "Mote Desktop — Philips Hue control for Windows",
+      description:
+        "Control compatible Philips Hue lights, scenes, and desktop widgets from your Windows PC.",
+      path: "/",
+    }),
+  component: HomePage,
+});

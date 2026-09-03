@@ -3,9 +3,13 @@ import { createRouter } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
 
 describe("route tree", () => {
-  it("includes the home route", () => {
+  it("includes every public launch route", () => {
     const router = createRouter({ routeTree });
 
-    expect(router.routesById["/"]?.fullPath).toBe("/");
+    const paths = Object.values(router.routesById).map((route) => route.fullPath);
+
+    expect(paths).toEqual(
+      expect.arrayContaining(["/", "/features", "/privacy", "/terms", "/support"]),
+    );
   });
 });
