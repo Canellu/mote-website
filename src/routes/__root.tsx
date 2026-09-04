@@ -20,21 +20,17 @@ function RootLayout() {
           Skip to content
         </a>
 
-        <div className="site-header-signal" aria-hidden="true">
-          <div className="site-header-signal__inner">
-            <span className="brand-bars">
-              <i />
-              <i />
-              <i />
-            </span>
-          </div>
-        </div>
-
         <header className="site-header">
           <div className="site-header__inner">
             <Link className="site-brand" to="/" aria-label="Mote Desktop home">
-              <span className="brand-bars-placeholder" aria-hidden="true" />
-              <span className="site-brand__name header-contrast-text">
+              <img
+                className="site-brand__logo"
+                src="/brand/mote-app-icon.png"
+                width="128"
+                height="128"
+                alt=""
+              />
+              <span className="site-brand__name">
                 Mote <span>Desktop</span>
               </span>
             </Link>
@@ -44,10 +40,10 @@ function RootLayout() {
                 {navigation.map((item) => (
                   <li key={item.to}>
                     <Link
-                      className="inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-medium text-mote-muted no-underline"
+                      className={`inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-medium text-mote-muted no-underline${item.to === "/features" ? " site-nav__primary" : ""}`}
                       to={item.to}
                     >
-                      <span className="header-contrast-text">{item.label}</span>
+                      <span>{item.label}</span>
                     </Link>
                   </li>
                 ))}
@@ -122,7 +118,7 @@ export const Route = createRootRoute({
     ],
     links: [
       { rel: "stylesheet", href: styles },
-      { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
+      { rel: "icon", href: "/brand/mote-app-icon.png", type: "image/png" },
     ],
   }),
   component: RootLayout,

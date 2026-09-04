@@ -297,11 +297,27 @@ function HomePage() {
       </section>
 
       <section className="statement" aria-labelledby="statement-title">
-        <h2 id="statement-title">Control the room without reaching for your phone.</h2>
-        <p>
-          Use the dashboard for an overview, or open a desktop widget for the controls you want to
-          keep close.
-        </p>
+        <div className="statement-copy">
+          <h2 id="statement-title">Control the room without reaching for your phone.</h2>
+          <p>
+            Use the dashboard for an overview, or keep the controls you reach for most in a desktop
+            widget beside your work.
+          </p>
+        </div>
+        <figure className="statement-visual">
+          <div className="statement-visual__desktop">
+            <ProductCapture
+              src="/product/mote-desktop-widgets.png"
+              alt="A stack of colorful Mote Desktop widgets for rooms, scenes, and lights"
+              width={360}
+              height={760}
+            />
+          </div>
+          <figcaption>
+            <span aria-hidden="true" />
+            Pinned on your desktop
+          </figcaption>
+        </figure>
       </section>
 
       <section className="playground-section" aria-labelledby="playground-title">
