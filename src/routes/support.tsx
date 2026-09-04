@@ -3,26 +3,26 @@ import { PageIntro } from "../components/page-intro";
 import { pageHead } from "../lib/seo";
 
 const checks = [
-  "Confirm the PC and Hue Bridge or Sync Box are powered and on the same local network.",
-  "Confirm Windows Firewall, a VPN, or other security software is not blocking local discovery.",
-  "Restart Mote Desktop and use its reconnect action if the bridge is unreachable.",
-  "Note what you expected, what happened, and the steps that reproduce the problem.",
+  "Check that your PC and Hue Bridge or Sync Box are powered on and connected to the same local network.",
+  "Check whether Windows Firewall, a VPN, or other security software is blocking local discovery.",
+  "If the bridge is unreachable, restart Mote Desktop and use the reconnect action.",
+  "Write down what you expected, what happened, and the steps needed to reproduce the problem.",
 ];
 
 function SupportPage() {
   return (
     <main id="main" className="page-shell">
-      <PageIntro title="Let’s get your lights talking again.">
+      <PageIntro title="Mote Desktop support">
         <p>
-          Start with the checks below. The support address and response expectations will appear
-          here after the Mote Desktop domain and email are active.
+          Run these checks before requesting help. Contact details and response times will be added
+          before Mote Desktop is released.
         </p>
       </PageIntro>
 
       <div className="grid gap-x-16 gap-y-12 py-12 sm:py-16 lg:grid-cols-[1.1fr_0.9fr]">
         <section aria-labelledby="checks-title">
           <h2 id="checks-title" className="text-2xl font-semibold tracking-tight">
-            Before contacting support
+            Checks to run first
           </h2>
           <ol className="mt-8 space-y-6">
             {checks.map((check, index) => (
@@ -39,8 +39,8 @@ function SupportPage() {
           </ol>
         </section>
 
-        <aside className="border-t border-mote-line pt-8 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-12">
-          <h2 className="text-2xl font-semibold tracking-tight">What you’ll need</h2>
+        <aside className="lg:pl-12">
+          <h2 className="text-2xl font-semibold tracking-tight">System requirements</h2>
           <ul className="mt-6 list-disc space-y-3 pl-5 leading-7 text-mote-muted marker:text-mote-mint">
             <li>Windows 10 or Windows 11 on an x64 PC</li>
             <li>A compatible Hue Bridge on the same local network</li>
@@ -51,11 +51,11 @@ function SupportPage() {
         </aside>
       </div>
 
-      <section className="readable border-t border-mote-line py-12 sm:py-16">
-        <h2 className="text-2xl font-semibold tracking-tight">Keep credentials private</h2>
+      <section className="readable py-12 sm:py-16">
+        <h2 className="text-2xl font-semibold tracking-tight">Do not include credentials</h2>
         <p className="mt-5 leading-7 text-mote-muted">
-          Never send Hue application keys, entertainment credentials, Sync Box tokens, bridge or
-          Sync Box addresses, captured PC Sync content, or unrelated personal information in a
+          Do not send Hue application keys, entertainment credentials, Sync Box tokens, bridge or
+          Sync Box addresses, captured PC Sync content, or unrelated personal information with a
           support request.
         </p>
       </section>

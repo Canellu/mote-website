@@ -1,0 +1,427 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-03T21:07:44.8964185+02:00",
+  "title": "Design System: Mote Desktop",
+  "extensions": {
+    "colorMeta": {
+      "graphite-night": {
+        "role": "neutral",
+        "displayName": "Graphite Night",
+        "canonical": "#0b0c0b",
+        "tonalRamp": [
+          "oklch(15% 0.005 135)",
+          "oklch(25% 0.005 135)",
+          "oklch(35% 0.005 135)",
+          "oklch(47% 0.005 135)",
+          "oklch(60% 0.005 135)",
+          "oklch(72% 0.005 135)",
+          "oklch(84% 0.005 135)",
+          "oklch(95% 0.005 135)"
+        ]
+      },
+      "mineral-white": {
+        "role": "neutral",
+        "displayName": "Mineral White",
+        "canonical": "#f2f2ed",
+        "tonalRamp": [
+          "oklch(15% 0.008 105)",
+          "oklch(25% 0.008 105)",
+          "oklch(35% 0.008 105)",
+          "oklch(47% 0.008 105)",
+          "oklch(60% 0.008 105)",
+          "oklch(72% 0.008 105)",
+          "oklch(84% 0.008 105)",
+          "oklch(95% 0.008 105)"
+        ]
+      },
+      "text-on-dark": {
+        "role": "neutral",
+        "displayName": "Soft White Text",
+        "canonical": "#f5f5f1",
+        "tonalRamp": [
+          "oklch(15% 0.005 105)",
+          "oklch(25% 0.005 105)",
+          "oklch(35% 0.005 105)",
+          "oklch(47% 0.005 105)",
+          "oklch(60% 0.005 105)",
+          "oklch(72% 0.005 105)",
+          "oklch(84% 0.005 105)",
+          "oklch(95% 0.005 105)"
+        ]
+      },
+      "text-on-light": {
+        "role": "neutral",
+        "displayName": "Near-Black Text",
+        "canonical": "#121410",
+        "tonalRamp": [
+          "oklch(15% 0.01 125)",
+          "oklch(25% 0.01 125)",
+          "oklch(35% 0.01 125)",
+          "oklch(47% 0.01 125)",
+          "oklch(60% 0.01 125)",
+          "oklch(72% 0.01 125)",
+          "oklch(84% 0.01 125)",
+          "oklch(95% 0.01 125)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Citron Ink",
+        "canonical": "#10120f",
+        "tonalRamp": [
+          "oklch(15% 0.01 125)",
+          "oklch(25% 0.01 125)",
+          "oklch(35% 0.01 125)",
+          "oklch(47% 0.01 125)",
+          "oklch(60% 0.01 125)",
+          "oklch(72% 0.01 125)",
+          "oklch(84% 0.01 125)",
+          "oklch(95% 0.01 125)"
+        ]
+      },
+      "signal-orange": {
+        "role": "primary",
+        "displayName": "Neon Orange",
+        "canonical": "#ff4500",
+        "tonalRamp": [
+          "oklch(15% 0.07 35)",
+          "oklch(25% 0.11 35)",
+          "oklch(35% 0.15 35)",
+          "oklch(47% 0.19 35)",
+          "oklch(60% 0.23 35)",
+          "oklch(72% 0.20 35)",
+          "oklch(84% 0.13 35)",
+          "oklch(95% 0.05 35)"
+        ]
+      },
+      "signal-orange-strong": {
+        "role": "primary",
+        "displayName": "Neon Orange Strong",
+        "canonical": "#a83200",
+        "tonalRamp": [
+          "oklch(15% 0.05 35)",
+          "oklch(25% 0.09 35)",
+          "oklch(35% 0.13 35)",
+          "oklch(47% 0.17 35)",
+          "oklch(60% 0.19 35)",
+          "oklch(72% 0.16 35)",
+          "oklch(84% 0.10 35)",
+          "oklch(95% 0.04 35)"
+        ]
+      },
+      "muted-on-dark": {
+        "role": "neutral",
+        "displayName": "Dark-Mode Muted",
+        "canonical": "#a9ada6",
+        "tonalRamp": [
+          "oklch(15% 0.008 135)",
+          "oklch(25% 0.008 135)",
+          "oklch(35% 0.008 135)",
+          "oklch(47% 0.008 135)",
+          "oklch(60% 0.008 135)",
+          "oklch(72% 0.008 135)",
+          "oklch(84% 0.008 135)",
+          "oklch(95% 0.008 135)"
+        ]
+      },
+      "muted-on-light": {
+        "role": "neutral",
+        "displayName": "Light-Mode Muted",
+        "canonical": "#5e625b",
+        "tonalRamp": [
+          "oklch(15% 0.012 125)",
+          "oklch(25% 0.012 125)",
+          "oklch(35% 0.012 125)",
+          "oklch(47% 0.012 125)",
+          "oklch(60% 0.012 125)",
+          "oklch(72% 0.012 125)",
+          "oklch(84% 0.012 125)",
+          "oklch(95% 0.012 125)"
+        ]
+      },
+      "panel-dark": {
+        "role": "neutral",
+        "displayName": "Dark Control Panel",
+        "canonical": "#181a18",
+        "tonalRamp": [
+          "oklch(15% 0.006 135)",
+          "oklch(25% 0.006 135)",
+          "oklch(35% 0.006 135)",
+          "oklch(47% 0.006 135)",
+          "oklch(60% 0.006 135)",
+          "oklch(72% 0.006 135)",
+          "oklch(84% 0.006 135)",
+          "oklch(95% 0.006 135)"
+        ]
+      },
+      "panel-light": {
+        "role": "neutral",
+        "displayName": "Light Control Panel",
+        "canonical": "#e5e6df",
+        "tonalRamp": [
+          "oklch(15% 0.009 105)",
+          "oklch(25% 0.009 105)",
+          "oklch(35% 0.009 105)",
+          "oklch(47% 0.009 105)",
+          "oklch(60% 0.009 105)",
+          "oklch(72% 0.009 105)",
+          "oklch(84% 0.009 105)",
+          "oklch(95% 0.009 105)"
+        ]
+      },
+      "line-dark": {
+        "role": "neutral",
+        "displayName": "Dark Divider",
+        "canonical": "#30332f",
+        "tonalRamp": [
+          "oklch(15% 0.008 125)",
+          "oklch(25% 0.008 125)",
+          "oklch(35% 0.008 125)",
+          "oklch(47% 0.008 125)",
+          "oklch(60% 0.008 125)",
+          "oklch(72% 0.008 125)",
+          "oklch(84% 0.008 125)",
+          "oklch(95% 0.008 125)"
+        ]
+      },
+      "line-light": {
+        "role": "neutral",
+        "displayName": "Light Divider",
+        "canonical": "#c7c9c1",
+        "tonalRamp": [
+          "oklch(15% 0.01 115)",
+          "oklch(25% 0.01 115)",
+          "oklch(35% 0.01 115)",
+          "oklch(47% 0.01 115)",
+          "oklch(60% 0.01 115)",
+          "oklch(72% 0.01 115)",
+          "oklch(84% 0.01 115)",
+          "oklch(95% 0.01 115)"
+        ]
+      },
+      "daylight-field": {
+        "role": "neutral",
+        "displayName": "Daylight Field",
+        "canonical": "#ecece6",
+        "tonalRamp": [
+          "oklch(15% 0.007 105)",
+          "oklch(25% 0.007 105)",
+          "oklch(35% 0.007 105)",
+          "oklch(47% 0.007 105)",
+          "oklch(60% 0.007 105)",
+          "oklch(72% 0.007 105)",
+          "oklch(84% 0.007 105)",
+          "oklch(95% 0.007 105)"
+        ]
+      },
+      "scene-focus": {
+        "role": "secondary",
+        "displayName": "Focused Scene Glow",
+        "canonical": "#e7f06a",
+        "tonalRamp": [
+          "oklch(15% 0.06 110)",
+          "oklch(25% 0.09 110)",
+          "oklch(35% 0.12 110)",
+          "oklch(47% 0.15 110)",
+          "oklch(60% 0.17 110)",
+          "oklch(72% 0.17 110)",
+          "oklch(84% 0.15 110)",
+          "oklch(95% 0.07 110)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero statement only; short, forceful lines."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Major story chapters and closing statements."
+      },
+      "title": { "displayName": "Title", "purpose": "Individual product-capture stories." },
+      "body": { "displayName": "Body", "purpose": "Explanations and supporting product copy." },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Controls, status, and technical interaction hints."
+      }
+    },
+    "shadows": [
+      {
+        "name": "floating-glass",
+        "value": "0 0.8rem 2.5rem rgb(0 0 0 / 0.18), inset 0 1px rgb(255 255 255 / 0.08)",
+        "purpose": "Dark-theme sticky header lift and rim."
+      },
+      {
+        "name": "floating-glass-light",
+        "value": "0 0.8rem 2.5rem rgb(20 22 18 / 0.08), inset 0 1px rgb(255 255 255 / 0.8)",
+        "purpose": "Light-theme sticky header lift and rim."
+      },
+      {
+        "name": "hero-product-lift",
+        "value": "1.8rem 2.6rem 5rem rgb(0 0 0 / 0.48)",
+        "purpose": "Deepest lift under the hero Mote window."
+      },
+      {
+        "name": "scene-lab-lift",
+        "value": "1.7rem 2.1rem 5rem rgb(0 0 0 / 0.34)",
+        "purpose": "Ambient lift under the functional scene demonstration."
+      },
+      {
+        "name": "capture-lift",
+        "value": "1.5rem 2rem 4rem rgb(0 0 0 / 0.3)",
+        "purpose": "Physical depth for real product capture frames."
+      },
+      {
+        "name": "context-capsule",
+        "value": "0 0.75rem 2rem rgb(0 0 0 / 0.2)",
+        "purpose": "Quiet lift beneath the hero capture caption."
+      }
+    ],
+    "motion": [
+      {
+        "name": "state-standard",
+        "value": "160ms ease",
+        "purpose": "Color, fill, and border responses."
+      },
+      {
+        "name": "press-spring",
+        "value": "140ms cubic-bezier(0.23, 1, 0.32, 1)",
+        "purpose": "Short 97% press response on actionable controls."
+      },
+      {
+        "name": "scene-transition",
+        "value": "220ms ease",
+        "purpose": "Interpolation of registered scene color, wash, and intensity properties."
+      },
+      {
+        "name": "switch-travel",
+        "value": "180ms cubic-bezier(0.23, 1, 0.32, 1)",
+        "purpose": "Power-switch fill and thumb movement."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "0.01ms",
+        "purpose": "Effective removal of animation and transition when reduced motion is requested."
+      }
+    ],
+    "breakpoints": [
+      { "name": "wide-collapse", "value": "64rem" },
+      { "name": "single-column", "value": "50rem" },
+      { "name": "compact-mobile", "value": "35rem" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Action",
+      "kind": "button",
+      "refersTo": "primary-action",
+      "description": "Citron pill for the single forward action in a story beat.",
+      "html": "<a class=\"ds-primary-action\" href=\"#\">Explore Mote</a>",
+      "css": ".ds-primary-action { display:inline-flex; min-height:3rem; padding:0 1.15rem; align-items:center; border-radius:999px; color:#171910; background:var(--mote-signal, #ff4500); font:650 0.9rem/1.2 \"Segoe UI Variable\", \"Segoe UI\", sans-serif; text-decoration:none; transition:filter 160ms ease, transform 140ms cubic-bezier(0.23,1,0.32,1); } .ds-primary-action:hover { filter:brightness(1.08); } .ds-primary-action:active { transform:scale(0.97); } .ds-primary-action:focus-visible { outline:2px solid var(--mote-signal, #ff4500); outline-offset:4px; }"
+    },
+    {
+      "name": "Floating Glass Header",
+      "kind": "nav",
+      "description": "Sticky functional glass holding only the brand and primary navigation.",
+      "html": "<header class=\"ds-header\"><a class=\"ds-brand\" href=\"#\"><span class=\"ds-bars\"><i></i><i></i><i></i></span>Mote Desktop</a><nav class=\"ds-nav\" aria-label=\"Primary navigation\"><a aria-current=\"page\" href=\"#\">Features</a><a href=\"#\">Support</a></nav></header>",
+      "css": ".ds-header { display:flex; min-height:3.75rem; padding:.45rem .55rem .45rem 1rem; align-items:center; justify-content:space-between; gap:1rem; border:1px solid rgb(255 255 255 / .13); border-radius:1.15rem; color:var(--mote-text, #f5f5f1); background:rgb(18 20 18 / .66); box-shadow:0 .8rem 2.5rem rgb(0 0 0 / .18), inset 0 1px rgb(255 255 255 / .08); backdrop-filter:blur(8px) saturate(120%); } .ds-brand { display:inline-flex; align-items:center; gap:.7rem; color:inherit; font:700 1.05rem/1 \"Puritan\", sans-serif; text-decoration:none; } .ds-bars { display:inline-flex; height:1.15rem; gap:.18rem; } .ds-bars i { width:.24rem; border-radius:.12rem; background:var(--mote-signal, #ff4500); transform:skewY(-7deg); } .ds-nav { display:flex; gap:.25rem; } .ds-nav a { display:inline-flex; min-height:2.75rem; padding:0 .75rem; align-items:center; border-radius:.75rem; color:var(--mote-muted, #a9ada6); font:500 .875rem/1 \"Segoe UI Variable\", \"Segoe UI\", sans-serif; text-decoration:none; } .ds-nav a:hover, .ds-nav a[aria-current=\"page\"] { color:var(--mote-text, #f5f5f1); background:rgb(255 255 255 / .09); } .ds-nav a:focus-visible, .ds-brand:focus-visible { outline:2px solid var(--mote-signal, #ff4500); outline-offset:4px; }"
+    },
+    {
+      "name": "Theme Control",
+      "kind": "button",
+      "description": "Separate icon-only control that defaults to system, cycles through system, light, and dark, and reveals its label on hover or focus.",
+      "html": "<div class=\"ds-theme-wrap\"><button class=\"ds-theme\" type=\"button\" aria-label=\"System theme. Switch to light theme.\" aria-describedby=\"ds-theme-tip\"><svg aria-hidden=\"true\" viewBox=\"0 0 24 24\"><rect x=\"3.5\" y=\"4.5\" width=\"17\" height=\"12\" rx=\"2\"/><path d=\"M8 20h8M12 16.5V20\"/></svg></button><span id=\"ds-theme-tip\" role=\"tooltip\">System theme</span></div>",
+      "css": ".ds-theme-wrap { position:relative; display:inline-block; } .ds-theme { display:grid; width:2.75rem; height:2.75rem; place-items:center; padding:0; border:1px solid rgb(255 255 255 / .1); border-radius:50%; color:var(--mote-muted, #a9ada6); background:rgb(18 20 18 / .68); box-shadow:0 .6rem 1.8rem rgb(0 0 0 / .16), inset 0 1px rgb(255 255 255 / .08); cursor:pointer; } .ds-theme svg { width:1.05rem; fill:none; stroke:currentColor; stroke-linecap:round; stroke-linejoin:round; stroke-width:1.6; } .ds-theme:focus-visible { outline:2px solid var(--mote-signal, #ff4500); outline-offset:4px; }"
+    },
+    {
+      "name": "Scene Option",
+      "kind": "chip",
+      "refersTo": "scene-option",
+      "description": "Compact scene tile combining a luminous color sample and state label.",
+      "html": "<button class=\"ds-scene\" type=\"button\" aria-pressed=\"true\"><i></i><span>Focus</span></button>",
+      "css": ".ds-scene { display:grid; width:9rem; min-height:4.2rem; padding:.65rem; align-content:space-between; justify-items:start; border:1px solid var(--scene-color, #e7f06a); border-radius:.7rem; color:#fff; background:#2a2d28; cursor:pointer; transition:border-color 160ms ease, background-color 160ms ease, transform 140ms cubic-bezier(.23,1,.32,1); } .ds-scene i { width:.8rem; height:.8rem; border-radius:50%; background:var(--scene-color, #e7f06a); box-shadow:0 0 1rem var(--scene-color, #e7f06a); } .ds-scene span { font:.7rem/1.2 \"Segoe UI Variable\", \"Segoe UI\", sans-serif; } .ds-scene:hover { border-color:#60665a; } .ds-scene:active { transform:scale(.97); } .ds-scene:focus-visible { outline:2px solid var(--mote-signal, #ff4500); outline-offset:4px; }"
+    },
+    {
+      "name": "Power Switch",
+      "kind": "button",
+      "description": "Accessible binary workspace-light control driven by the active scene color.",
+      "html": "<button class=\"ds-power\" type=\"button\" role=\"switch\" aria-checked=\"true\" aria-label=\"Workspace lights\"><span></span></button>",
+      "css": ".ds-power { position:relative; width:3rem; height:1.7rem; border:0; border-radius:999px; background:var(--scene-color, #e7f06a); cursor:pointer; transition:background-color 180ms ease, transform 140ms cubic-bezier(.23,1,.32,1); } .ds-power span { position:absolute; top:.2rem; left:.2rem; width:1.3rem; height:1.3rem; border-radius:50%; background:#181a17; transform:translateX(1.3rem); transition:transform 180ms cubic-bezier(.23,1,.32,1); } .ds-power:hover { filter:brightness(1.05); } .ds-power:active { transform:scale(.97); } .ds-power:focus-visible { outline:2px solid var(--mote-signal, #ff4500); outline-offset:4px; }"
+    },
+    {
+      "name": "Brightness Field",
+      "kind": "input",
+      "description": "Full-width native range input whose accent follows the selected Hue scene.",
+      "html": "<label class=\"ds-brightness\"><span>Brightness</span><output>72%</output><input type=\"range\" min=\"1\" max=\"100\" value=\"72\" /></label>",
+      "css": ".ds-brightness { display:grid; width:18rem; grid-template-columns:1fr auto; gap:.65rem; color:#8f948c; font:.72rem/1.4 \"Segoe UI Variable\", \"Segoe UI\", sans-serif; } .ds-brightness output { color:var(--mote-text, #f5f5f1); font-variant-numeric:tabular-nums; } .ds-brightness input { grid-column:1 / -1; width:100%; accent-color:var(--scene-color, #e7f06a); cursor:pointer; } .ds-brightness input:focus-visible { outline:2px solid var(--mote-signal, #ff4500); outline-offset:4px; } .ds-brightness input:disabled { cursor:not-allowed; opacity:.45; }"
+    },
+    {
+      "name": "Product Capture Frame",
+      "kind": "card",
+      "refersTo": "capture-frame",
+      "description": "Atmospheric frame that elevates an authentic Mote screenshot as product evidence.",
+      "html": "<figure class=\"ds-capture\"><div class=\"ds-screen\"><span>Mote</span><strong>Everything at a glance</strong><i></i><i></i><i></i></div></figure>",
+      "css": ".ds-capture { width:23rem; margin:0; padding:3rem 3rem 0; overflow:hidden; border-radius:1.2rem; background:linear-gradient(145deg, #7b572b, #2a1c18); box-shadow:1.5rem 2rem 4rem rgb(0 0 0 / .3); } .ds-screen { display:grid; min-height:22rem; padding:1.4rem; align-content:start; gap:.8rem; border-radius:.9rem .9rem 0 0; color:#f5f5f1; background:#181a18; box-shadow:0 1.5rem 4rem rgb(0 0 0 / .38); font-family:\"Segoe UI Variable\", \"Segoe UI\", sans-serif; } .ds-screen span { color:#a9ada6; font-size:.72rem; } .ds-screen strong { font-family:\"Puritan\", sans-serif; font-size:1.5rem; } .ds-screen i { display:block; height:3rem; border-radius:.7rem; background:linear-gradient(90deg, #302f28, #776f32); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Product-Led Illumination",
+    "overview": "Mote Desktop turns real Hue color and authentic product evidence into the page's illumination story. The experience begins in a quiet graphite environment, lets colorful Hue state emerge through a working control and paired light/dark product captures, then opens into a mineral-white daylight chapter before settling back into darkness. Dashboard, appearance settings, and Sync Box setup use broad editorial compositions; three related widget stories consolidate into one changing screenshot with a persistent stacked selector. Every app image contrasts its surrounding site theme.\n\nThe system pairs broad humanist display type with familiar Windows-native interface typography. Solid controls, sparse technical ticks, functional glass, and minimally rounded product frames keep the interface grounded while light, color, and authentic Mote screens supply the emotion. Ornament never competes with product evidence.",
+    "keyCharacteristics": [
+      "Scroll-led graphite-to-mineral-white illumination progression.",
+      "Oversized Puritan headlines paired with Segoe UI body and control text.",
+      "Neon orange used as a scarce signal for actions, state, focus, and brand rhythm.",
+      "Functional glass reserved for floating navigation and compact contextual labels.",
+      "Real, colorful Mote captures presented as the primary proof of the product."
+    ],
+    "rules": [
+      {
+        "name": "The Current, Not Paint Rule",
+        "body": "Neon orange marks energy, selection, focus, or action; it does not fill large decorative areas.",
+        "section": "colors"
+      },
+      {
+        "name": "The Product Owns Color Rule",
+        "body": "Saturated amber, coral, aqua, violet, and blue belong primarily to real Mote screens, scene state, or the framing atmosphere immediately around them.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two Voices Rule",
+        "body": "Puritan speaks for the product story; Segoe UI handles explanation, navigation, status, and controls.",
+        "section": "typography"
+      },
+      {
+        "name": "The Evidence Leads Rule",
+        "body": "When space tightens, preserve the real product image, functional controls, and readable copy; remove peripheral annotation first.",
+        "section": "layout"
+      },
+      {
+        "name": "The Earned Glass Rule",
+        "body": "Backdrop blur belongs to floating functional chrome and compact contextual labels, not to every surface.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Radius Has a Job Rule",
+        "body": "Use medium rounding for containers, tighter rounding for controls, and full pills only for singular actions or binary state.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "Do let the page progress from graphite to mineral-white as a scroll-level illumination story.",
+      "Do reserve neon orange for powered, selected, focused, or actionable moments.",
+      "Do use real Mote captures as the dominant evidence and give each one a content-aware color frame.",
+      "Do preserve visible keyboard focus, semantic control state, forced-color borders, and descriptive image alternatives.",
+      "Do reduce transitions to effectively instantaneous timing and disable smooth scrolling when reduced motion is requested.",
+      "Do keep light, dark, and system themes complete by switching canvas, foreground, muted, panel, line, and glass treatments together."
+    ],
+    "donts": [
+      "Don't turn the story into a generic stack of same-sized feature cards.",
+      "Don't spread glass blur across ordinary content surfaces or use it without a functional reason.",
+      "Don't use colorful Hue gradients as generic decoration detached from product evidence or lighting state.",
+      "Don't replace Puritan headlines with a neutral system heading or use display type for dense interface copy.",
+      "Don't hide essential interaction, navigation, or product evidence at mobile sizes; remove peripheral annotation first.",
+      "Don't animate scene changes, presses, or smooth scrolling when the user requests reduced motion."
+    ]
+  }
+}

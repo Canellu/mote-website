@@ -6,7 +6,7 @@ const features = [
   {
     name: "Hue control",
     free: "Lights, rooms, zones, scenes, devices, and entertainment areas",
-    pro: "All essential Hue controls remain available",
+    pro: "Same Hue controls as Free",
   },
   {
     name: "Hue Bridge",
@@ -16,7 +16,7 @@ const features = [
   {
     name: "Desktop widgets",
     free: "One standard widget with one room, zone, or light",
-    pro: "Up to three advanced widgets with multiple controls and customization",
+    pro: "Unlimited advanced widgets with multiple controls and customization",
   },
   {
     name: "Home dashboard",
@@ -31,17 +31,17 @@ const features = [
   {
     name: "Hue Play HDMI Sync Box",
     free: "Current single-box controls",
-    pro: "No current single-box control is reserved for Pro",
+    pro: "Same Sync Box controls as Free",
   },
 ];
 
 function FeaturesPage() {
   return (
     <main id="main" className="page-shell">
-      <PageIntro title="Useful for free. More room to make it yours.">
+      <PageIntro title="Free and Mote Pro">
         <p>
-          Everyday Hue control stays free. Mote Pro adds advanced desktop workflows through a
-          one-time Microsoft Store purchase when the listing is ready.
+          Free includes everyday Hue control. Mote Pro adds multiple bridges, advanced widgets,
+          custom dashboard layouts, and PC Sync. Pro will be a one-time Microsoft Store purchase.
         </p>
       </PageIntro>
 
@@ -58,14 +58,17 @@ function FeaturesPage() {
         >
           <table className="w-full min-w-[44rem] border-collapse text-left">
             <thead>
-              <tr className="border-b border-mote-line text-sm text-mote-muted">
+              <tr className="border-b border-mote-muted/40 text-base text-mote-ink">
                 <th className="w-1/4 py-4 pr-6 font-medium" scope="col">
                   Feature
                 </th>
                 <th className="w-3/8 px-6 py-4 font-medium" scope="col">
                   Free
                 </th>
-                <th className="w-3/8 py-4 pl-6 font-medium text-mote-mint" scope="col">
+                <th
+                  className="w-3/8 py-4 pl-6 font-semibold text-[var(--mote-signal-strong)]"
+                  scope="col"
+                >
                   Mote Pro
                 </th>
               </tr>
@@ -77,7 +80,7 @@ function FeaturesPage() {
                     {feature.name}
                   </th>
                   <td className="px-6 py-6 leading-7 text-mote-muted">{feature.free}</td>
-                  <td className="py-6 pl-6 leading-7 text-neutral-200">{feature.pro}</td>
+                  <td className="py-6 pl-6 font-medium leading-7 text-mote-ink">{feature.pro}</td>
                 </tr>
               ))}
             </tbody>
@@ -85,8 +88,8 @@ function FeaturesPage() {
         </div>
       </section>
 
-      <aside className="readable border-t border-mote-line py-12 text-mote-muted">
-        <h2 className="text-xl font-semibold text-white">Before PC Sync</h2>
+      <aside className="readable py-12 text-mote-muted">
+        <h2 className="text-xl font-semibold text-mote-ink">PC Sync requirements</h2>
         <p className="mt-4 leading-7">
           PC Sync requires Windows, a compatible Hue Bridge and entertainment area, and supported
           display capture or system-audio loopback. Network isolation, VPNs, firewalls, and hardware
@@ -101,7 +104,7 @@ export const Route = createFileRoute("/features")({
   head: () =>
     pageHead({
       title: "Features — Mote Desktop",
-      description: "Compare the useful Free tier with the advanced workflows in Mote Pro.",
+      description: "Compare the features included with Mote Desktop Free and Mote Pro.",
       path: "/features",
     }),
   component: FeaturesPage,

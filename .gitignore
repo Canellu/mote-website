@@ -7,3 +7,17 @@ dist
 *.tsbuildinfo
 .DS_Store
 
+# Local visual QA state and generated comparison artifacts.
+.impeccable/*
+!.impeccable/design.json
+!.impeccable/surfaces/
+!.impeccable/surfaces/**
+.tmp-visual-check/
+public/visual-check.html
+public/visual-check.js
+
+# Machine-specific capture helpers. The durable captures live in public/product.
+scripts/capture-*.cjs
+
+# Local development process output.
+.codex-vite.*.log

@@ -5,10 +5,10 @@ import { pageHead } from "../lib/seo";
 function PrivacyPage() {
   return (
     <main id="main" className="page-shell">
-      <PageIntro title="Privacy, kept close to home.">
+      <PageIntro title="Privacy">
         <p>
-          Mote Desktop is designed for local control. This pre-publication summary will be replaced
-          by the legally reviewed policy before release.
+          Mote Desktop is designed to control Hue hardware over your local network. This summary
+          will be replaced by a legally reviewed privacy policy before release.
         </p>
       </PageIntro>
 
@@ -38,7 +38,7 @@ function PrivacyPage() {
         </section>
 
         <section>
-          <h2>First-release boundaries</h2>
+          <h2>Services not included at release</h2>
           <p>
             The first release does not include Mote accounts, advertising, automatic analytics,
             automatic crash uploads, session replay, or in-app feedback upload. Mote does not
