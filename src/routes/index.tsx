@@ -209,8 +209,9 @@ function WidgetShowcase() {
     <section className="widget-showcase" aria-labelledby="widget-showcase-title">
       <div className="widget-showcase__intro">
         <h2 id="widget-showcase-title">Build a widget for the controls you use.</h2>
+        <p>Move through the three setup steps without losing sight of the result.</p>
       </div>
-      <div className="widget-showcase__layout">
+      <div className="widget-showcase__layout product-switcher">
         <figure className="widget-showcase__media" id="widget-showcase-media">
           <ProductCapture key={activeStory.src} src={activeStory.src} alt={activeStory.alt} />
         </figure>
@@ -221,6 +222,39 @@ function WidgetShowcase() {
               key={story.src}
               aria-pressed={activeIndex === index}
               aria-controls="widget-showcase-media"
+              onClick={() => setActiveIndex(index)}
+            >
+              <span>{story.title}</span>
+              <small>{story.text}</small>
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CaptureShowcase() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const activeStory = captures[activeIndex];
+
+  return (
+    <section className="captures-section" aria-labelledby="captures-title">
+      <div className="captures-heading">
+        <h2 id="captures-title">See how Mote works.</h2>
+        <p>Move between the dashboard, app settings, and Hue Sync Box setup in one place.</p>
+      </div>
+      <div className="capture-switcher product-switcher">
+        <figure className="capture-switcher__media" id="capture-switcher-media">
+          <ProductCapture key={activeStory.src} src={activeStory.src} alt={activeStory.alt} />
+        </figure>
+        <div className="capture-switcher__choices" aria-label="Mote product views">
+          {captures.map((story, index) => (
+            <button
+              type="button"
+              key={story.src}
+              aria-pressed={activeIndex === index}
+              aria-controls="capture-switcher-media"
               onClick={() => setActiveIndex(index)}
             >
               <span>{story.title}</span>
@@ -246,31 +280,33 @@ function DeepDiveGallery() {
           Sync.
         </p>
       </div>
-      <figure
-        className={`deep-dive__viewer deep-dive__viewer--${activeStory.presentation}`}
-        id="deep-dive-viewer"
-      >
-        <ProductCapture
-          key={activeStory.src}
-          src={activeStory.src}
-          alt={activeStory.alt}
-          width={activeStory.width}
-          height={activeStory.height}
-        />
-      </figure>
-      <div className="deep-dive__choices" aria-label="Detailed product views">
-        {deepDiveStories.map((story, index) => (
-          <button
-            type="button"
-            key={story.src}
-            aria-pressed={activeIndex === index}
-            aria-controls="deep-dive-viewer"
-            onClick={() => setActiveIndex(index)}
-          >
-            <span>{story.title}</span>
-            <small>{story.text}</small>
-          </button>
-        ))}
+      <div className="deep-dive__layout product-switcher">
+        <figure
+          className={`deep-dive__viewer deep-dive__viewer--${activeStory.presentation}`}
+          id="deep-dive-viewer"
+        >
+          <ProductCapture
+            key={activeStory.src}
+            src={activeStory.src}
+            alt={activeStory.alt}
+            width={activeStory.width}
+            height={activeStory.height}
+          />
+        </figure>
+        <div className="deep-dive__choices" aria-label="Detailed product views">
+          {deepDiveStories.map((story, index) => (
+            <button
+              type="button"
+              key={story.src}
+              aria-pressed={activeIndex === index}
+              aria-controls="deep-dive-viewer"
+              onClick={() => setActiveIndex(index)}
+            >
+              <span>{story.title}</span>
+              <small>{story.text}</small>
+            </button>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -332,25 +368,7 @@ function HomePage() {
         <ScenePlayground />
       </section>
 
-      <section className="captures-section" aria-labelledby="captures-title">
-        <div className="captures-heading">
-          <h2 id="captures-title">See how Mote works.</h2>
-          <p>Explore the dashboard, app settings, and Hue Sync Box setup.</p>
-        </div>
-        <div className="capture-list">
-          {captures.map((capture) => (
-            <article className="capture-story" key={capture.src}>
-              <div className="capture-story__copy">
-                <h3>{capture.title}</h3>
-                <p>{capture.text}</p>
-              </div>
-              <figure className="capture-frame">
-                <ProductCapture src={capture.src} alt={capture.alt} />
-              </figure>
-            </article>
-          ))}
-        </div>
-      </section>
+      <CaptureShowcase />
 
       <DeepDiveGallery />
 

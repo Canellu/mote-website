@@ -27,13 +27,13 @@ colors:
 typography:
   display:
     fontFamily: "Geist Variable, sans-serif"
-    fontSize: "clamp(4.4rem, 5.6vw, 5.5rem)"
+    fontSize: "clamp(3.6rem, 4.4vw, 4.5rem)"
     fontWeight: 700
     lineHeight: 0.94
     letterSpacing: "-0.035em"
   headline:
     fontFamily: "Geist Variable, sans-serif"
-    fontSize: "clamp(3.2rem, 4.8vw, 4.8rem)"
+    fontSize: "clamp(2.8rem, 3.6vw, 3.6rem)"
     fontWeight: 700
     lineHeight: 0.98
     letterSpacing: "-0.035em"
@@ -72,7 +72,7 @@ spacing:
   md: "1rem"
   lg: "1.5rem"
   xl: "2rem"
-  section: "6rem"
+  section: "5rem"
 components:
   primary-action:
     backgroundColor: "{colors.signal-orange}"
@@ -164,11 +164,11 @@ The palette moves between graphite night and mineral daylight, with neon orange 
 
 ## Layout
 
-The desktop composition is editorial and asymmetric after a centered opening sequence. The sticky header spans the viewport while its contents align to a 76rem grid; story sections can expand to 86rem and readable utility pages stop at 44rem. The opening message is centered above a large, real Mote window that serves as the primary dashboard proof. Dashboard, settings, and Sync Box evidence then alternate copy and media. A second evidence gallery holds room controls, the scene library, and two light-placement modes in one large changing surface; the three related widget stories likewise consolidate into one changing media surface with a stacked selector.
+The desktop composition is editorial but follows one stable reading edge. The sticky header spans the viewport while its contents align to a 76rem grid; story sections can expand to 86rem and readable utility pages stop at 44rem. The opening message sits beside a large, real Mote window that serves as the primary dashboard proof. Dashboard, settings, and Sync Box evidence share one changing media surface with a stacked selector. Room controls, the scene library, light placement, and widget setup repeat that same dependable media-to-selector relationship.
 
-Section rhythm is deliberately spacious, typically 6–10rem vertically. Broad, overlapping gradients change the light's temperature and intensity without exposing hard chapter boundaries. The three broad product captures use alternating 0.58/1.42 and 1.42/0.58 columns. The widget showcase uses a 1.2/0.8 media-to-copy split, keeping one real screenshot dominant while all three choices remain visible.
+Section rhythm is compact and deliberate, typically 4–5rem vertically, so the edge of the previous or next chapter remains visible during ordinary scrolling. Broad, overlapping gradients and spacing distinguish the narrative chapters without divider rules. Multi-image stories use a 1.5/0.5 media-to-selector split, keeping one real screenshot dominant while every choice remains visible.
 
-At 64rem and below, the hero typography tightens. At 50rem and below, the header compacts, the secondary brand word becomes visually hidden, the hero image scales within the available width, all major sections become one column, scene options become a two-column grid, capture stories stop alternating, and the widget showcase places its active image before the stacked selector. At 35rem and below, the hero returns to left alignment, navigation and panel padding tighten, and calls to action stack. The page remains usable from a 320px viewport.
+At 64rem and below, the hero typography tightens. At 50rem and below, the header compacts, the secondary brand word becomes visually hidden, the hero image scales within the available width, all major sections become one column, scene options become a two-column grid, and gallery selectors become horizontally scrollable strips below their active media. At 35rem and below, navigation and panel padding tighten and calls to action stack. The page remains usable from a 320px viewport.
 
 ### Hero Focus Sequence
 
@@ -238,6 +238,10 @@ The signature control is explicitly illustrative but functionally real: a dark d
 ### Product Capture Frame
 
 Use authentic Mote imagery with descriptive alternative text, explicit intrinsic dimensions, and lazy loading below the hero. The first capture is fetched at high priority. The light website presents dark application captures for strong product contrast. Framing color should support the visible screen without recoloring or obscuring it.
+
+### Product Story Switcher
+
+Related screenshots share one bordered stage: the active product capture on the left and concise persistent choices on the right. Selection moves a two-pixel orange current and swaps only the media, preserving the reader's place. On narrow screens the choices become a horizontally scrollable strip below the media that deliberately exposes the next option.
 
 ### Deep Control Gallery
 
