@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useState, type CSSProperties } from "react";
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { ProductCapture } from "../components/product-capture";
 import { pageHead } from "../lib/seo";
@@ -102,68 +102,9 @@ function BrandMark() {
 }
 
 function HeroShowcase() {
-  const productRef = useRef<HTMLElement>(null);
-  const detailRefs = useRef<Array<HTMLParagraphElement | null>>([]);
-
-  useEffect(() => {
-    const product = productRef.current;
-    const details = detailRefs.current;
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const compactLayout = window.matchMedia("(max-width: 72rem)");
-    let frame = 0;
-
-    const showFinalState = () => {
-      if (product) product.style.transform = "none";
-      details.forEach((detail) => {
-        if (!detail) return;
-        detail.style.opacity = "1";
-        detail.style.transform = "none";
-      });
-    };
-
-    const update = () => {
-      frame = 0;
-      if (!product || reduceMotion.matches || compactLayout.matches) {
-        showFinalState();
-        return;
-      }
-
-      const imageProgress = Math.min(1, Math.max(0, window.scrollY / 520));
-      product.style.transform = `scale(${0.78 + imageProgress * 0.22})`;
-
-      const detailProgress = Math.min(1, Math.max(0, (window.scrollY - 640) / 520));
-      const starts = [0, 0.25, 0.5];
-      details.forEach((detail, index) => {
-        if (!detail) return;
-        const reveal = Math.min(1, Math.max(0, (detailProgress - starts[index]) / 0.24));
-        detail.style.opacity = String(reveal);
-        detail.style.transform = `translateY(${(1 - reveal) * 12}px)`;
-      });
-    };
-
-    const scheduleUpdate = () => {
-      if (frame) return;
-      frame = window.requestAnimationFrame(update);
-    };
-
-    update();
-    window.addEventListener("scroll", scheduleUpdate, { passive: true });
-    window.addEventListener("resize", scheduleUpdate);
-    reduceMotion.addEventListener("change", scheduleUpdate);
-    compactLayout.addEventListener("change", scheduleUpdate);
-
-    return () => {
-      window.cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", scheduleUpdate);
-      window.removeEventListener("resize", scheduleUpdate);
-      reduceMotion.removeEventListener("change", scheduleUpdate);
-      compactLayout.removeEventListener("change", scheduleUpdate);
-    };
-  }, []);
-
   return (
     <div className="hero-stage">
-      <figure className="hero-product" ref={productRef}>
+      <figure className="hero-product">
         <ProductCapture
           src="/product/mote-dashboard-dark.png"
           alt="Mote Desktop dashboard with colorful Hue room controls"
@@ -171,35 +112,6 @@ function HeroShowcase() {
         />
         <figcaption>Hue Bridge · dashboard</figcaption>
       </figure>
-      <aside className="hero-details" aria-label="Dashboard highlights">
-        <p
-          className="hero-detail hero-detail--rooms"
-          ref={(element) => {
-            detailRefs.current[0] = element;
-          }}
-        >
-          <strong>Rooms, zones, lights</strong>
-          <span>Control them from one dashboard.</span>
-        </p>
-        <p
-          className="hero-detail hero-detail--state"
-          ref={(element) => {
-            detailRefs.current[1] = element;
-          }}
-        >
-          <strong>Power and brightness</strong>
-          <span>See and adjust the current state.</span>
-        </p>
-        <p
-          className="hero-detail hero-detail--layout"
-          ref={(element) => {
-            detailRefs.current[2] = element;
-          }}
-        >
-          <strong>Custom layout</strong>
-          <span>Arrange the controls you use most.</span>
-        </p>
-      </aside>
     </div>
   );
 }

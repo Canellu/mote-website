@@ -14,8 +14,8 @@ function SupportPage() {
     <main id="main" className="page-shell">
       <PageIntro title="Mote Desktop support">
         <p>
-          Run these checks before requesting help. Contact details and response times will be added
-          before Mote Desktop is released.
+          Run these checks before requesting help. If you still need a hand, email{" "}
+          <a href="mailto:support@motedesktop.com">support@motedesktop.com</a>.
         </p>
       </PageIntro>
 
@@ -58,6 +58,12 @@ function SupportPage() {
           Sync Box addresses, captured PC Sync content, or unrelated personal information with a
           support request.
         </p>
+        <a
+          className="mt-8 inline-flex min-h-11 items-center rounded-xl bg-mote-mint px-5 py-3 font-semibold text-mote-ink no-underline outline-offset-4 transition-transform duration-150 active:scale-[0.97]"
+          href="mailto:support@motedesktop.com?subject=Mote%20Desktop%20support"
+        >
+          Email support
+        </a>
       </section>
     </main>
   );
@@ -68,7 +74,7 @@ export const Route = createFileRoute("/support")({
     pageHead({
       title: "Support — Mote Desktop",
       description:
-        "Requirements and troubleshooting help for Mote Desktop and compatible Hue hardware.",
+        "Contact Mote Desktop support and find troubleshooting help for compatible Hue hardware.",
       path: "/support",
     }),
   component: SupportPage,

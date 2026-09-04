@@ -77,6 +77,11 @@ function RootLayout() {
                   Support
                 </Link>
               </li>
+              <li>
+                <a className="footer-link" href="mailto:support@motedesktop.com">
+                  Email support
+                </a>
+              </li>
             </ul>
           </nav>
         </footer>

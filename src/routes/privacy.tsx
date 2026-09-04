@@ -50,10 +50,10 @@ function PrivacyPage() {
         <section>
           <h2>Support contact</h2>
           <p>
-            If you contact support by email, the publisher receives the address, message, and
-            attachments you choose to send. The final privacy contact, retention details, hosting
-            and email providers, effective date, and deletion procedure will be confirmed before
-            publication.
+            If you email <a href="mailto:support@motedesktop.com">support@motedesktop.com</a>, the
+            publisher receives the address, message, and attachments you choose to send. Retention
+            details, hosting and email providers, the effective date, and the deletion procedure
+            will be confirmed before publication.
           </p>
         </section>
       </article>
