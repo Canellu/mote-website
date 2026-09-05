@@ -264,15 +264,6 @@ function WidgetShowcase() {
         <p>Move through the three setup steps without losing sight of the result.</p>
       </div>
       <div className="widget-showcase__layout product-switcher">
-        <figure className="widget-showcase__media" id="widget-showcase-media">
-          <ProductCapture
-            key={activeStory.src}
-            src={activeStory.src}
-            alt={activeStory.alt}
-            width={activeStory.width}
-            height={activeStory.height}
-          />
-        </figure>
         <div className="widget-showcase__choices" aria-label="Widget views">
           {widgetStories.map((story, index) => (
             <button
@@ -287,6 +278,15 @@ function WidgetShowcase() {
             </button>
           ))}
         </div>
+        <figure className="widget-showcase__media" id="widget-showcase-media">
+          <ProductCapture
+            key={activeStory.src}
+            src={activeStory.src}
+            alt={activeStory.alt}
+            width={activeStory.width}
+            height={activeStory.height}
+          />
+        </figure>
       </div>
     </section>
   );
@@ -303,9 +303,6 @@ function CaptureShowcase() {
         <p>Move between the dashboard, app settings, and Hue Bridge setup in one place.</p>
       </div>
       <div className="capture-switcher product-switcher">
-        <figure className="capture-switcher__media" id="capture-switcher-media">
-          <ProductCapture key={activeStory.src} src={activeStory.src} alt={activeStory.alt} />
-        </figure>
         <div className="capture-switcher__choices" aria-label="Mote product views">
           {captures.map((story, index) => (
             <button
@@ -320,6 +317,9 @@ function CaptureShowcase() {
             </button>
           ))}
         </div>
+        <figure className="capture-switcher__media" id="capture-switcher-media">
+          <ProductCapture key={activeStory.src} src={activeStory.src} alt={activeStory.alt} />
+        </figure>
       </div>
     </section>
   );
@@ -339,18 +339,6 @@ function DeepDiveGallery() {
         </p>
       </div>
       <div className="deep-dive__layout product-switcher">
-        <figure
-          className={`deep-dive__viewer deep-dive__viewer--${activeStory.presentation}`}
-          id="deep-dive-viewer"
-        >
-          <ProductCapture
-            key={activeStory.src}
-            src={activeStory.src}
-            alt={activeStory.alt}
-            width={activeStory.width}
-            height={activeStory.height}
-          />
-        </figure>
         <div className="deep-dive__choices" aria-label="Detailed product views">
           {deepDiveStories.map((story, index) => (
             <button
@@ -365,6 +353,18 @@ function DeepDiveGallery() {
             </button>
           ))}
         </div>
+        <figure
+          className={`deep-dive__viewer deep-dive__viewer--${activeStory.presentation}`}
+          id="deep-dive-viewer"
+        >
+          <ProductCapture
+            key={activeStory.src}
+            src={activeStory.src}
+            alt={activeStory.alt}
+            width={activeStory.width}
+            height={activeStory.height}
+          />
+        </figure>
       </div>
     </section>
   );

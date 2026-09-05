@@ -73,7 +73,7 @@ function RootLayout() {
             <ul className="flex flex-wrap gap-x-5 gap-y-2">
               <li>
                 <Link className="footer-link" to="/privacy">
-                  Privacy
+                  Privacy policy
                 </Link>
               </li>
               <li>

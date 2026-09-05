@@ -5,7 +5,7 @@ import { pageHead } from "../lib/seo";
 function PrivacyPage() {
   return (
     <main id="main" className="page-shell">
-      <PageIntro title="Privacy">
+      <PageIntro title="Privacy policy">
         <p>
           Mote Desktop is designed to control Hue hardware over your local network. This summary
           will be replaced by a legally reviewed privacy policy before release.

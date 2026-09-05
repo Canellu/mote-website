@@ -29,6 +29,9 @@
 
 @layer base {
   :root {
+    --content-width: 80rem;
+    --media-width: 96rem;
+    --page-gutter: clamp(1.5rem, 3vw, 3rem);
     --mote-bg: #f2f2ed;
     --mote-text: #121410;
     --mote-ink: #10120f;
@@ -84,22 +87,37 @@
 .site-header {
   position: fixed;
   z-index: 50;
-  inset: 1rem 1.25rem auto;
+  inset: 0 0 auto;
+}
+.site-header::before,
+.site-header::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 -2rem;
+  pointer-events: none;
+}
+.site-header::before {
+  background: linear-gradient(to bottom, rgb(242 242 237 / 0.58), transparent);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  mask-image: linear-gradient(to bottom, black 35%, transparent 100%);
+}
+.site-header::after {
+  backdrop-filter: blur(8px) saturate(1.12);
+  -webkit-backdrop-filter: blur(8px) saturate(1.12);
+  mask-image: linear-gradient(to bottom, black, rgb(0 0 0 / 0.65) 35%, transparent 85%);
 }
 .site-header__inner {
   position: relative;
+  z-index: 1;
   display: flex;
-  min-height: 4rem;
-  padding: 0.5rem 1.25rem;
+  width: min(var(--content-width), calc(100% - 2 * var(--page-gutter)));
+  margin-inline: auto;
+  min-height: 5rem;
+  padding: 0.5rem 0;
   align-items: center;
   justify-content: space-between;
   gap: 2rem;
-  border: 1px solid rgb(255 255 255 / 0.45);
-  border-radius: 1rem;
-  background: rgb(242 242 237 / 0.58);
-  box-shadow: 0 8px 28px rgb(16 18 15 / 0.06);
-  backdrop-filter: blur(10px) saturate(1.12);
-  -webkit-backdrop-filter: blur(10px) saturate(1.12);
 }
 .site-brand {
   display: inline-flex;
@@ -178,14 +196,17 @@
   scroll-margin-top: 9rem;
 }
 @supports not (backdrop-filter: blur(1px)) {
-  .site-header__inner {
+  .site-header {
     background: var(--mote-bg);
   }
 }
 @media (prefers-reduced-transparency: reduce) {
-  .site-header__inner {
+  .site-header {
     background: var(--mote-bg);
-    backdrop-filter: none;
+  }
+  .site-header::before,
+  .site-header::after {
+    display: none;
   }
 }
 .primary-action:active,
@@ -198,7 +219,7 @@
 }
 .site-footer {
   display: flex;
-  width: min(76rem, calc(100% - 2rem));
+  width: min(var(--content-width), calc(100% - 2 * var(--page-gutter)));
   margin: 0 auto;
   padding: 2rem 0;
   align-items: center;
@@ -214,7 +235,7 @@
 }
 
 @utility page-shell {
-  width: min(70rem, calc(100% - 2rem));
+  width: min(var(--content-width), calc(100% - 2 * var(--page-gutter)));
   margin-inline: auto;
   padding-block: 6rem;
 }
@@ -270,7 +291,7 @@
   text-wrap: balance;
 }
 .home section {
-  width: min(96rem, calc(100% - 2rem));
+  width: min(var(--content-width), calc(100% - 2 * var(--page-gutter)));
   margin-inline: auto;
 }
 
@@ -282,7 +303,7 @@
   min-height: calc(100svh - 2rem);
   margin-top: 1rem;
   overflow: clip;
-  padding: clamp(8rem, 15vh, 10rem) clamp(2rem, 6vw, 7rem) 6rem;
+  padding: clamp(8rem, 15vh, 10rem) 0 6rem;
   align-items: center;
   border-radius: 1.2rem;
   background:
@@ -294,7 +315,7 @@
 .hero-layout {
   position: relative;
   display: flex;
-  width: min(100%, 96rem);
+  width: min(var(--content-width), calc(100% - 2 * (var(--page-gutter) - 1rem)));
   min-height: calc(100svh - 2rem - clamp(8rem, 15vh, 10rem) - 6rem);
   margin-inline: auto;
   align-items: center;
@@ -501,7 +522,7 @@
   position: relative;
   display: grid;
   min-height: 38rem;
-  padding: 5rem 3rem 3rem;
+  padding: 5rem 0 3rem;
   align-items: center;
   grid-template-columns: minmax(0, 0.88fr) minmax(28rem, 1.12fr);
   gap: clamp(4rem, 8vw, 8rem);
@@ -597,7 +618,7 @@
 
 .future-interaction {
   position: relative;
-  width: min(86rem, calc(100% - 2rem));
+  width: min(var(--media-width), calc(100% - 2 * var(--page-gutter)));
   min-height: clamp(28rem, 55vw, 46rem);
   margin: 2rem auto 5rem;
   overflow: hidden;
@@ -964,7 +985,7 @@
 .captures-section,
 .deep-dive,
 .widget-showcase {
-  padding: 5rem 3rem;
+  padding: 5rem 0;
 }
 .captures-heading,
 .deep-dive__intro,
@@ -982,7 +1003,7 @@
   min-height: 38rem;
   margin-top: 3rem;
   overflow: hidden;
-  grid-template-columns: minmax(0, 1.5fr) minmax(17rem, 0.5fr);
+  grid-template-columns: minmax(17rem, 0.65fr) minmax(0, 1.35fr);
   border: 1px solid rgb(18 20 16 / 0.16);
   border-radius: 1rem;
   background: rgb(242 242 237 / 0.62);
@@ -992,7 +1013,7 @@
 .widget-showcase__choices {
   display: grid;
   align-content: stretch;
-  border-left: 1px solid rgb(18 20 16 / 0.16);
+  border-right: 1px solid rgb(18 20 16 / 0.16);
 }
 .capture-switcher__choices {
   grid-template-rows: repeat(3, 1fr);
@@ -1135,7 +1156,7 @@
   isolation: isolate;
   display: grid;
   min-height: 34rem;
-  padding: 5rem 3rem 4rem;
+  padding: 5rem 0 4rem;
   align-content: end;
   justify-items: start;
 }
@@ -1213,9 +1234,6 @@
 }
 
 @media (max-width: 64rem) {
-  .home-hero {
-    padding-inline: 1rem;
-  }
   .hero-copy h1 {
     font-size: clamp(3.4rem, 6.6vw, 4.25rem);
   }
@@ -1224,18 +1242,13 @@
   .captures-section,
   .deep-dive,
   .widget-showcase {
-    padding-inline: 2rem;
+    padding-inline: 0;
   }
 }
 
 @media (max-width: 50rem) {
-  .site-header {
-    top: 0.5rem;
-    right: 0.5rem;
-    left: 0.5rem;
-  }
   .site-header__inner {
-    padding-inline: 0.45rem;
+    padding-inline: 0;
     gap: 0.75rem;
   }
   .site-brand__logo {
@@ -1249,18 +1262,14 @@
     overflow: hidden;
     clip: rect(0 0 0 0);
   }
-  .home section {
-    width: min(100% - 2rem, 42rem);
-  }
   .home-hero {
     display: block;
     min-height: 52rem;
     margin-top: 0.5rem;
-    padding: 7rem 1.25rem 0;
+    padding: 7rem 0 0;
   }
   .hero-layout {
     display: block;
-    width: 100%;
     min-height: 0;
   }
   .hero-copy {
@@ -1340,8 +1349,8 @@
     grid-auto-flow: column;
     grid-template-rows: 1fr;
     overflow-x: auto;
-    border-left: 0;
-    border-top: 1px solid rgb(18 20 16 / 0.16);
+    border-right: 0;
+    border-bottom: 1px solid rgb(18 20 16 / 0.16);
     scrollbar-color: var(--mote-signal) transparent;
     scroll-snap-type: x proximity;
   }
@@ -1378,7 +1387,7 @@
 
 @media (max-width: 35rem) {
   .site-header__inner {
-    padding: 0.5rem 0.75rem;
+    padding: 0.5rem 0;
     flex-wrap: wrap;
     gap: 0;
   }
@@ -1396,7 +1405,7 @@
   .site-nav li:last-child {
     position: absolute;
     top: 0.625rem;
-    right: 0.75rem;
+    right: 0;
   }
   .site-header .site-nav__primary {
     min-width: 0;
