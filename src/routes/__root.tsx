@@ -2,9 +2,9 @@ import { createRootRoute, HeadContent, Link, Outlet, Scripts } from "@tanstack/r
 import styles from "../styles.css?url";
 
 const navigation = [
-  { label: "Home", to: "/" },
-  { label: "Support", to: "/support" },
-  { label: "Features", to: "/features" },
+  { label: "Features", to: "/", hash: "captures-title" },
+  { label: "Free & Pro", to: "/features", hash: "comparison-title" },
+  { label: "Support", to: "/support", hash: "" },
 ] as const;
 
 function RootLayout() {
@@ -15,7 +15,7 @@ function RootLayout() {
       </head>
       <body>
         <a
-          className="fixed top-4 left-4 z-50 -translate-y-24 rounded-lg bg-white px-4 py-3 font-semibold text-neutral-950 shadow-lg focus:translate-y-0"
+          className="fixed top-4 left-4 z-[60] -translate-y-24 rounded-lg bg-white px-4 py-3 font-semibold text-neutral-950 shadow-lg focus:translate-y-0"
           href="#main"
         >
           Skip to content
@@ -37,26 +37,15 @@ function RootLayout() {
             </Link>
 
             <nav className="site-navigation" aria-label="Primary navigation">
-              <span
-                className="site-navigation__corner site-navigation__corner--tl"
-                aria-hidden="true"
-              />
-              <span
-                className="site-navigation__corner site-navigation__corner--tr"
-                aria-hidden="true"
-              />
-              <span
-                className="site-navigation__corner site-navigation__corner--br"
-                aria-hidden="true"
-              />
-              <span
-                className="site-navigation__corner site-navigation__corner--bl"
-                aria-hidden="true"
-              />
               <ul className="site-nav">
                 {navigation.map((item) => (
                   <li key={item.to}>
-                    <Link className="site-nav__link" to={item.to}>
+                    <Link
+                      className="site-nav__link"
+                      to={item.to}
+                      hash={item.hash}
+                      activeOptions={{ includeHash: true, exact: true }}
+                    >
                       <span>{item.label}</span>
                     </Link>
                   </li>
@@ -64,10 +53,11 @@ function RootLayout() {
                 <li>
                   <Link
                     className="site-nav__primary"
-                    to="/features"
-                    aria-label="Compare Free and Mote Pro"
+                    to="/"
+                    hash="final-title"
+                    aria-label="Coming soon to Microsoft Store — view launch details"
                   >
-                    Compare<span className="site-nav__primary-detail"> plans</span>
+                    Coming soon
                   </Link>
                 </li>
               </ul>

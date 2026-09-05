@@ -270,3 +270,7 @@ Three related widget stories share one evidence surface instead of repeating thr
 - **Don't** flatten Geist into one undifferentiated weight and size or use display styling for dense interface copy.
 - **Don't** hide essential interaction, navigation, or product evidence at mobile sizes; remove peripheral annotation first.
 - **Don't** animate scene changes, presses, or smooth scrolling when the user requests reduced motion.
+
+### Selected frosted header refinement (September 2026)
+
+The header now uses one slim floating mineral-white glass bar, inset 20px on desktop, with a 64px minimum height, 16px corners, a fine translucent rim and a restrained downward shadow. A 10px backdrop blur and 58% mineral-white tint let the underlying page show through while supporting readable dark navigation. The original icon and wordmark remain left; Features, Free & Pro, Support and the compact orange primary action sit right. At narrow phone widths the links form a second row below the brand and action. The header action currently reads Coming soon and links to launch details; Get Mote free is the intended label once a Microsoft Store URL is available. This supersedes the earlier navigation veil and bracketed navigation descriptions.
