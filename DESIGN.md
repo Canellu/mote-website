@@ -164,7 +164,7 @@ The palette moves between graphite night and mineral daylight, with neon orange 
 
 ## Layout
 
-The desktop composition is editorial but follows one stable reading edge. The sticky header spans the viewport while its contents align to a 76rem grid; story sections can expand to 86rem and readable utility pages stop at 44rem. The opening message sits beside a large, real Mote window that serves as the primary dashboard proof. Dashboard, settings, and Sync Box evidence share one changing media surface with a stacked selector. Room controls, the scene library, light placement, and widget setup repeat that same dependable media-to-selector relationship.
+The desktop composition is editorial but follows one stable reading edge. The sticky header spans the viewport while its contents align to a 76rem grid; story sections can expand to 86rem and readable utility pages stop at 44rem. The opening message sits beside a large, real Mote window that serves as the primary dashboard proof. Dashboard, settings, and bridge-setup evidence share one changing media surface with a stacked selector. Room controls, the scene library, light placement, and widget setup repeat that same dependable media-to-selector relationship.
 
 Section rhythm is compact and deliberate, typically 4–5rem vertically, so the edge of the previous or next chapter remains visible during ordinary scrolling. Broad, overlapping gradients and spacing distinguish the narrative chapters without divider rules. Multi-image stories use a 1.5/0.5 media-to-selector split, keeping one real screenshot dominant while every choice remains visible.
 
@@ -216,7 +216,7 @@ Thin dividers and one-pixel strokes establish structure without creating a card 
 ### Cards / Containers
 
 - **Corner Style:** Scene lab and capture frames use the large panel radius; embedded screenshot corners are slightly tighter.
-- **Background:** Dark tonal surfaces carry the interactive demo and widget media. The surrounding page remains light, while dashboard, settings, and Sync Box screenshots receive warm, blue, and violet framing gradients keyed to their content.
+- **Background:** Dark tonal surfaces carry the interactive demo and widget media. The surrounding page remains light, while dashboard, settings, and bridge-setup screenshots receive warm, blue, and violet framing gradients keyed to their content.
 - **Shadow Strategy:** Use Product Lift only for the primary evidence-bearing surface.
 - **Border:** Dividers and low-contrast one-pixel borders clarify structure; avoid boxed feature-card repetition.
 - **Internal Padding:** Capture frames use generous top and side padding on desktop and halve it on narrow screens.

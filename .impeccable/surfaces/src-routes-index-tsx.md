@@ -15,7 +15,7 @@ THESIS: The page moves through one continuous field of softly changing daylight,
 
 OWN-WORLD: Graphite and mineral-white fields, neon orange, solid control surfaces, technical ticks, minimal rounding, and precise Geist typography across display and interface roles.
 
-STORY: See Mote working, inspect dashboard, appearance settings, and Sync Box setup, explore room controls, scene browsing, and light placement through one consolidated evidence gallery, then inspect three widget-creation states through a second selector before checking release status. A single light site presentation holds dark application captures in contrast.
+STORY: See Mote working, inspect dashboard, appearance settings, and Hue Bridge setup, explore room controls, scene browsing, and light placement through one consolidated evidence gallery, then inspect three widget-creation states through a second selector before checking release status. A single light site presentation holds dark application captures in contrast.
 
 FIRST VIEWPORT: A full-width sticky glass header fades naturally into the page above a centered headline and description. The top of a large, real Mote window enters halfway through the fold; scrolling enlarges it and resolves concise dashboard facts around it before the next chapter.
 

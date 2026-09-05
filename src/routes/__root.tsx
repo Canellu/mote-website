@@ -2,8 +2,9 @@ import { createRootRoute, HeadContent, Link, Outlet, Scripts } from "@tanstack/r
 import styles from "../styles.css?url";
 
 const navigation = [
-  { label: "Features", to: "/features" },
+  { label: "Home", to: "/" },
   { label: "Support", to: "/support" },
+  { label: "Features", to: "/features" },
 ] as const;
 
 function RootLayout() {
@@ -35,18 +36,40 @@ function RootLayout() {
               </span>
             </Link>
 
-            <nav aria-label="Primary navigation">
-              <ul className="site-nav flex items-center gap-1">
+            <nav className="site-navigation" aria-label="Primary navigation">
+              <span
+                className="site-navigation__corner site-navigation__corner--tl"
+                aria-hidden="true"
+              />
+              <span
+                className="site-navigation__corner site-navigation__corner--tr"
+                aria-hidden="true"
+              />
+              <span
+                className="site-navigation__corner site-navigation__corner--br"
+                aria-hidden="true"
+              />
+              <span
+                className="site-navigation__corner site-navigation__corner--bl"
+                aria-hidden="true"
+              />
+              <ul className="site-nav">
                 {navigation.map((item) => (
                   <li key={item.to}>
-                    <Link
-                      className={`inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-medium text-mote-muted no-underline${item.to === "/features" ? " site-nav__primary" : ""}`}
-                      to={item.to}
-                    >
+                    <Link className="site-nav__link" to={item.to}>
                       <span>{item.label}</span>
                     </Link>
                   </li>
                 ))}
+                <li>
+                  <Link
+                    className="site-nav__primary"
+                    to="/features"
+                    aria-label="Compare Free and Mote Pro"
+                  >
+                    Compare<span className="site-nav__primary-detail"> plans</span>
+                  </Link>
+                </li>
               </ul>
             </nav>
           </div>

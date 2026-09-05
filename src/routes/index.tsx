@@ -1,14 +1,7 @@
-import { useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { ProductCapture } from "../components/product-capture";
 import { pageHead } from "../lib/seo";
-
-const scenes = [
-  { name: "Focus", color: "#e7f06a", wash: "#776f32" },
-  { name: "Golden hour", color: "#ffb342", wash: "#9b542d" },
-  { name: "Sunset", color: "#ff7d6b", wash: "#82435f" },
-  { name: "Aurora", color: "#71e0cf", wash: "#375c78" },
-] as const;
 
 const captures = [
   {
@@ -24,10 +17,10 @@ const captures = [
     alt: "Mote Desktop general settings with appearance and window behavior controls",
   },
   {
-    src: "/product/mote-sync-box-dark.png",
-    title: "Connect a Hue Sync Box",
-    text: "Find a compatible Sync Box on your network, check its firmware, and select it in Mote.",
-    alt: "Mote Desktop setup screen for choosing a Philips Hue Sync Box",
+    src: "/product/mote-bridge-dark.png",
+    title: "Connect a bridge",
+    text: "Choose a Hue Bridge Pro or classic Hue Bridge found on your network.",
+    alt: "Mote Desktop setup screen with a selected Hue Bridge Pro beside a classic Hue Bridge",
   },
 ] as const;
 
@@ -37,18 +30,24 @@ const widgetStories = [
     title: "Name the widget",
     text: "Give each widget a name that is easy to recognize later.",
     alt: "Mote Desktop widget creation screen for naming a widget",
+    width: 960,
+    height: 1061,
   },
   {
     src: "/product/mote-widget-controls-dark.png",
     title: "Add controls",
     text: "Combine rooms, zones, and individual lights in one widget.",
     alt: "Mote Desktop widget control picker with rooms, zones, and individual lights",
+    width: 960,
+    height: 1061,
   },
   {
     src: "/product/mote-widget-configure-dark.png",
     title: "Set the layout",
     text: "Arrange the controls, choose the density and appearance, and preview the result.",
-    alt: "Mote Desktop widget configuration with an appearance preview",
+    alt: "Mote Desktop widget configuration showing full and compact controls beside a live preview",
+    width: 1025,
+    height: 861,
   },
 ] as const;
 
@@ -102,101 +101,154 @@ function BrandMark() {
 }
 
 function HeroShowcase() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const playbackPreferenceRef = useRef<boolean | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [playback, setPlayback] = useState({ elapsed: 0, duration: 0 });
+
+  const syncProgress = (video: HTMLVideoElement) => {
+    const duration = Number.isFinite(video.duration) ? video.duration : 0;
+    setPlayback({ elapsed: Math.min(video.currentTime, duration), duration });
+  };
+  const formatTime = (seconds: number) => {
+    const whole = Math.floor(seconds);
+    return `${Math.floor(whole / 60)}:${String(whole % 60).padStart(2, "0")}`;
+  };
+  const remaining = Math.max(0, Math.floor(playback.duration) - Math.floor(playback.elapsed));
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    // Metadata can arrive before hydration, including when autoplay is disabled.
+    const duration = Number.isFinite(video.duration) ? video.duration : 0;
+    setPlayback({ elapsed: Math.min(video.currentTime, duration), duration });
+
+    const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let isVisible = false;
+
+    const syncPlayback = () => {
+      const playbackPreference = playbackPreferenceRef.current;
+      const shouldPlay =
+        isVisible &&
+        document.visibilityState === "visible" &&
+        (playbackPreference === true || (playbackPreference === null && !motionPreference.matches));
+
+      if (shouldPlay) {
+        void video.play().catch(() => undefined);
+      } else {
+        video.pause();
+      }
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        syncPlayback();
+      },
+      { threshold: 0.2 },
+    );
+
+    observer.observe(video);
+    motionPreference.addEventListener("change", syncPlayback);
+    document.addEventListener("visibilitychange", syncPlayback);
+
+    return () => {
+      observer.disconnect();
+      motionPreference.removeEventListener("change", syncPlayback);
+      document.removeEventListener("visibilitychange", syncPlayback);
+      video.pause();
+    };
+  }, []);
+
+  const togglePlayback = () => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (video.paused) {
+      playbackPreferenceRef.current = true;
+      void video.play().catch(() => {
+        playbackPreferenceRef.current = null;
+      });
+    } else {
+      playbackPreferenceRef.current = false;
+      video.pause();
+    }
+  };
+
   return (
     <div className="hero-stage">
       <figure className="hero-product">
-        <ProductCapture
-          src="/product/mote-dashboard-dark.png"
-          alt="Mote Desktop dashboard with colorful Hue room controls"
-          priority
-        />
-        <figcaption>Hue Bridge · dashboard</figcaption>
+        <video
+          ref={videoRef}
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster="/product/mote-hero-poster-hd.png?v=2"
+          width={960}
+          height={1060}
+          aria-label="Mote Desktop demo: dim the Studio room, apply a scene, adjust the desk lamp's color and white temperature, and return to the dashboard"
+          onPlay={() => setIsPlaying(true)}
+          onPause={() => setIsPlaying(false)}
+          onLoadedMetadata={(event) => syncProgress(event.currentTarget)}
+          onDurationChange={(event) => syncProgress(event.currentTarget)}
+          onTimeUpdate={(event) => syncProgress(event.currentTarget)}
+          onEmptied={() => setPlayback({ elapsed: 0, duration: 0 })}
+          onClick={togglePlayback}
+        >
+          <source src="/product/mote-hero-demo-hd.webm?v=2" type="video/webm" />
+          <source src="/product/mote-hero-demo-hd.mp4?v=2" type="video/mp4" />
+        </video>
+        <button
+          className="hero-product__playback"
+          type="button"
+          aria-label={isPlaying ? "Pause dashboard demo" : "Play dashboard demo"}
+          onClick={togglePlayback}
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            {isPlaying ? (
+              <path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" />
+            ) : (
+              <path d="m8.5 5.5 9.5 6.5-9.5 6.5z" />
+            )}
+          </svg>
+        </button>
+        <figcaption className="hero-product__timeline">
+          <div className="hero-product__timing" aria-hidden="true">
+            <span>
+              {formatTime(playback.elapsed)} /{" "}
+              {playback.duration ? formatTime(playback.duration) : "–:––"}
+            </span>
+            <span className="hero-product__loop">
+              {playback.duration ? `${formatTime(Math.ceil(remaining))} left` : "–:–– left"}
+              <span className="hero-product__loop-label">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.75"
+                  aria-hidden="true"
+                >
+                  <path d="m16 3 4 4-4 4M4 11V9a2 2 0 0 1 2-2h14M8 21l-4-4 4-4m12 0v2a2 2 0 0 1-2 2H4" />
+                </svg>
+                Loops
+              </span>
+            </span>
+          </div>
+          <progress
+            className="hero-product__progress"
+            max={playback.duration || 1}
+            value={playback.elapsed}
+            aria-label="Demo playback"
+            aria-valuetext={
+              playback.duration
+                ? `${formatTime(playback.elapsed)} elapsed, ${formatTime(Math.ceil(remaining))} remaining. Video loops.`
+                : "Loading video duration. Video loops."
+            }
+          />
+        </figcaption>
       </figure>
-    </div>
-  );
-}
-
-function ScenePlayground() {
-  const [scene, setScene] = useState<(typeof scenes)[number]>(scenes[0]);
-  const [brightness, setBrightness] = useState(72);
-  const [enabled, setEnabled] = useState(true);
-  const style = {
-    "--scene-color": scene.color,
-    "--scene-wash": scene.wash,
-    "--scene-level": `${enabled ? brightness : 0}%`,
-  } as CSSProperties;
-
-  return (
-    <div className="scene-lab" style={style}>
-      <div className="scene-lab__room" aria-hidden="true">
-        <span className="room-glow" />
-        <span className="room-window" />
-        <span className="room-shelf" />
-        <span className="room-strip-light" />
-        <span className="room-desk" />
-        <span className="room-monitor" />
-        <span className="room-monitor room-monitor--second" />
-        <span className="room-keyboard" />
-        <span className="room-lamp" />
-        <span className="room-floor-lamp" />
-      </div>
-      <div className="scene-lab__panel">
-        <div className="scene-widget__master">
-          <div className="scene-lab__topline">
-            <div className="scene-lab__identity">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <rect x="3" y="5" width="18" height="12" rx="2" />
-                <path d="M8 21h8M12 17v4M7 9h4M9 7v4" />
-              </svg>
-              <div>
-                <strong>Workspace</strong>
-                <span>{enabled ? scene.name : "Off"}</span>
-              </div>
-            </div>
-            <button
-              className="power-switch"
-              type="button"
-              role="switch"
-              aria-checked={enabled}
-              aria-label="Workspace lights"
-              onClick={() => setEnabled((value) => !value)}
-            >
-              <span />
-            </button>
-          </div>
-          <label className="brightness-control">
-            <span className="sr-only">Brightness</span>
-            <output>{enabled ? brightness : 0}%</output>
-            <input
-              type="range"
-              min="1"
-              max="100"
-              value={brightness}
-              disabled={!enabled}
-              onChange={(event) => setBrightness(Number(event.currentTarget.value))}
-            />
-          </label>
-        </div>
-        <fieldset className="scene-picker">
-          <legend>Scenes</legend>
-          <div>
-            {scenes.map((option) => (
-              <button
-                type="button"
-                key={option.name}
-                aria-pressed={scene.name === option.name}
-                onClick={() => {
-                  setScene(option);
-                  setEnabled(true);
-                }}
-              >
-                <i style={{ background: option.color }} aria-hidden="true" />
-                <span>{option.name}</span>
-              </button>
-            ))}
-          </div>
-        </fieldset>
-      </div>
     </div>
   );
 }
@@ -213,7 +265,13 @@ function WidgetShowcase() {
       </div>
       <div className="widget-showcase__layout product-switcher">
         <figure className="widget-showcase__media" id="widget-showcase-media">
-          <ProductCapture key={activeStory.src} src={activeStory.src} alt={activeStory.alt} />
+          <ProductCapture
+            key={activeStory.src}
+            src={activeStory.src}
+            alt={activeStory.alt}
+            width={activeStory.width}
+            height={activeStory.height}
+          />
         </figure>
         <div className="widget-showcase__choices" aria-label="Widget views">
           {widgetStories.map((story, index) => (
@@ -242,7 +300,7 @@ function CaptureShowcase() {
     <section className="captures-section" aria-labelledby="captures-title">
       <div className="captures-heading">
         <h2 id="captures-title">See how Mote works.</h2>
-        <p>Move between the dashboard, app settings, and Hue Sync Box setup in one place.</p>
+        <p>Move between the dashboard, app settings, and Hue Bridge setup in one place.</p>
       </div>
       <div className="capture-switcher product-switcher">
         <figure className="capture-switcher__media" id="capture-switcher-media">
@@ -316,28 +374,30 @@ function HomePage() {
   return (
     <main id="main" className="home">
       <section className="home-hero" aria-labelledby="hero-title">
-        <div className="hero-copy">
-          <h1 id="hero-title">Philips Hue controls on your desktop.</h1>
-          <p>
-            Mote Desktop keeps your lights, rooms, zones, and scenes available while you use your
-            PC.
-          </p>
-          <div className="hero-actions">
-            <Link className="primary-action" to="/features">
-              View features
-            </Link>
-            <span>For Windows · Microsoft Store release coming soon</span>
+        <div className="hero-layout">
+          <div className="hero-copy">
+            <h1 id="hero-title">Philips Hue controls on your desktop.</h1>
+            <p>
+              Mote Desktop keeps your lights, rooms, zones, and scenes available while you use your
+              PC.
+            </p>
+            <div className="hero-actions">
+              <Link className="primary-action" to="/features">
+                Compare Free &amp; Pro
+              </Link>
+              <span>For Windows · Microsoft Store release coming soon</span>
+            </div>
           </div>
+          <HeroShowcase />
         </div>
-        <HeroShowcase />
       </section>
 
       <section className="statement" aria-labelledby="statement-title">
         <div className="statement-copy">
           <h2 id="statement-title">Control the room without reaching for your phone.</h2>
           <p>
-            Use the dashboard for an overview, or keep the controls you reach for most in a desktop
-            widget beside your work.
+            Use the dashboard for an overview, or keep your most-used controls in a desktop widget
+            beside your work.
           </p>
         </div>
         <figure className="statement-visual">
@@ -356,17 +416,7 @@ function HomePage() {
         </figure>
       </section>
 
-      <section className="playground-section" aria-labelledby="playground-title">
-        <div className="playground-copy">
-          <h2 id="playground-title">Try a Mote widget.</h2>
-          <p>
-            This interactive preview lets you switch the workspace on, change its brightness, and
-            select a scene.
-          </p>
-          <span className="interaction-hint">Interactive preview</span>
-        </div>
-        <ScenePlayground />
-      </section>
+      <div className="future-interaction" aria-hidden="true" />
 
       <CaptureShowcase />
 
