@@ -154,9 +154,9 @@ body[data-scrolled="true"] .site-header::after {
   align-items: center;
   justify-content: center;
   border-radius: 0.5rem;
-  color: #4a4e47;
-  font-size: 0.8125rem;
-  font-weight: 450;
+  color: #31352e;
+  font-size: 0.875rem;
+  font-weight: 500;
   white-space: nowrap;
   text-decoration: none;
   transition: background-color 180ms ease;
@@ -310,7 +310,6 @@ body[data-scrolled="true"] .site-header::after {
     gap: 0;
   }
   .site-nav a {
-    font-size: 0.8125rem;
     padding-inline: 0.75rem;
   }
   .site-nav li:last-child {
