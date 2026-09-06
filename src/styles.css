@@ -73,11 +73,17 @@
 
 /*
  * Frosted from the first pixel, and the frost is on the bar itself rather than
- * on a pseudo-element inside it. The header carries view-transition-name, which
- * makes it a backdrop root: a backdrop-filter on anything *inside* the header
- * can only sample what the header itself paints, which is nothing, so the blur
- * silently did nothing and the bar read as a plain white wash over sharp text.
- * On the element the backdrop is the page behind it, and the blur is real.
+ * on a pseudo-element inside it. Only the unprefixed property is written here:
+ * the build's minifier collapses an author-written -webkit- pair down to the
+ * prefixed declaration alone, and Blink dropped -webkit-backdrop-filter, so a
+ * hand-written prefix is how this blur reached production as nothing at all.
+ * Prefixes are the build's job — it adds them from its own browser targets.
+ *
+ * The header carries view-transition-name, which makes it a backdrop root: a
+ * backdrop-filter on anything *inside* the header can only sample what the
+ * header itself paints, which is nothing, so the blur did nothing there either
+ * and the bar read as a plain white wash over sharp text. On the element the
+ * backdrop is the page behind it, and the blur is real.
  *
  * The blur stays slight — enough to soften what runs under the bar so the type
  * on it has an edge, not enough to hide the page. The tint is the second half
@@ -91,7 +97,6 @@
   inset: 0 0 auto;
   background: rgb(245 245 242 / 0.4);
   backdrop-filter: blur(4px) saturate(1.35);
-  -webkit-backdrop-filter: blur(4px) saturate(1.35);
   transition:
     background-color 320ms cubic-bezier(0.22, 1, 0.36, 1),
     backdrop-filter 320ms cubic-bezier(0.22, 1, 0.36, 1);
@@ -108,7 +113,6 @@ body[data-scrolled="true"] .site-header {
 body .site-header[data-menu-open="true"] {
   background: rgb(245 245 242 / 0.55);
   backdrop-filter: blur(18px) saturate(1.4);
-  -webkit-backdrop-filter: blur(18px) saturate(1.4);
 }
 /* Nothing but the hairline, which comes up from nothing once the page has
    scrolled under the bar — an edge only once there is something above it. */
@@ -295,7 +299,6 @@ body[data-scrolled="true"] .site-header::after,
   body .site-header[data-menu-open="true"] {
     background: var(--mote-bg);
     backdrop-filter: none;
-    -webkit-backdrop-filter: none;
   }
 }
 /* -------------------------------------------------------- page transitions */
