@@ -1,0 +1,1091 @@
+/*
+ * Homepage stylesheet, linked from src/routes/index.tsx and nowhere else.
+ * Everything is scoped under .home-page, so the tokens, reveals and stage
+ * shapes here cannot reach the other routes, which src/styles.css serves.
+ */
+
+.home-page {
+  /* Flat mineral canvas. No decorative gradients: the product supplies the color. */
+  --c-bg: #f5f5f2;
+  --c-raised: #fbfbf9;
+  --c-stage: #161816;
+  --c-ink: #0f1110;
+  --c-muted: #62665f;
+  --c-line: rgb(15 17 16 / 0.1);
+  --c-line-strong: rgb(15 17 16 / 0.16);
+
+  /* Softened signal: the same brand orange, a touch deeper and less fluorescent. */
+  --c-accent: #ef4a15;
+  --c-accent-hover: #ff5a24;
+  --c-on-accent: #14160f;
+
+  --c-max: 78rem;
+  --c-gutter: clamp(1.5rem, 4vw, 3.5rem);
+  --c-section: clamp(6rem, 11vh, 9.5rem);
+  --c-radius: 1.25rem;
+
+  /* One wide stage shape shared by the carousel cards and the sync switcher.
+     Every capture is a tall app window, so the stage fixes the silhouette and
+     crops the window rather than shrinking it to fit. */
+  --c-stage-ratio: 16 / 9;
+  --c-stage-wash:
+    radial-gradient(circle at 18% 20%, rgb(255 171 64 / 0.2), transparent 35%),
+    radial-gradient(circle at 82% 74%, rgb(193 72 213 / 0.2), transparent 38%), #171917;
+
+  /* One long ease-out shared by every reveal, so the page settles rather than
+     snapping. Keep durations in the 600-900ms range to match it. */
+  --cx-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --cx-reveal: 820ms;
+
+  position: relative;
+  /* clip, not hidden: contains the hero halo's bleed without creating a scroll
+     container that would break the fixed header. */
+  overflow-x: clip;
+  padding-bottom: var(--c-section);
+  color: var(--c-ink);
+  background: var(--c-bg);
+}
+
+/* The header lives outside .home-page, so the shared easing is redeclared at
+   body level where its rules can reach it. */
+body:has(.home-page) {
+  --cx-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  background: #f5f5f2;
+}
+/* Match the focus ring to the softened accent, header included. */
+body:has(.home-page) :focus-visible {
+  outline-color: #ef4a15;
+}
+
+/* :where() so the reset carries no specificity and every .cx-* rule below
+   wins without needing to be re-qualified. */
+.home-page :where(h1, h2, h3, p, figure, ul, ol, dl, dd) {
+  margin: 0;
+  padding: 0;
+}
+.home-page :where(h1, h2, h3) {
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.cx-shell {
+  width: min(var(--c-max), calc(100% - 2 * var(--c-gutter)));
+  margin-inline: auto;
+}
+
+/* ---------------------------------------------------------------- header */
+/*
+ * The shared header paints dark nav links straight onto whatever scrolls under
+ * it, which loses contrast over the dark product video. Here the bar stays
+ * invisible at the top of the page and fades in an opaque scrim once scrolled.
+ */
+body:has(.home-page) .site-header::before,
+body:has(.home-page) .site-header::after {
+  /* A hairline rather than a fade: near-transparent black, so it reads as an
+     edge without reading as chrome. */
+  inset: 0;
+  background: rgb(245 245 242 / 0.72);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  mask-image: none;
+  border-bottom: 1px solid rgb(0 0 0 / 0.07);
+  opacity: 0;
+  transition: opacity 320ms var(--cx-ease);
+}
+body:has(.home-page) .site-header::before {
+  background: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+body[data-scrolled="true"]:has(.home-page) .site-header::after {
+  opacity: 1;
+}
+/*
+ * The hero now runs to the top edge, and on a short viewport the oversized demo
+ * is centred high enough to sit under the bar — where dark nav links on a dark
+ * window are unreadable. Above this height the demo starts below the header and
+ * the bar can stay invisible until the page scrolls.
+ */
+@media (max-height: 62rem) {
+  body:has(.home-page) .site-header::after {
+    opacity: 1;
+  }
+}
+body:has(.home-page) .site-header__inner {
+  width: min(78rem, calc(100% - 2 * clamp(1.5rem, 4vw, 3.5rem)));
+  min-height: 4.25rem;
+}
+body:has(.home-page) .site-brand {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+body:has(.home-page) .site-brand__logo {
+  width: 1.65rem;
+  height: 1.65rem;
+}
+body:has(.home-page) .site-nav {
+  gap: 0.25rem;
+}
+body:has(.home-page) .site-nav a {
+  min-height: 2.25rem;
+  font-size: 0.8125rem;
+  font-weight: 450;
+  color: #4a4e47;
+}
+body:has(.home-page) .site-header .site-nav__primary {
+  min-height: 2.25rem;
+  padding-inline: 0.95rem;
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--c-on-accent, #14160f);
+  background: #ef4a15;
+}
+
+/* ---------------------------------------------------------------- buttons */
+.cx-button {
+  display: inline-flex;
+  min-height: 2.875rem;
+  padding-inline: 1.35rem;
+  align-items: center;
+  gap: 0.5rem;
+  border: 0;
+  border-radius: 999px;
+  color: var(--c-on-accent);
+  background: var(--c-accent);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 180ms ease,
+    transform 140ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.cx-button:active {
+  transform: scale(0.975);
+}
+/* The secondary of a pair: same pill, no accent, so one call to action leads
+   and the other stays available without competing. */
+.cx-button--quiet {
+  color: var(--c-ink);
+  background: rgb(15 17 16 / 0.06);
+  box-shadow: inset 0 0 0 1px var(--c-line);
+}
+@media (hover: hover) and (pointer: fine) {
+  .cx-button:hover {
+    background: var(--c-accent-hover);
+  }
+  .cx-button--quiet:hover {
+    background: rgb(15 17 16 / 0.1);
+  }
+}
+
+/* ---------------------------------------------------------------- type */
+.cx-section-head {
+  display: grid;
+  gap: 1.15rem;
+  max-width: 46rem;
+}
+.cx-section-head h2 {
+  max-width: 20ch;
+  font-size: clamp(2.1rem, 3.4vw, 3.1rem);
+  line-height: 1.05;
+}
+.cx-section-head p {
+  max-width: 34rem;
+  color: var(--c-muted);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+}
+
+/* ---------------------------------------------------------------- reveal */
+.home-page[data-reveal="on"] .cx-reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity var(--cx-reveal) var(--cx-ease),
+    transform var(--cx-reveal) var(--cx-ease);
+}
+.home-page[data-reveal="on"] .cx-reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* A section that staggers its own children only fades, so the parent's travel
+   does not compound with the children's into one exaggerated slide. */
+.home-page[data-reveal="on"] .cx-reveal--group {
+  transform: none;
+}
+
+/* Hero: each line arrives just after the one above it. */
+.cx-hero__copy > .cx-reveal:nth-child(2) {
+  transition-delay: 90ms;
+}
+.cx-hero__copy > .cx-reveal:nth-child(3) {
+  transition-delay: 180ms;
+}
+/* The demo settles in rather than sliding, so the frame feels placed. The
+   centring offset has to be carried through both states, since it lives on the
+   same transform the reveal animates. */
+.home-page[data-reveal="on"] .cx-hero-stage.cx-reveal {
+  transform: translateY(calc(-50% + 30px)) scale(0.985);
+  transition-delay: 240ms;
+  transition-duration: 1000ms;
+}
+.home-page[data-reveal="on"] .cx-hero-stage.cx-reveal.is-visible {
+  transform: translateY(-50%);
+}
+
+/* Carousel cards rise in sequence once their section is in view. */
+.home-page[data-reveal="on"] .cx-reveal .cx-carousel__track > figure {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity var(--cx-reveal) var(--cx-ease),
+    transform var(--cx-reveal) var(--cx-ease);
+}
+.home-page[data-reveal="on"] .cx-reveal.is-visible .cx-carousel__track > figure {
+  opacity: 1;
+  transform: none;
+}
+.cx-carousel__track > figure:nth-child(2) {
+  transition-delay: 90ms;
+}
+.cx-carousel__track > figure:nth-child(3) {
+  transition-delay: 180ms;
+}
+.cx-carousel__track > figure:nth-child(4) {
+  transition-delay: 270ms;
+}
+
+/* ---------------------------------------------------------------- hero */
+/*
+ * Copy is held to a left column inside an illuminated full-bleed panel; the
+ * demo is deliberately oversized and pushed past the panel's right edge, so the
+ * panel's own `overflow: clip` does the cropping.
+ */
+.cx-hero {
+  position: relative;
+  width: 100%;
+  min-height: 100svh;
+  overflow: clip;
+  padding: clamp(8rem, 15vh, 10rem) 0 6rem;
+  /* Flush to the top and both edges, so the panel reads as the page's own
+     ground rather than a card laid on it, and rounded only along the bottom
+     where it hands over to the sections below. */
+  border-radius: 0 0 var(--c-radius) var(--c-radius);
+  background:
+    radial-gradient(ellipse at 82% 28%, rgb(255 179 66 / 0.48), transparent 34%),
+    radial-gradient(ellipse at 78% 72%, rgb(255 125 107 / 0.4), transparent 38%),
+    radial-gradient(ellipse at 54% 50%, rgb(255 255 251 / 0.94), transparent 58%), #e8e6de;
+  isolation: isolate;
+}
+.cx-hero__layout {
+  position: relative;
+  display: flex;
+  width: min(var(--c-max), calc(100% - 2 * var(--c-gutter)));
+  min-height: calc(100svh - clamp(8rem, 15vh, 10rem) - 6rem);
+  margin-inline: auto;
+  align-items: center;
+}
+.cx-hero__copy {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  width: min(40%, 38rem);
+  justify-items: start;
+  text-align: left;
+}
+.cx-hero h1 {
+  max-width: 13ch;
+  font-size: clamp(3.6rem, 4.4vw, 4.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+}
+.cx-hero__copy > p {
+  max-width: 31rem;
+  margin-top: 1.5rem;
+  color: var(--c-muted);
+  font-size: 1.17rem;
+  line-height: 1.65;
+}
+.cx-hero-actions {
+  display: flex;
+  margin-top: 1.75rem;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 1.1rem 1.4rem;
+}
+.cx-hero-actions > span {
+  max-width: 13rem;
+  color: var(--c-muted);
+  font-size: 0.76rem;
+  line-height: 1.45;
+}
+
+/* Anchored to the right of the copy column and centred on the panel. The stage
+   runs past the panel's right edge on purpose; the hero clips it. */
+.cx-hero-stage {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  right: -4rem;
+  left: 42%;
+  margin: 0;
+  transform: translateY(-50%);
+}
+.cx-hero-product {
+  position: relative;
+  width: min(100%, 76rem);
+  margin: 0 auto;
+  padding: 0;
+  isolation: isolate;
+}
+/* The warm halo behind the frame, masked so it fades out well before the
+   panel's edges rather than ending on a hard line. */
+.cx-hero-product::before {
+  position: absolute;
+  z-index: -1;
+  inset: -24% -34% -22% -28%;
+  background:
+    radial-gradient(ellipse at 54% 48%, rgb(244 190 75 / 0.3), transparent 58%),
+    radial-gradient(ellipse at 67% 65%, rgb(237 107 96 / 0.2), transparent 55%);
+  mask-image: radial-gradient(ellipse at center, #000 42%, transparent 76%);
+  content: "";
+  pointer-events: none;
+}
+.cx-hero-product video {
+  position: relative;
+  display: block;
+  width: 100%;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 1rem;
+  box-shadow: 1.8rem 2.6rem 5rem rgb(0 0 0 / 0.34);
+  cursor: pointer;
+}
+.cx-hero-product__timeline {
+  position: absolute;
+  z-index: 1;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  left: 0.75rem;
+  display: grid;
+  gap: 0.65rem;
+  padding: 0.75rem;
+  border-radius: 0.7rem;
+  color: #f5f5f1;
+  background: #181a18;
+}
+.cx-hero-product__timing,
+.cx-hero-product__loop,
+.cx-hero-product__loop-label {
+  display: flex;
+  align-items: center;
+}
+.cx-hero-product__timing {
+  justify-content: space-between;
+  gap: 0.75rem;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  font-variant-numeric: tabular-nums;
+}
+.cx-hero-product__loop {
+  gap: 0.85rem;
+  color: #bfc3bc;
+}
+.cx-hero-product__loop-label {
+  gap: 0.3rem;
+}
+.cx-hero-product__loop-label svg {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+.cx-hero-product__progress {
+  display: block;
+  appearance: none;
+  width: 100%;
+  height: 3px;
+  overflow: clip;
+  border: 0;
+  border-radius: 999px;
+  background: #444740;
+  color: var(--c-accent);
+}
+.cx-hero-product__progress::-webkit-progress-bar {
+  border-radius: inherit;
+  background: #444740;
+}
+.cx-hero-product__progress::-webkit-progress-value {
+  border-radius: inherit;
+  background: var(--c-accent);
+}
+.cx-hero-product__progress::-moz-progress-bar {
+  border-radius: inherit;
+  background: var(--c-accent);
+}
+.cx-hero-product__playback {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  width: clamp(4.5rem, 8vw, 6.5rem);
+  aspect-ratio: 1;
+  padding: 0;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  color: var(--c-ink);
+  background: color-mix(in srgb, var(--c-raised) 92%, transparent);
+  box-shadow:
+    0 1rem 2.75rem rgb(0 0 0 / 0.3),
+    0 0 2.75rem 1.1rem rgb(0 0 0 / 0.16);
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  transition:
+    opacity 180ms ease,
+    background-color 180ms ease,
+    transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cx-hero-product__playback svg {
+  width: 38%;
+  fill: currentColor;
+}
+.cx-hero-product__playback:active {
+  transform: translate(-50%, -50%) scale(0.94);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cx-hero-product__playback {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.86);
+  }
+  .cx-hero-product:hover .cx-hero-product__playback,
+  .cx-hero-product__playback:focus-visible {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+  .cx-hero-product__playback:hover {
+    background: var(--c-raised);
+  }
+  .cx-hero-product__playback:active {
+    transform: translate(-50%, -50%) scale(0.94);
+  }
+}
+
+/* ---------------------------------------------------------------- statement */
+.cx-statement {
+  display: grid;
+  padding-top: var(--c-section);
+  align-items: center;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: clamp(3rem, 7vw, 6rem);
+}
+/* A lit field rather than a dark panel: the widgets are dark UI and vanished
+   against the near-black ground they used to sit on. */
+.cx-statement-visual {
+  position: relative;
+  display: grid;
+  overflow: hidden;
+  /* Tracks the column width, which is roughly half the shell on desktop. */
+  height: clamp(24rem, 46vw, 34rem);
+  /* Two rows rather than an absolutely placed caption: the widget stack now
+     fills the panel height, and an overlaid caption sat on top of it. */
+  grid-template-rows: minmax(0, 1fr) auto;
+  justify-items: center;
+  padding: 2rem;
+  border-radius: var(--c-radius);
+  background:
+    radial-gradient(circle at 22% 16%, rgb(255 198 104 / 0.9), transparent 44%),
+    radial-gradient(circle at 84% 80%, rgb(186 104 224 / 0.75), transparent 46%),
+    linear-gradient(150deg, #ff9c3f 0%, #f0624c 46%, #7a3ec2 100%);
+}
+.cx-statement-visual img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  filter: drop-shadow(0.5rem 1.25rem 2rem rgb(24 10 4 / 0.42));
+}
+.cx-statement-visual figcaption {
+  display: inline-flex;
+  min-height: 2.25rem;
+  margin-top: 1.25rem;
+  padding-inline: 0.9rem;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  color: #f4f2ef;
+  background: rgb(20 14 10 / 0.4);
+  backdrop-filter: blur(12px);
+  font-size: 0.78rem;
+}
+.cx-statement-visual figcaption i {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: var(--c-accent);
+}
+
+/* ---------------------------------------------------------------- switcher */
+/* Choices left, capture right, inside one bordered stage. */
+.cx-switcher {
+  padding-top: var(--c-section);
+}
+.cx-switcher__layout {
+  display: grid;
+  /* The stage's 16:9 sizer below only sets a natural height, so the row
+     stretches past it to this and the capture grows with it. */
+  min-height: 38rem;
+  margin-top: 2.75rem;
+  overflow: hidden;
+  grid-template-columns: minmax(15rem, 0.7fr) minmax(0, 1.3fr);
+  border: 1px solid var(--c-line-strong);
+  border-radius: 1rem;
+  background: rgb(242 242 237 / 0.62);
+}
+.cx-switcher__choices {
+  display: grid;
+  align-content: stretch;
+  grid-template-rows: repeat(4, 1fr);
+  border-right: 1px solid var(--c-line-strong);
+}
+.cx-switcher__choices button {
+  position: relative;
+  display: grid;
+  min-height: 5.5rem;
+  padding: 1.15rem clamp(1.25rem, 2vw, 1.9rem);
+  align-content: center;
+  gap: 0.3rem;
+  border: 0;
+  border-bottom: 1px solid rgb(15 17 16 / 0.12);
+  color: var(--c-muted);
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    color 160ms var(--cx-ease),
+    background-color 160ms var(--cx-ease);
+}
+.cx-switcher__choices button:last-child {
+  border-bottom: 0;
+}
+.cx-switcher__choices button::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  background: var(--c-accent);
+  content: "";
+  opacity: 0;
+  transform: scaleY(0.35);
+  transition:
+    opacity 160ms var(--cx-ease),
+    transform 260ms var(--cx-ease);
+}
+.cx-switcher__choices button[aria-pressed="true"] {
+  color: var(--c-ink);
+  background: rgb(255 255 251 / 0.82);
+}
+.cx-switcher__choices button[aria-pressed="true"]::before {
+  opacity: 1;
+  transform: scaleY(1);
+}
+.cx-switcher__choices button:focus-visible {
+  z-index: 1;
+  outline-offset: -3px;
+}
+.cx-switcher__choices span {
+  font-size: 1.02rem;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+}
+.cx-switcher__choices small {
+  color: var(--c-muted);
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+/*
+ * One fixed wide stage, cropped rather than contained. Every capture here is a
+ * tall window; the stage keeps a single shape and the capture is scaled to its
+ * width and held to its top edge, so the lower half runs out of the frame. The
+ * stage no longer resizes when the reader picks a different choice.
+ *
+ * The ratio is carried by a sizer pseudo-element rather than by aspect-ratio on
+ * the stage itself. As a grid item, an aspect-ratio box refuses to stretch, and
+ * between roughly 960px and 1140px the four choices are taller than 16:9 — the
+ * stage would hold its own height and leave a band of bare wash below the
+ * capture. The sizer only sets the stage's natural height, so a taller row
+ * still wins and the capture grows with it.
+ */
+.cx-switcher__media {
+  /* Named, because the capture is positioned against it as well as inset by
+     it, and the two have to agree. */
+  --cx-pad: clamp(1.75rem, 3vw, 2.75rem);
+
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  padding: var(--cx-pad) var(--cx-pad) 0;
+  background: var(--c-stage-wash);
+}
+/* The sizer. In flow, so it gives the stage its natural height; the capture is
+   taken out of flow so its own tall intrinsic height cannot do the same. */
+.cx-switcher__media::before {
+  display: block;
+  width: 100%;
+  aspect-ratio: var(--c-stage-ratio);
+  content: "";
+}
+.cx-switcher__media img {
+  /* Width and height are set rather than left to the offsets: an absolutely
+     positioned replaced element takes its intrinsic size when both are auto,
+     and right/bottom are simply dropped as over-constrained. Percentages here
+     resolve against the stage's padding box, so these are its inner size. */
+  position: absolute;
+  inset: var(--cx-pad) var(--cx-pad) 0;
+  display: block;
+  width: calc(100% - 2 * var(--cx-pad));
+  height: calc(100% - var(--cx-pad));
+  /* A crop rather than a fit: scaled to the stage's width, held to its top. */
+  object-fit: cover;
+  object-position: top;
+  /* Top corners only: the bottom edge is cropped away by the stage. */
+  border-radius: 0.75rem 0.75rem 0 0;
+  box-shadow: 0 1.25rem 2.5rem rgb(0 0 0 / 0.34);
+  @starting-style {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(0.6rem);
+  }
+  transition:
+    opacity 420ms var(--cx-ease),
+    filter 420ms var(--cx-ease),
+    transform 520ms var(--cx-ease);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cx-switcher__choices button:not([aria-pressed="true"]):hover {
+    color: var(--c-ink);
+    background: rgb(15 17 16 / 0.045);
+  }
+}
+
+/* ---------------------------------------------------------------- carousel */
+.cx-carousel {
+  /* How far the cards' shadows are allowed to spill past the track's own box.
+     The track is a scroll container, so anything beyond this is clipped. */
+  --cx-bleed: 3rem;
+  /* How far the track reaches past the shell's right edge. While the shell is
+     gutter-limited that is one gutter; once the shell is capped at --c-max it
+     is everything left over beside it, so the cards keep running out to the
+     viewport edge rather than stopping short at the max width. 100vw counts
+     the scrollbar, so this overshoots by half of one — .home-page's
+     overflow-x: clip takes that back. */
+  --cx-edge: max(var(--c-gutter), (100vw - var(--c-max)) / 2);
+  /* The same distance on the left, where cards leave rather than arrive. Never
+     less than the shadow bleed, which is all this side used to carry — at the
+     max width that stopped an outgoing card 3rem past the heading instead of
+     letting it run off the page the way incoming cards run on. */
+  --cx-lead: max(var(--cx-bleed), var(--cx-edge));
+
+  /* The track's trailing padding is sized from one card, and that padding is
+     what sets the track's own content box — so a card measured against the
+     track would feed back into itself. Containing the section lets the card be
+     measured in cqi against the shell, which nothing downstream can move. */
+  container-type: inline-size;
+  padding-top: var(--c-section);
+}
+/* Heading left, controls held to the top right on the same baseline. */
+.cx-carousel__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem 2.5rem;
+}
+/*
+ * Native snap scrolling. The track bleeds past the shell to both viewport
+ * edges so the cards either side of the current one stay visible as an
+ * affordance; only the head above it is held to the shell's max width, so the
+ * cards stay aligned with the heading while running off the page both ways.
+ *
+ * overflow-x on its own computes overflow-y to auto, which makes the track a
+ * scroll container in both axes and clips whatever leaves its box — including
+ * the cards' drop shadows, which were being sliced into a hard line along the
+ * top and down the left edge. The padding gives those shadows somewhere to go
+ * and the matching negative margins take the space back out of the layout.
+ * scroll-padding keeps snapped cards landing on the shell's edge rather than
+ * on the padding, and cardOffset() subtracts the same padding in JS.
+ *
+ * The right padding has a second job. The scrollport is several cards wide, so
+ * the track runs out of scroll while the last card is still mid-stage. Padding
+ * the end out by the scrollport's width less one card gives that card the room
+ * to travel all the way to the start, so the end of the scroll leaves it lined
+ * up with the heading rather than stranded halfway across.
+ */
+.cx-carousel__track {
+  /* One card. Measured in cqi against the shell — see container-type above. */
+  --cx-card: clamp(16rem, 43cqi, 30rem);
+
+  display: grid;
+  margin: calc(2.75rem - var(--cx-bleed)) calc(-1 * var(--cx-edge)) calc(-1 * var(--cx-bleed))
+    calc(-1 * var(--cx-lead));
+  padding: var(--cx-bleed) max(var(--c-gutter), 100cqi + var(--cx-edge) - var(--cx-card))
+    var(--cx-bleed) var(--cx-lead);
+  overflow-x: auto;
+  grid-auto-flow: column;
+  /* A fixed track size, not minmax(0, ...): with a 0 minimum the columns shrink
+     to fit the container and the track never overflows, so nothing scrolls. */
+  grid-auto-columns: var(--cx-card);
+  align-items: start;
+  gap: clamp(1.25rem, 2.5vw, 2rem);
+  scroll-padding-left: var(--cx-lead);
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.cx-carousel__track::-webkit-scrollbar {
+  display: none;
+}
+.cx-carousel--wide .cx-carousel__track {
+  --cx-card: clamp(18rem, 78cqi, 52rem);
+}
+.cx-carousel__track > figure {
+  display: grid;
+  /* Grid items default to min-width:auto, so without this the card refuses to
+     shrink below the capture's intrinsic width and overflows its own track. */
+  min-width: 0;
+  gap: 1.15rem;
+  scroll-snap-align: start;
+}
+/*
+ * A fixed wide stage, not a slot that resizes around each capture. The captures
+ * are tall app windows, so rather than shrinking a whole window into a short
+ * slot, the capture is sized to the stage's width and anchored to the top: the
+ * lower half overflows and the stage's overflow crops it away. Every card ends
+ * up the same shape, and the controls that matter stay large.
+ *
+ * min-height is pinned to 0 alongside overflow: hidden so the ratio actually
+ * governs. Left at auto, the overflowing capture counts towards the box's
+ * automatic minimum size and stretches the stage back to the capture's own
+ * height, which is the tall shape this replaces.
+ */
+.cx-carousel__media {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  min-height: 0;
+  aspect-ratio: var(--c-stage-ratio);
+  overflow: hidden;
+  align-content: start;
+  justify-items: center;
+  padding: clamp(1rem, 2.4vw, 2rem) clamp(1rem, 2.4vw, 2rem) 0;
+  border-radius: 0.9rem;
+  background: var(--c-stage-wash);
+  box-shadow:
+    0 1rem 2rem rgb(15 17 16 / 0.13),
+    0 2.5rem 5rem rgb(15 17 16 / 0.1);
+}
+.cx-carousel__media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* Top corners only: the bottom edge is cropped away by the stage. */
+  border-radius: 0.6rem 0.6rem 0 0;
+  /* Kept well inside the stage's own padding. At the previous 1rem/2rem the
+     shadow reached the stage's edge exactly and overflow: hidden sliced it. */
+  box-shadow: 0 0.5rem 1.25rem rgb(0 0 0 / 0.34);
+}
+.cx-carousel__track figcaption h3 {
+  font-size: 1.0625rem;
+  letter-spacing: -0.015em;
+}
+.cx-carousel__track figcaption p {
+  margin-top: 0.4rem;
+  max-width: 38ch;
+  color: var(--c-muted);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+
+.cx-carousel__controls {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.6rem;
+}
+.cx-carousel__step {
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  color: var(--c-ink);
+  background: rgb(15 17 16 / 0.07);
+  cursor: pointer;
+  transition:
+    background-color 180ms var(--cx-ease),
+    opacity 180ms var(--cx-ease);
+}
+.cx-carousel__step:disabled {
+  cursor: default;
+  opacity: 0.35;
+}
+.cx-carousel__controls svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.cx-carousel__play {
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  color: var(--c-ink);
+  background: rgb(15 17 16 / 0.07);
+  cursor: pointer;
+  transition: background-color 180ms var(--cx-ease);
+}
+.cx-carousel__play svg {
+  fill: currentColor;
+  stroke: none;
+}
+
+/* Apple-style progress pill: inactive slides are dots, the running one widens
+   into a track that fills over the slide's own duration. */
+.cx-carousel__dots {
+  display: flex;
+  height: 2.5rem;
+  padding-inline: 0.9rem;
+  align-items: center;
+  gap: 0.55rem;
+  border-radius: 999px;
+  background: rgb(15 17 16 / 0.07);
+}
+.cx-carousel__dots button {
+  position: relative;
+  width: 0.5rem;
+  height: 0.5rem;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 999px;
+  background: rgb(15 17 16 / 0.22);
+  cursor: pointer;
+  transition:
+    width 420ms var(--cx-ease),
+    background-color 260ms var(--cx-ease);
+}
+.cx-carousel__dots button[aria-current="true"] {
+  width: 2.75rem;
+  background: rgb(15 17 16 / 0.16);
+}
+.cx-carousel__dots i {
+  position: absolute;
+  inset: 0 auto 0 0;
+  display: block;
+  width: 100%;
+  border-radius: inherit;
+  background: var(--c-accent);
+  transform-origin: left center;
+  animation: cx-slide-fill var(--cx-slide, 5200ms) linear forwards;
+}
+@keyframes cx-slide-fill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cx-carousel__controls > button:not(:disabled):hover {
+    background: rgb(15 17 16 / 0.12);
+  }
+}
+
+/* ---------------------------------------------------------------- final */
+.cx-final {
+  display: grid;
+  justify-items: center;
+  padding-top: var(--c-section);
+  text-align: center;
+}
+.cx-final .brand-bars {
+  height: 1.75rem;
+  margin-bottom: 2rem;
+}
+.cx-final .brand-bars i {
+  width: 0.36rem;
+  background: var(--c-accent);
+}
+.cx-final h2 {
+  max-width: 16ch;
+  font-size: clamp(2.4rem, 4.6vw, 4rem);
+  line-height: 1;
+  letter-spacing: -0.035em;
+}
+.cx-final p {
+  margin-top: 1.25rem;
+  color: var(--c-muted);
+  font-size: 1.0625rem;
+}
+.cx-final__actions {
+  display: flex;
+  margin-top: 2.25rem;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* ---------------------------------------------------------------- responsive */
+/*
+ * The switcher collapses before the rest of the page does. Its two-column
+ * layout only reads as wide while the stage is the taller of the two columns;
+ * below about 74rem the four choices win, the row grows to them, and the stage
+ * is dragged towards square. Stacked, the stage spans the full width again.
+ */
+@media (max-width: 74rem) {
+  /* One column, choices as a scrollable strip under the media. */
+  .cx-switcher__layout {
+    min-height: 0;
+    grid-template-columns: 1fr;
+  }
+  /* Stacked, the stage spans the full column, so a slightly taller ratio
+     keeps enough of the window in frame. */
+  .cx-switcher__media {
+    order: -1;
+    aspect-ratio: 16 / 10;
+  }
+  .cx-switcher__choices {
+    grid-auto-columns: minmax(13rem, 72%);
+    grid-auto-flow: column;
+    grid-template-rows: 1fr;
+    overflow-x: auto;
+    border-top: 1px solid var(--c-line-strong);
+    border-right: 0;
+    scrollbar-color: var(--c-accent) transparent;
+    scroll-snap-type: x proximity;
+  }
+  .cx-switcher__choices button {
+    min-height: 7rem;
+    border-right: 1px solid rgb(15 17 16 / 0.12);
+    border-bottom: 0;
+    scroll-snap-align: start;
+  }
+}
+
+@media (max-width: 60rem) {
+  .cx-statement {
+    grid-template-columns: 1fr;
+    gap: 2.75rem;
+  }
+  /* Full width in one column, so the height can no longer track vw. */
+  .cx-statement-visual {
+    height: min(30rem, 96vw);
+  }
+  /* Two cards across rather than four, still with the next one peeking. */
+  .cx-carousel__track {
+    --cx-card: clamp(15rem, 62cqi, 26rem);
+  }
+  /* Hero stacks: copy first, then the demo in normal flow. */
+  .cx-hero {
+    min-height: 0;
+    padding: 6.5rem 0 2.5rem;
+  }
+  .cx-hero__layout {
+    display: block;
+    min-height: 0;
+  }
+  .cx-hero__copy {
+    width: 100%;
+  }
+  .cx-hero h1 {
+    font-size: clamp(3.2rem, 6.6vw, 4.25rem);
+  }
+  /* Once the stage is in normal flow it widens past the gutter, so the frame
+     keeps its scale instead of shrinking. */
+  .cx-hero-stage,
+  .home-page[data-reveal="on"] .cx-hero-stage.cx-reveal.is-visible {
+    position: relative;
+    inset: auto;
+    width: calc(100% + 2.5rem);
+    margin: 3.5rem -1.25rem 0;
+    transform: none;
+  }
+  .home-page[data-reveal="on"] .cx-hero-stage.cx-reveal {
+    transform: translateY(30px) scale(0.985);
+  }
+  .cx-hero-product {
+    width: 100%;
+  }
+}
+
+@media (max-width: 46rem) {
+  /* Not enough width for a heading and a control cluster on one line. */
+  .cx-carousel__head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 40rem) {
+  .cx-hero {
+    padding-top: 7rem;
+  }
+  .cx-hero h1 {
+    font-size: clamp(2.9rem, 12vw, 4rem);
+  }
+  .cx-hero__copy > p {
+    font-size: 1.02rem;
+  }
+  .cx-hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .cx-hero-actions .cx-button {
+    justify-content: center;
+  }
+  /* One card at a time on phones, for both variants. */
+  .cx-carousel__track,
+  .cx-carousel--wide .cx-carousel__track {
+    --cx-card: 86cqi;
+  }
+  /* 16:9 leaves too little of a tall window on a phone-width stage. */
+  .cx-carousel__media,
+  .cx-switcher__media {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-page[data-reveal="on"] .cx-reveal,
+  .home-page[data-reveal="on"] .cx-hero-stage.cx-reveal,
+  .home-page[data-reveal="on"] .cx-reveal .cx-carousel__track > figure {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    transition-delay: 0ms;
+  }
+  /* The fill would otherwise imply motion that autoplay no longer performs. */
+  .cx-carousel__dots i {
+    animation: none;
+  }
+}

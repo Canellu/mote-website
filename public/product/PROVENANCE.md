@@ -33,3 +33,13 @@ The four captures below were supplied from the installed Mote Desktop applicatio
 | `mote-scene-gallery-dark.png`    | User-supplied Hue scene gallery, relabeled `Studio` |
 | `mote-placement-screen-dark.png` | User-supplied `TV area` screen-sampling view        |
 | `mote-placement-room-dark.png`   | User-supplied `TV area` 3D view at the chosen angle |
+
+The homepage's PC Sync section and widget statement use five further captures supplied from the installed Mote Desktop application. The placement captures preserve the user's real `TV area`, light positions, and chosen 3D camera angle.
+
+| Website asset                         | Live application view                                     |
+| ------------------------------------- | --------------------------------------------------------- |
+| `mote-sync-this-pc-dark.png`          | PC Sync with Video, Games, and Music styles and intensity |
+| `mote-sync-hdmi-box-dark.png`         | Sync Box view with HDMI sources and sync style controls   |
+| `mote-sync-placement-screen-dark.png` | Light placement, display sampling regions                 |
+| `mote-sync-placement-room-dark.png`   | Light placement, 3D room view at the chosen angle         |
+| `mote-widget-stack-dark.png`          | Desktop widgets for rooms, scenes, and lights             |

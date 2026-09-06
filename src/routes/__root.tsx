@@ -1,8 +1,9 @@
 import { createRootRoute, HeadContent, Link, Outlet, Scripts } from "@tanstack/react-router";
+import { MICROSOFT_STORE_URL } from "../lib/links";
 import styles from "../styles.css?url";
 
 const navigation = [
-  { label: "Features", to: "/", hash: "captures-title" },
+  { label: "Features", to: "/", hash: "cx-captures-title" },
   { label: "Free & Pro", to: "/features", hash: "comparison-title" },
   { label: "Support", to: "/support", hash: "" },
 ] as const;
@@ -51,14 +52,14 @@ function RootLayout() {
                   </li>
                 ))}
                 <li>
-                  <Link
+                  <a
                     className="site-nav__primary"
-                    to="/"
-                    hash="final-title"
-                    aria-label="Coming soon to Microsoft Store — view launch details"
+                    href={MICROSOFT_STORE_URL}
+                    target="_blank"
+                    rel="noreferrer"
                   >
-                    Coming soon
-                  </Link>
+                    Get Mote Free
+                  </a>
                 </li>
               </ul>
             </nav>
