@@ -696,21 +696,6 @@ function HomePage() {
     return () => observer.disconnect();
   }, []);
 
-  // The header scrim only appears once the page has scrolled, so the bar is
-  // invisible over the hero and legible over the dark product media.
-  useEffect(() => {
-    const syncScrolled = () => {
-      document.body.dataset.scrolled = String(window.scrollY > 8);
-    };
-
-    syncScrolled();
-    window.addEventListener("scroll", syncScrolled, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", syncScrolled);
-      delete document.body.dataset.scrolled;
-    };
-  }, []);
-
   return (
     <main id="main" className="home-page" ref={pageRef}>
       <section className="cx-hero" aria-labelledby="cx-hero-title">
@@ -728,7 +713,7 @@ function HomePage() {
                 Get Mote Free
               </a>
               <Link className="cx-button cx-button--quiet" to="/features">
-                Compare Free &amp; Pro
+                See all features
               </Link>
               <span>On the Microsoft Store · For Windows 10 and 11</span>
             </div>
@@ -784,7 +769,7 @@ function HomePage() {
           <a className="cx-button" href={MICROSOFT_STORE_URL} target="_blank" rel="noreferrer">
             Get Mote Free
           </a>
-          <Link className="cx-button cx-button--quiet" to="/features">
+          <Link className="cx-button cx-button--quiet" to="/features" hash="comparison-title">
             Compare Free and Pro
           </Link>
         </div>

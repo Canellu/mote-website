@@ -81,68 +81,17 @@ body:has(.home-page) :focus-visible {
  * it, which loses contrast over the dark product video. Here the bar stays
  * invisible at the top of the page and fades in an opaque scrim once scrolled.
  */
-body:has(.home-page) .site-header::before,
-body:has(.home-page) .site-header::after {
-  /* A hairline rather than a fade: near-transparent black, so it reads as an
-     edge without reading as chrome. */
-  inset: 0;
-  background: rgb(245 245 242 / 0.72);
-  backdrop-filter: blur(18px) saturate(1.4);
-  -webkit-backdrop-filter: blur(18px) saturate(1.4);
-  mask-image: none;
-  border-bottom: 1px solid rgb(0 0 0 / 0.07);
-  opacity: 0;
-  transition: opacity 320ms var(--cx-ease);
-}
-body:has(.home-page) .site-header::before {
-  background: none;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-}
-body[data-scrolled="true"]:has(.home-page) .site-header::after {
-  opacity: 1;
-}
 /*
- * The hero now runs to the top edge, and on a short viewport the oversized demo
- * is centred high enough to sit under the bar — where dark nav links on a dark
- * window are unreadable. Above this height the demo starts below the header and
- * the bar can stay invisible until the page scrolls.
+ * The header's own sizing and scroll-reveal scrim now live in styles.css so
+ * every page gets the same bar. Only this stays home-specific: the hero runs to
+ * the top edge, and on a short viewport the oversized demo is centred high
+ * enough to sit under the bar — where dark nav links on a dark window are
+ * unreadable — so the scrim is forced on rather than waiting for a scroll.
  */
 @media (max-height: 62rem) {
   body:has(.home-page) .site-header::after {
     opacity: 1;
   }
-}
-body:has(.home-page) .site-header__inner {
-  width: min(78rem, calc(100% - 2 * clamp(1.5rem, 4vw, 3.5rem)));
-  min-height: 4.25rem;
-}
-body:has(.home-page) .site-brand {
-  font-size: 0.9375rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-}
-body:has(.home-page) .site-brand__logo {
-  width: 1.65rem;
-  height: 1.65rem;
-}
-body:has(.home-page) .site-nav {
-  gap: 0.25rem;
-}
-body:has(.home-page) .site-nav a {
-  min-height: 2.25rem;
-  font-size: 0.8125rem;
-  font-weight: 450;
-  color: #4a4e47;
-}
-body:has(.home-page) .site-header .site-nav__primary {
-  min-height: 2.25rem;
-  padding-inline: 0.95rem;
-  border-radius: 999px;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: var(--c-on-accent, #14160f);
-  background: #ef4a15;
 }
 
 /* ---------------------------------------------------------------- buttons */
@@ -273,7 +222,7 @@ body:has(.home-page) .site-header .site-nav__primary {
   width: 100%;
   min-height: 100svh;
   overflow: clip;
-  padding: clamp(8rem, 15vh, 10rem) 0 6rem;
+  padding: var(--site-header-clearance) 0 6rem;
   /* Flush to the top and both edges, so the panel reads as the page's own
      ground rather than a card laid on it, and rounded only along the bottom
      where it hands over to the sections below. */
@@ -288,7 +237,7 @@ body:has(.home-page) .site-header .site-nav__primary {
   position: relative;
   display: flex;
   width: min(var(--c-max), calc(100% - 2 * var(--c-gutter)));
-  min-height: calc(100svh - clamp(8rem, 15vh, 10rem) - 6rem);
+  min-height: calc(100svh - var(--site-header-clearance) - 6rem);
   margin-inline: auto;
   align-items: center;
 }
@@ -1008,7 +957,7 @@ body:has(.home-page) .site-header .site-nav__primary {
   /* Hero stacks: copy first, then the demo in normal flow. */
   .cx-hero {
     min-height: 0;
-    padding: 6.5rem 0 2.5rem;
+    padding: var(--site-header-clearance) 0 2.5rem;
   }
   .cx-hero__layout {
     display: block;
@@ -1048,7 +997,7 @@ body:has(.home-page) .site-header .site-nav__primary {
 
 @media (max-width: 40rem) {
   .cx-hero {
-    padding-top: 7rem;
+    padding-top: var(--site-header-clearance);
   }
   .cx-hero h1 {
     font-size: clamp(2.9rem, 12vw, 4rem);

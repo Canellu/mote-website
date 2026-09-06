@@ -1,14 +1,29 @@
+import { useEffect } from "react";
 import { createRootRoute, HeadContent, Link, Outlet, Scripts } from "@tanstack/react-router";
 import { MICROSOFT_STORE_URL } from "../lib/links";
 import styles from "../styles.css?url";
 
 const navigation = [
-  { label: "Features", to: "/", hash: "cx-captures-title" },
-  { label: "Free & Pro", to: "/features", hash: "comparison-title" },
+  { label: "Features", to: "/features", hash: "" },
   { label: "Support", to: "/support", hash: "" },
 ] as const;
 
 function RootLayout() {
+  // The header scrim only appears once the page has scrolled, so the bar reads
+  // as an edge over content rather than as chrome at the top of every page.
+  useEffect(() => {
+    const syncScrolled = () => {
+      document.body.dataset.scrolled = String(window.scrollY > 8);
+    };
+
+    syncScrolled();
+    window.addEventListener("scroll", syncScrolled, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", syncScrolled);
+      delete document.body.dataset.scrolled;
+    };
+  }, []);
+
   return (
     <html lang="en">
       <head>
@@ -40,7 +55,7 @@ function RootLayout() {
             <nav className="site-navigation" aria-label="Primary navigation">
               <ul className="site-nav">
                 {navigation.map((item) => (
-                  <li key={item.to}>
+                  <li key={item.label}>
                     <Link
                       className="site-nav__link"
                       to={item.to}
