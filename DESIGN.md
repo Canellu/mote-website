@@ -343,3 +343,12 @@ rest: 40% mineral white at rest, 62% once something has scrolled under the bar,
 and 55% under the open menu, which is lower than the bar it hangs from on
 purpose. Anything that overrides the bar's surface — the home page's short-
 viewport rule — now sets it on the header too, or it sets nothing at all.
+
+That was one of two reasons the blur had never been seen. The other only ever
+showed in production: the property was authored twice, once plain and once
+`-webkit-` prefixed, and the build's minifier collapsed the pair down to the
+prefixed declaration alone — which Blink has since dropped, so every shipped
+build served a bar that no current Chrome would blur, while dev served the
+authored file and blurred correctly. Vendor prefixes are the build's to write.
+It adds them from its own browser targets; a hand-written prefix here only takes
+that decision away from it, and takes it wrongly.
