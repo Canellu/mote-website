@@ -1,5 +1,12 @@
-import { useEffect } from "react";
-import { createRootRoute, HeadContent, Link, Outlet, Scripts } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import {
+  createRootRoute,
+  HeadContent,
+  Link,
+  Outlet,
+  Scripts,
+  useRouterState,
+} from "@tanstack/react-router";
 import { MICROSOFT_STORE_URL } from "../lib/links";
 import styles from "../styles.css?url";
 
@@ -141,6 +148,123 @@ function SiteClose() {
   );
 }
 
+/**
+ * The bar at the top of every page. It is one row tall at every width: the
+ * brand, the store link, and — once the two page links no longer fit beside
+ * them — a menu button that drops those links under the bar. Keeping the call
+ * to action outside the menu means the one thing a reader is here to do is
+ * never a tap away behind a burger.
+ */
+function SiteHeader() {
+  const [isMenuOpen, setMenuOpen] = useState(false);
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+
+  // A navigation is the menu's own dismissal: the reader asked for a page and
+  // the panel has nothing left to say.
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!isMenuOpen) return;
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+    // The menu is a phone-width affordance; widening past the breakpoint puts
+    // the links back in the bar, so the panel should not survive the resize.
+    const wide = window.matchMedia("(min-width: 50.0625rem)");
+    const closeWhenWide = () => {
+      if (wide.matches) setMenuOpen(false);
+    };
+
+    window.addEventListener("keydown", closeOnEscape);
+    wide.addEventListener("change", closeWhenWide);
+    return () => {
+      window.removeEventListener("keydown", closeOnEscape);
+      wide.removeEventListener("change", closeWhenWide);
+    };
+  }, [isMenuOpen]);
+
+  return (
+    <header className="site-header" data-menu-open={isMenuOpen ? "true" : undefined}>
+      <div className="site-header__inner">
+        <Link className="site-brand" to="/" aria-label="Mote Desktop home">
+          <img
+            className="site-brand__logo"
+            src="/brand/mote-app-icon.png"
+            width="128"
+            height="128"
+            alt=""
+          />
+          <span className="site-brand__name">
+            Mote <span>Desktop</span>
+          </span>
+        </Link>
+
+        <nav className="site-navigation" aria-label="Primary navigation">
+          <ul className="site-nav">
+            {navigation.map((item) => (
+              <li key={item.label}>
+                <Link
+                  className="site-nav__link"
+                  to={item.to}
+                  hash={item.hash}
+                  activeOptions={{ includeHash: true, exact: true }}
+                >
+                  <span>{item.label}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div className="site-header__actions">
+          <a
+            className="site-nav__primary"
+            href={MICROSOFT_STORE_URL}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Get Mote Free
+          </a>
+
+          <button
+            className="site-menu-toggle"
+            type="button"
+            aria-expanded={isMenuOpen}
+            aria-controls="site-menu"
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            <span className="site-menu-toggle__bars" aria-hidden="true">
+              <i />
+              <i />
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <nav className="site-menu" id="site-menu" aria-label="Page navigation" hidden={!isMenuOpen}>
+        <ul>
+          {navigation.map((item) => (
+            <li key={item.label}>
+              <Link
+                className="site-menu__link"
+                to={item.to}
+                hash={item.hash}
+                activeOptions={{ includeHash: true, exact: true }}
+              >
+                {item.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </header>
+  );
+}
+
 function RootLayout() {
   // The header is frosted throughout; this only tells it whether anything has
   // scrolled under it yet, which is when the tint deepens and the hairline
@@ -175,49 +299,7 @@ function RootLayout() {
         <Aurora />
         <LampFilter />
 
-        <header className="site-header">
-          <div className="site-header__inner">
-            <Link className="site-brand" to="/" aria-label="Mote Desktop home">
-              <img
-                className="site-brand__logo"
-                src="/brand/mote-app-icon.png"
-                width="128"
-                height="128"
-                alt=""
-              />
-              <span className="site-brand__name">
-                Mote <span>Desktop</span>
-              </span>
-            </Link>
-
-            <nav className="site-navigation" aria-label="Primary navigation">
-              <ul className="site-nav">
-                {navigation.map((item) => (
-                  <li key={item.label}>
-                    <Link
-                      className="site-nav__link"
-                      to={item.to}
-                      hash={item.hash}
-                      activeOptions={{ includeHash: true, exact: true }}
-                    >
-                      <span>{item.label}</span>
-                    </Link>
-                  </li>
-                ))}
-                <li>
-                  <a
-                    className="site-nav__primary"
-                    href={MICROSOFT_STORE_URL}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Get Mote Free
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </header>
+        <SiteHeader />
 
         <Outlet />
 

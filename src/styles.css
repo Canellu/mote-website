@@ -71,36 +71,57 @@
   }
 }
 
+/*
+ * Frosted from the first pixel, and the frost is on the bar itself rather than
+ * on a pseudo-element inside it. The header carries view-transition-name, which
+ * makes it a backdrop root: a backdrop-filter on anything *inside* the header
+ * can only sample what the header itself paints, which is nothing, so the blur
+ * silently did nothing and the bar read as a plain white wash over sharp text.
+ * On the element the backdrop is the page behind it, and the blur is real.
+ *
+ * The blur stays slight — enough to soften what runs under the bar so the type
+ * on it has an edge, not enough to hide the page. The tint is the second half
+ * of that: light at rest, deeper once something has scrolled under the bar, and
+ * held down when the phone menu is open so the panel reads as glass rather than
+ * as a white sheet.
+ */
 .site-header {
   position: fixed;
   z-index: 50;
   inset: 0 0 auto;
+  background: rgb(245 245 242 / 0.4);
+  backdrop-filter: blur(4px) saturate(1.35);
+  -webkit-backdrop-filter: blur(4px) saturate(1.35);
+  transition:
+    background-color 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    backdrop-filter 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+body[data-scrolled="true"] .site-header {
+  background: rgb(245 245 242 / 0.62);
 }
 /*
- * Frosted from the first pixel. The blur is doing the work the old fade left
- * undone: dark nav links sat straight on whatever ran under the bar and lost
- * their edge against it. A light tint over a real blur keeps the page readable
- * through the bar — you can still tell what is behind it — while flattening the
- * detail the type has to compete with.
- *
- * Scrolling then deepens the tint and brings the hairline up from nothing, so
- * the bar still reads as an edge only once there is content above it.
+ * The open menu is a surface a reader reads links off, so it takes a deeper
+ * blur rather than a heavier tint: the page stays visible behind the panel as
+ * something out of focus, which is what says the panel is over the page rather
+ * than a new page of its own.
  */
+body .site-header[data-menu-open="true"] {
+  background: rgb(245 245 242 / 0.55);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+}
+/* Nothing but the hairline, which comes up from nothing once the page has
+   scrolled under the bar — an edge only once there is something above it. */
 .site-header::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: rgb(245 245 242 / 0.34);
-  backdrop-filter: blur(16px) saturate(1.45);
-  -webkit-backdrop-filter: blur(16px) saturate(1.45);
   border-bottom: 1px solid rgb(0 0 0 / 0);
-  transition:
-    background-color 320ms cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 320ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: border-color 320ms cubic-bezier(0.22, 1, 0.36, 1);
 }
-body[data-scrolled="true"] .site-header::after {
-  background: rgb(245 245 242 / 0.72);
+body[data-scrolled="true"] .site-header::after,
+.site-header[data-menu-open="true"]::after {
   border-bottom-color: rgb(0 0 0 / 0.07);
 }
 .site-header__inner {
@@ -113,7 +134,7 @@ body[data-scrolled="true"] .site-header::after {
   padding: 0.5rem 0;
   align-items: center;
   justify-content: space-between;
-  gap: 2rem;
+  gap: 0.75rem;
 }
 .site-brand {
   display: inline-flex;
@@ -135,6 +156,9 @@ body[data-scrolled="true"] .site-header::after {
 }
 
 .site-navigation {
+  /* The bar is brand, links, store link: the links and the store link travel
+     together on the right rather than the links floating in the middle. */
+  margin-left: auto;
   flex: none;
 }
 .site-nav {
@@ -165,14 +189,93 @@ body[data-scrolled="true"] .site-header::after {
 .site-nav__link[aria-current="page"] {
   text-decoration: underline;
 }
+.site-header__actions {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 0.35rem;
+}
 .site-header .site-nav__primary {
+  display: inline-flex;
   min-height: 2.25rem;
-  margin-left: 0.5rem;
   padding-inline: 0.95rem;
+  align-items: center;
+  justify-content: center;
   border-radius: 999px;
   color: var(--c-on-accent, #14160f);
   background: #ef4a15;
   font-size: 0.8125rem;
+  font-weight: 600;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+/*
+ * The menu button and its panel. Both are absent above the breakpoint, where
+ * the two page links sit in the bar itself; below it the links move under the
+ * bar and this is what opens them. The button is drawn as two rules that cross
+ * into an X when the panel is open, so the control says which state it is in
+ * rather than only what it does.
+ */
+.site-menu-toggle {
+  display: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 0.6rem;
+  color: var(--mote-ink);
+  background: rgb(16 18 15 / 0.06);
+  cursor: pointer;
+}
+.site-menu-toggle__bars {
+  display: grid;
+  width: 1.05rem;
+  gap: 0.3rem;
+}
+.site-menu-toggle__bars i {
+  display: block;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  transition:
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 160ms ease;
+}
+.site-header[data-menu-open="true"] .site-menu-toggle__bars i:first-child {
+  transform: translateY(0.2125rem) rotate(45deg);
+}
+.site-header[data-menu-open="true"] .site-menu-toggle__bars i:last-child {
+  transform: translateY(-0.2125rem) rotate(-45deg);
+}
+.site-menu {
+  position: relative;
+  z-index: 1;
+}
+.site-menu ul {
+  display: grid;
+  width: min(var(--content-width), calc(100% - 2 * var(--page-gutter)));
+  margin: 0 auto;
+  padding: 0.25rem 0 0.85rem;
+  gap: 0.15rem;
+  list-style: none;
+}
+.site-menu__link {
+  display: flex;
+  min-height: 3rem;
+  padding-inline: 0.75rem;
+  align-items: center;
+  border-radius: 0.6rem;
+  color: #31352e;
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+.site-menu__link[aria-current="page"] {
+  color: var(--mote-ink);
+  background: rgb(16 18 15 / 0.06);
   font-weight: 600;
 }
 #cx-captures-title,
@@ -187,12 +290,12 @@ body[data-scrolled="true"] .site-header::after {
   }
 }
 @media (prefers-reduced-transparency: reduce) {
-  .site-header {
+  .site-header,
+  body[data-scrolled="true"] .site-header,
+  body .site-header[data-menu-open="true"] {
     background: var(--mote-bg);
-  }
-  .site-header::before,
-  .site-header::after {
-    display: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
 }
 /* -------------------------------------------------------- page transitions */
@@ -853,7 +956,6 @@ body[data-scrolled="true"] .site-header::after {
   }
   .site-header__inner {
     padding-inline: 0;
-    gap: 0.75rem;
   }
   .site-brand__logo {
     width: 2.15rem;
@@ -866,37 +968,19 @@ body[data-scrolled="true"] .site-header::after {
     overflow: hidden;
     clip: rect(0 0 0 0);
   }
+  /* The two page links move out of the bar and under it, which is what keeps
+     the header a single row at phone widths. */
+  .site-navigation {
+    display: none;
+  }
+  .site-menu-toggle {
+    display: inline-flex;
+  }
 }
 
 @media (max-width: 35rem) {
-  :root {
-    /* The header wraps onto two rows below this width. */
-    --site-header-height: 6rem;
-    --site-header-clearance: 7.5rem;
-  }
-  .site-header__inner {
-    padding: 0.5rem 0;
-    flex-wrap: wrap;
-    gap: 0;
-  }
-  .site-navigation {
-    width: 100%;
-  }
-  .site-nav {
-    justify-content: space-between;
-    gap: 0;
-  }
-  .site-nav a {
-    padding-inline: 0.75rem;
-  }
-  .site-nav li:last-child {
-    position: absolute;
-    top: 0.625rem;
-    right: 0;
-  }
   .site-header .site-nav__primary {
-    min-width: 0;
-    padding-inline: 1rem;
+    padding-inline: 0.85rem;
   }
 }
 

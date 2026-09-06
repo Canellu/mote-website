@@ -87,8 +87,10 @@ body:has(.home-page) :focus-visible {
  * start rather than waiting for a scroll.
  */
 @media (max-height: 62rem) {
+  body:has(.home-page) .site-header {
+    background: rgb(245 245 242 / 0.62);
+  }
   body:has(.home-page) .site-header::after {
-    background: rgb(245 245 242 / 0.72);
     border-bottom-color: rgb(0 0 0 / 0.07);
   }
 }
@@ -1006,9 +1008,9 @@ body:has(.home-page) :focus-visible {
   }
   /*
    * Stacked, the controls no longer sit beside the heading — they sit over the
-   * track, and they belong to it. Centred under the heading, and held close
-   * enough to the cards that it is the cards they read as steering, rather
-   * than a stray cluster left under the paragraph above.
+   * track, and they belong to it. Centred under a centred heading, and held
+   * close enough to the cards that it is the cards they read as steering,
+   * rather than a stray cluster left under the paragraph above.
    */
   .cx-carousel__controls {
     align-self: center;
@@ -1023,15 +1025,36 @@ body:has(.home-page) :focus-visible {
   .cx-hero {
     padding-top: var(--site-header-clearance);
   }
+  /*
+   * On a phone the copy is the full width of the page rather than a column
+   * beside something, and a ragged left edge with nothing on its right reads
+   * as a stray margin. Centring the headings and their descriptions gives each
+   * block its own axis, so the page holds together in one narrow column.
+   */
+  .cx-hero__copy {
+    justify-items: center;
+    text-align: center;
+  }
   .cx-hero h1 {
-    font-size: clamp(2.9rem, 12vw, 4rem);
+    font-size: clamp(2.5rem, 10vw, 3.4rem);
   }
   .cx-hero__copy > p {
     font-size: 1.02rem;
   }
+  .cx-section-head {
+    justify-items: center;
+    text-align: center;
+  }
+  .cx-section-head h2,
+  .cx-section-head p {
+    margin-inline: auto;
+  }
   .cx-hero-actions {
     flex-direction: column;
     align-items: stretch;
+    justify-content: center;
+    text-align: center;
+    align-self: stretch;
   }
   .cx-hero-actions .cx-button {
     justify-content: center;

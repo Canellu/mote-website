@@ -296,3 +296,50 @@ The closing band's Compare Free and Pro goes to the top of the features page rat
 The header is frosted from the first pixel rather than only once scrolled. Dark navigation used to sit straight on whatever ran under the bar; a light mineral-white tint over a real blur keeps the page legible through it while flattening the detail the type has to compete with. Scrolling deepens the tint and brings the hairline up from nothing, so the bar still reads as an edge only once there is content above it.
 
 The homepage's PC Sync section is three views and no way out. Every tile is a screen — what drives the lights from the PC, the Hue Play HDMI Sync Box that can drive the same area instead, and where each light of that area sits in the placement model — so every tile behaves the same way. The earlier third tile linked through to the features page, which broke the section open right where the reader was still reading it. Showing the Sync Box here is the one place a capture is shared between the two pages: the section's own opening sentence promises it, and the alternative was a tile that does something other than what it sits beside. This supersedes the paragraph above it.
+
+### The phone header and its centred openings (September 2026)
+
+The header is one row tall at every width. Below 50rem the two page links leave
+the bar for a menu under it, opened by a button that draws as two rules and
+crosses into an X while the panel is up; the brand stays left, and Get Mote Free
+stays in the bar beside the button. The one thing a reader came to do is not put
+behind a burger, and the second row the links used to form below 35rem — which
+cost a third of a phone's first screen before any page had spoken — is gone.
+This supersedes the two-row phone header described above.
+
+The open panel is glass like the bar it hangs from — a deeper blur and a light
+tint, not a white sheet — so the page stays visible behind it as something out
+of focus, which is what says the panel is over the page rather than a page of
+its own. It closes on a navigation, on Escape, and on a widening past the
+breakpoint that puts the links back in the bar.
+
+Below 40rem the page and section openings are centred: the hero's title, its
+paragraph and its buttons, the homepage's section heads with the carousel arrows
+under them, and every subpage's title and standfirst. On a phone that copy is
+the full width of the page rather than a column beside something, and a ragged
+left edge with nothing to its right reads as a stray margin instead of an
+alignment. The hero title comes down with it — a line that fills a desktop
+column has to be read three or four lines deep on a phone, and the smaller size
+buys back the space the old one took from the paragraph beneath it. Feature
+blocks and their lists stay left: a centred heading over a bulleted list is a
+heading that has left its own content.
+
+### The blur that was never there (September 2026)
+
+The header's backdrop blur had been asked for repeatedly and had never once
+rendered: what showed was a flat white wash over perfectly sharp text. The
+property was set, `backdrop-filter: blur(16px)`, on the pseudo-element that
+carried the bar's tint — and it was on the wrong element. The header carries
+`view-transition-name`, which makes it a backdrop root, so a backdrop-filter on
+anything inside the header can only sample what the header itself paints, which
+is nothing. The blur was compositing an empty backdrop, faithfully, forever.
+
+The tint and the blur now sit on the bar itself, where the backdrop is the page
+behind it, and the pseudo-element is left holding only the hairline. The blur is
+slight — 4px, enough to soften what runs under the bar so the type on it has an
+edge, not enough to hide the page; the open phone menu takes it to 18px, where
+the page behind reads as colour and shape rather than as words. Tint carries the
+rest: 40% mineral white at rest, 62% once something has scrolled under the bar,
+and 55% under the open menu, which is lower than the bar it hangs from on
+purpose. Anything that overrides the bar's surface — the home page's short-
+viewport rule — now sets it on the header too, or it sets nothing at all.
