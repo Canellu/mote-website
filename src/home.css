@@ -1000,8 +1000,22 @@ body:has(.home-page) :focus-visible {
 @media (max-width: 46rem) {
   /* Not enough width for a heading and a control cluster on one line. */
   .cx-carousel__head {
-    align-items: flex-start;
+    align-items: stretch;
     flex-direction: column;
+    gap: 1.5rem;
+  }
+  /*
+   * Stacked, the controls no longer sit beside the heading — they sit over the
+   * track, and they belong to it. Centred under the heading, and held close
+   * enough to the cards that it is the cards they read as steering, rather
+   * than a stray cluster left under the paragraph above.
+   */
+  .cx-carousel__controls {
+    align-self: center;
+    justify-content: center;
+  }
+  .cx-carousel__track {
+    margin-top: calc(1.25rem - var(--cx-bleed));
   }
 }
 
