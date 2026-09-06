@@ -497,6 +497,17 @@ body:has(.home-page) :focus-visible {
 .cx-switcher {
   padding-top: var(--c-section);
 }
+/*
+ * The sync section is written twice — the switcher here, the carousel below —
+ * and the viewport picks one. Stacked on a phone the switcher's choices become
+ * a sideways strip under the stage, which at that width shows one and a half
+ * cut-off cards with no room to read them; the carousel the section above uses
+ * says the same thing in a shape that fits. The swap point sits above the
+ * phone breakpoints so a tablet still gets the switcher.
+ */
+.cx-sync--compact {
+  display: none;
+}
 .cx-switcher__layout {
   display: grid;
   /* The stage's 16:9 sizer below only sets a natural height, so the row
@@ -915,6 +926,29 @@ body:has(.home-page) :focus-visible {
     border-bottom: 0;
     scroll-snap-align: start;
   }
+  /* The choices now run across rather than down, so the marker for the
+     selected one runs along the bottom edge of its card — against the stage it
+     belongs to — instead of down a left edge it no longer shares with it. */
+  .cx-switcher__choices button::before {
+    top: auto;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    height: 2px;
+    transform: scaleX(0.35);
+  }
+  .cx-switcher__choices button[aria-pressed="true"]::before {
+    transform: scaleX(1);
+  }
+}
+
+@media (max-width: 46rem) {
+  .cx-sync--compact {
+    display: block;
+  }
+  .cx-sync--wide {
+    display: none;
+  }
 }
 
 @media (max-width: 60rem) {
@@ -994,8 +1028,7 @@ body:has(.home-page) :focus-visible {
     --cx-card: 86cqi;
   }
   /* 16:9 leaves too little of a tall window on a phone-width stage. */
-  .cx-carousel__media,
-  .cx-switcher__media {
+  .cx-carousel__media {
     aspect-ratio: 4 / 3;
   }
 }

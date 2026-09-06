@@ -73,6 +73,12 @@ const syncViews = [
   },
 ] as const;
 
+// Shared by the two sync sections below, which are the same section at two
+// widths.
+const SYNC_TITLE = "Light that follows what is on screen.";
+const SYNC_INTRO =
+  "PC Sync, a Mote Pro feature, drives a compatible entertainment area from your display. A Hue Play HDMI Sync Box can drive the same area instead, in Free and Mote Pro.";
+
 function HeroMedia() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const playbackPreferenceRef = useRef<boolean | null>(null);
@@ -260,6 +266,8 @@ interface CarouselItem {
 interface CarouselProps {
   /** Advances on its own, with a filling progress indicator and a pause control. */
   autoplay?: boolean;
+  /** Appended to the section, for the pair that swap places by width. */
+  className?: string;
   headingId: string;
   intro: string;
   items: readonly CarouselItem[];
@@ -273,7 +281,15 @@ interface CarouselProps {
  * and an observer reads back which card actually landed. That keeps the
  * indicator honest even when the reader swipes past the controls entirely.
  */
-function Carousel({ autoplay = false, headingId, intro, items, label, title }: CarouselProps) {
+function Carousel({
+  autoplay = false,
+  className = "",
+  headingId,
+  intro,
+  items,
+  label,
+  title,
+}: CarouselProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const activeRef = useRef(0);
@@ -486,7 +502,7 @@ function Carousel({ autoplay = false, headingId, intro, items, label, title }: C
 
   return (
     <section
-      className={`cx-carousel cx-shell cx-reveal cx-reveal--group${autoplay ? " cx-carousel--wide" : ""}`}
+      className={`cx-carousel cx-shell cx-reveal cx-reveal--group${autoplay ? " cx-carousel--wide" : ""}${className ? ` ${className}` : ""}`}
       aria-labelledby={headingId}
       ref={sectionRef}
       // The progress fill is timed from the same constant as the timer, so the
@@ -612,13 +628,16 @@ function Carousel({ autoplay = false, headingId, intro, items, label, title }: C
  */
 type SwitcherProps = Omit<CarouselProps, "autoplay">;
 
-function Switcher({ headingId, intro, items, label, title }: SwitcherProps) {
+function Switcher({ className = "", headingId, intro, items, label, title }: SwitcherProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const active = items[activeIndex];
   const mediaId = `${headingId}-media`;
 
   return (
-    <section className="cx-switcher cx-shell cx-reveal" aria-labelledby={headingId}>
+    <section
+      className={`cx-switcher cx-shell cx-reveal${className ? ` ${className}` : ""}`}
+      aria-labelledby={headingId}
+    >
       <div className="cx-section-head">
         <h2 id={headingId}>{title}</h2>
         <p>{intro}</p>
@@ -740,10 +759,28 @@ function HomePage() {
         items={captures}
       />
 
+      {/*
+        The same three views, twice: the switcher on a wide screen, and on a
+        phone the carousel the section above uses. Stacked, the switcher asks
+        the reader to tie a sideways strip of choices to a stage above it,
+        which on a phone shows one and a half cut-off choices and no stage
+        wide enough to answer them. Only one of the two is ever displayed —
+        see .cx-sync--compact in home.css — and both draw the same captures,
+        so the hidden one costs no extra bytes.
+      */}
       <Switcher
+        className="cx-sync--wide"
         headingId="cx-sync-title"
-        title="Light that follows what is on screen."
-        intro="PC Sync, a Mote Pro feature, drives a compatible entertainment area from your display. A Hue Play HDMI Sync Box can drive the same area instead, in Free and Mote Pro."
+        title={SYNC_TITLE}
+        intro={SYNC_INTRO}
+        label="PC Sync views"
+        items={syncViews}
+      />
+      <Carousel
+        className="cx-sync--compact"
+        headingId="cx-sync-title-compact"
+        title={SYNC_TITLE}
+        intro={SYNC_INTRO}
         label="PC Sync views"
         items={syncViews}
       />

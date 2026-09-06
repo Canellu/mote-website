@@ -242,7 +242,7 @@ Use authentic Mote imagery with descriptive alternative text, explicit intrinsic
 
 ### Product Story Switcher
 
-Related screenshots share one bordered stage: the active product capture on the left and concise persistent choices on the right. Selection moves a two-pixel orange current and swaps only the media, preserving the reader's place. On narrow screens the choices become a horizontally scrollable strip below the media that deliberately exposes the next option.
+Related screenshots share one bordered stage: the active product capture on the left and concise persistent choices on the right. Selection moves a two-pixel orange current and swaps only the media, preserving the reader's place. On narrow screens the choices become a horizontally scrollable strip below the media that deliberately exposes the next option, and the current moves to the bottom edge of the selected choice, against the media it belongs to, rather than staying on a left edge it no longer shares with it. On phone widths the switcher gives way entirely to the same carousel the story sections use: a strip of choices under a stage is unreadable at that width, and the carousel carries the identical views as swipeable cards.
 
 ### Deep Control Gallery
 
