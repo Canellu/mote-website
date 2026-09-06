@@ -76,21 +76,32 @@
   z-index: 50;
   inset: 0 0 auto;
 }
+/*
+ * Frosted from the first pixel. The blur is doing the work the old fade left
+ * undone: dark nav links sat straight on whatever ran under the bar and lost
+ * their edge against it. A light tint over a real blur keeps the page readable
+ * through the bar — you can still tell what is behind it — while flattening the
+ * detail the type has to compete with.
+ *
+ * Scrolling then deepens the tint and brings the hairline up from nothing, so
+ * the bar still reads as an edge only once there is content above it.
+ */
 .site-header::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  /* A hairline rather than a fade: the bar reads as an edge, not as chrome. */
-  background: rgb(245 245 242 / 0.72);
-  backdrop-filter: blur(18px) saturate(1.4);
-  -webkit-backdrop-filter: blur(18px) saturate(1.4);
-  border-bottom: 1px solid rgb(0 0 0 / 0.07);
-  opacity: 0;
-  transition: opacity 320ms cubic-bezier(0.22, 1, 0.36, 1);
+  background: rgb(245 245 242 / 0.34);
+  backdrop-filter: blur(16px) saturate(1.45);
+  -webkit-backdrop-filter: blur(16px) saturate(1.45);
+  border-bottom: 1px solid rgb(0 0 0 / 0);
+  transition:
+    background-color 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 320ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 body[data-scrolled="true"] .site-header::after {
-  opacity: 1;
+  background: rgb(245 245 242 / 0.72);
+  border-bottom-color: rgb(0 0 0 / 0.07);
 }
 .site-header__inner {
   position: relative;
@@ -184,6 +195,51 @@ body[data-scrolled="true"] .site-header::after {
     display: none;
   }
 }
+/* -------------------------------------------------------- page transitions */
+/*
+ * A client navigation crosses into the next page rather than cutting to it.
+ * The page is taken as one snapshot — the ambient light and the closing band
+ * are the same either side of the swap, so a single fade across all of it reads
+ * as one surface changing rather than as parts animating — and the instant
+ * scroll to the top of the new page happens underneath it, unseen.
+ *
+ * Both halves are given the same duration and the same curve. The pair is
+ * composited with the browser's own plus-lighter blending, which only holds its
+ * brightness while the two opacities still sum to one; matching the curves is
+ * what keeps them complementary, and mismatched ones would wash the middle of
+ * every transition out.
+ */
+/* Naming an animation of our own replaces the browser's, and its blending came
+   with it, so the pair is put back into plus-lighter by hand. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  mix-blend-mode: plus-lighter;
+}
+::view-transition-old(root) {
+  animation: page-depart 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+::view-transition-new(root) {
+  animation: page-arrive 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes page-depart {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes page-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+/* The bar is the one thing a navigation does not change, so it is named out of
+   the page's snapshot and holds still while the page moves under it. Left in,
+   it travels with everything else and its own bottom edge doubles against the
+   copy of itself ten pixels below. */
+.site-header {
+  view-transition-name: site-header;
+}
+
 /* ------------------------------------------------------- ambient hue light */
 /*
  * Four broad, slow-drifting lights fixed to the viewport, behind every page.
@@ -974,6 +1030,15 @@ body[data-scrolled="true"] .site-header::after {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  /* A view transition's pseudo-elements descend from no element, so the blanket
+     rule at the end of this block never reaches them. Taking their animations
+     away ends the transition on its first frame: the page still changes, it
+     just does not travel to get there. */
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
   }
   /* Hold every light where it was placed rather than snapping it to the end of
      its drift, which the blanket animation reset below would otherwise do. */

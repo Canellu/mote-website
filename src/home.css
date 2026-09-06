@@ -79,20 +79,17 @@ body:has(.home-page) :focus-visible {
 
 /* ---------------------------------------------------------------- header */
 /*
- * The shared header paints dark nav links straight onto whatever scrolls under
- * it, which loses contrast over the dark product video. Here the bar stays
- * invisible at the top of the page and fades in an opaque scrim once scrolled.
- */
-/*
- * The header's own sizing and scroll-reveal scrim now live in styles.css so
- * every page gets the same bar. Only this stays home-specific: the hero runs to
- * the top edge, and on a short viewport the oversized demo is centred high
- * enough to sit under the bar — where dark nav links on a dark window are
- * unreadable — so the scrim is forced on rather than waiting for a scroll.
+ * The header's own sizing and frosted scrim now live in styles.css so every
+ * page gets the same bar. Only this stays home-specific: the hero runs to the
+ * top edge, and on a short viewport the oversized demo is centred high enough
+ * to sit under the bar — where the light resting tint is not enough to carry
+ * dark nav links over a dark window — so the scrolled tint is taken from the
+ * start rather than waiting for a scroll.
  */
 @media (max-height: 62rem) {
   body:has(.home-page) .site-header::after {
-    opacity: 1;
+    background: rgb(245 245 242 / 0.72);
+    border-bottom-color: rgb(0 0 0 / 0.07);
   }
 }
 
@@ -274,11 +271,20 @@ body:has(.home-page) :focus-visible {
   flex-wrap: wrap;
   gap: 1.1rem 1.4rem;
 }
+/*
+ * The store note. It takes its natural width and drops to its own line when the
+ * buttons leave it too little, rather than being capped to a column narrow
+ * enough to break it in the middle of a sentence. Its two clauses are each held
+ * unbreakable, so the only place it can ever break is between them, with the
+ * separator staying on the clause it follows.
+ */
 .cx-hero-actions > span {
-  max-width: 13rem;
   color: var(--c-muted);
   font-size: 0.76rem;
   line-height: 1.45;
+}
+.cx-hero-actions > span > span {
+  white-space: nowrap;
 }
 
 /* Anchored to the right of the copy column and centred on the panel. The stage
@@ -509,7 +515,7 @@ body:has(.home-page) :focus-visible {
   grid-auto-rows: 1fr;
   border-right: 1px solid var(--c-line-strong);
 }
-.cx-switcher__choices > :is(button, a) {
+.cx-switcher__choices button {
   position: relative;
   display: grid;
   min-height: 5.5rem;
@@ -527,7 +533,7 @@ body:has(.home-page) :focus-visible {
     color 160ms var(--cx-ease),
     background-color 160ms var(--cx-ease);
 }
-.cx-switcher__choices > :is(button, a):last-child {
+.cx-switcher__choices button:last-child {
   border-bottom: 0;
 }
 .cx-switcher__choices button::before {
@@ -552,28 +558,9 @@ body:has(.home-page) :focus-visible {
   opacity: 1;
   transform: scaleY(1);
 }
-.cx-switcher__choices > :is(button, a):focus-visible {
+.cx-switcher__choices button:focus-visible {
   z-index: 1;
   outline-offset: -3px;
-}
-/* The way out, not a third view: no accent rail, and the arrow rather than a
-   pressed state says it leaves the section. */
-.cx-switcher__more span {
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-  color: var(--c-ink);
-}
-.cx-switcher__more svg {
-  width: 1.05rem;
-  height: 1.05rem;
-  flex: none;
-  fill: none;
-  stroke: var(--c-accent);
-  stroke-width: 1.9;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  transition: transform 220ms var(--cx-ease);
 }
 .cx-switcher__choices span {
   font-size: 1.02rem;
@@ -891,20 +878,14 @@ body:has(.home-page) :focus-visible {
   .cx-carousel__controls > button:not(:disabled):hover {
     background: rgb(15 17 16 / 0.12);
   }
-  .cx-switcher__more:hover {
-    background: rgb(255 255 251 / 0.62);
-  }
-  .cx-switcher__more:hover svg {
-    transform: translateX(0.2rem);
-  }
 }
 
 /* ---------------------------------------------------------------- responsive */
 /*
  * The switcher collapses before the rest of the page does. Its two-column
  * layout only reads as wide while the stage is the taller of the two columns;
- * below about 74rem the four choices win, the row grows to them, and the stage
- * is dragged towards square. Stacked, the stage spans the full width again.
+ * below about 74rem the choices win, the row grows to them, and the stage is
+ * dragged towards square. Stacked, the stage spans the full width again.
  */
 @media (max-width: 74rem) {
   /* One column, choices as a scrollable strip under the media. */
@@ -928,7 +909,7 @@ body:has(.home-page) :focus-visible {
     scrollbar-color: var(--c-accent) transparent;
     scroll-snap-type: x proximity;
   }
-  .cx-switcher__choices > :is(button, a) {
+  .cx-switcher__choices button {
     min-height: 7rem;
     border-right: 1px solid rgb(15 17 16 / 0.12);
     border-bottom: 0;

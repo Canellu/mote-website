@@ -104,7 +104,11 @@ function SiteClose() {
             <a className="site-cta" href={MICROSOFT_STORE_URL} target="_blank" rel="noreferrer">
               Get Mote Free
             </a>
-            <Link className="site-cta site-cta--quiet" to="/features" hash="comparison-title">
+            {/* The features page, from its top. Aimed at the comparison it used to
+                land the reader deep in a page they had not seen yet, with the
+                scrollbar already near its end and no sense of having arrived
+                anywhere. The page opens with its own jump to the comparison. */}
+            <Link className="site-cta site-cta--quiet" to="/features">
               Compare Free and Pro
             </Link>
           </div>
@@ -138,8 +142,10 @@ function SiteClose() {
 }
 
 function RootLayout() {
-  // The header scrim only appears once the page has scrolled, so the bar reads
-  // as an edge over content rather than as chrome at the top of every page.
+  // The header is frosted throughout; this only tells it whether anything has
+  // scrolled under it yet, which is when the tint deepens and the hairline
+  // appears, so the bar reads as an edge rather than as chrome over the top of
+  // every page.
   useEffect(() => {
     const syncScrolled = () => {
       document.body.dataset.scrolled = String(window.scrollY > 8);

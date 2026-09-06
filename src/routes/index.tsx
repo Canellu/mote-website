@@ -41,10 +41,11 @@ const captures = [
   },
 ] as const;
 
-// Two views, not the whole set: what drives the lights, and where the lights
-// are. That is the case for PC Sync. The Sync Box and screen-sampling views are
-// the catalogue's job, and the switcher links out to them rather than holding
-// every screen here — the homepage should read as an argument, not an index.
+// The section's own argument, in the order the intro makes it: the two things
+// that can drive an entertainment area, and then where the lights it drives
+// actually sit. Every tile is a view, so every tile behaves the same way — an
+// earlier third tile linked out to the features page instead, which broke the
+// section open right where the reader was still reading it.
 const syncViews = [
   {
     src: "/product/mote-sync-this-pc-dark.png",
@@ -55,9 +56,17 @@ const syncViews = [
     height: 1107,
   },
   {
+    src: "/product/mote-sync-hdmi-box-dark.png",
+    title: "Sync Box",
+    text: "Hand the same entertainment area to a Hue Play HDMI Sync Box, then choose the HDMI source it follows.",
+    alt: "Mote Desktop Sync Box screen showing HDMI sources and sync style controls",
+    width: 989,
+    height: 1108,
+  },
+  {
     src: "/product/mote-sync-placement-room-dark.png",
     title: "3D room",
-    text: "Place each light where it actually sits in the room.",
+    text: "Position each light of the entertainment area in a model of the space, so the sync knows which light is where.",
     alt: "Mote Desktop three-dimensional room view for positioning entertainment lights",
     width: 1301,
     height: 1119,
@@ -601,12 +610,9 @@ function Carousel({ autoplay = false, headingId, intro, items, label, title }: C
  * the window's lower half runs out of the frame and the controls that matter
  * sit large and legible instead of shrunk to fit.
  */
-interface SwitcherProps extends Omit<CarouselProps, "autoplay"> {
-  /** The last tile: a way through to the screens this section no longer shows. */
-  more: { hash: string; text: string; title: string };
-}
+type SwitcherProps = Omit<CarouselProps, "autoplay">;
 
-function Switcher({ headingId, intro, items, label, more, title }: SwitcherProps) {
+function Switcher({ headingId, intro, items, label, title }: SwitcherProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const active = items[activeIndex];
   const mediaId = `${headingId}-media`;
@@ -632,15 +638,6 @@ function Switcher({ headingId, intro, items, label, more, title }: SwitcherProps
               <small>{item.text}</small>
             </button>
           ))}
-          <Link className="cx-switcher__more" to="/features" hash={more.hash}>
-            <span>
-              {more.title}
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M4 12h14m-5-6 6 6-6 6" />
-              </svg>
-            </span>
-            <small>{more.text}</small>
-          </Link>
         </div>
 
         <figure className="cx-switcher__media" id={mediaId}>
@@ -703,7 +700,9 @@ function HomePage() {
               <Link className="cx-button cx-button--quiet" to="/features">
                 See all features
               </Link>
-              <span>On the Microsoft Store · For Windows 10 and 11</span>
+              <span>
+                <span>On the Microsoft Store ·</span> <span>For Windows 10 and 11</span>
+              </span>
             </div>
           </div>
           <HeroMedia />
@@ -744,14 +743,9 @@ function HomePage() {
       <Switcher
         headingId="cx-sync-title"
         title="Light that follows what is on screen."
-        intro="PC Sync drives a compatible entertainment area from your display, or hands the same area to a Hue Play HDMI Sync Box. It is a Mote Pro feature."
+        intro="PC Sync, a Mote Pro feature, drives a compatible entertainment area from your display. A Hue Play HDMI Sync Box can drive the same area instead, in Free and Mote Pro."
         label="PC Sync views"
         items={syncViews}
-        more={{
-          hash: "pc-sync-title",
-          title: "Every PC Sync screen",
-          text: "Screen sampling, the Hue Play HDMI Sync Box, and the full requirements.",
-        }}
       />
     </main>
   );
