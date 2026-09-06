@@ -41,10 +41,10 @@ const captures = [
   },
 ] as const;
 
-// Light placement belongs here, not with room control: both screens configure
-// an entertainment area, which is what PC Sync and the Sync Box then drive.
-// Shown all at once rather than behind a switcher — this is the reason to pay,
-// so the depth should be visible without asking for a click.
+// Two views, not the whole set: what drives the lights, and where the lights
+// are. That is the case for PC Sync. The Sync Box and screen-sampling views are
+// the catalogue's job, and the switcher links out to them rather than holding
+// every screen here — the homepage should read as an argument, not an index.
 const syncViews = [
   {
     src: "/product/mote-sync-this-pc-dark.png",
@@ -53,22 +53,6 @@ const syncViews = [
     alt: "Mote Desktop PC Sync screen with Video, Games, and Music styles and an intensity control",
     width: 988,
     height: 1107,
-  },
-  {
-    src: "/product/mote-sync-hdmi-box-dark.png",
-    title: "Sync with a Sync Box",
-    text: "Drive the same area from a Hue Play HDMI Sync Box and pick which source it follows.",
-    alt: "Mote Desktop Sync Box screen showing HDMI sources and sync style controls",
-    width: 989,
-    height: 1108,
-  },
-  {
-    src: "/product/mote-sync-placement-screen-dark.png",
-    title: "Screen sampling",
-    text: "Pick the part of the picture each light follows.",
-    alt: "Mote Desktop light placement screen showing display sampling regions",
-    width: 1298,
-    height: 1121,
   },
   {
     src: "/product/mote-sync-placement-room-dark.png",
@@ -617,7 +601,12 @@ function Carousel({ autoplay = false, headingId, intro, items, label, title }: C
  * the window's lower half runs out of the frame and the controls that matter
  * sit large and legible instead of shrunk to fit.
  */
-function Switcher({ headingId, intro, items, label, title }: Omit<CarouselProps, "autoplay">) {
+interface SwitcherProps extends Omit<CarouselProps, "autoplay"> {
+  /** The last tile: a way through to the screens this section no longer shows. */
+  more: { hash: string; text: string; title: string };
+}
+
+function Switcher({ headingId, intro, items, label, more, title }: SwitcherProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const active = items[activeIndex];
   const mediaId = `${headingId}-media`;
@@ -643,6 +632,15 @@ function Switcher({ headingId, intro, items, label, title }: Omit<CarouselProps,
               <small>{item.text}</small>
             </button>
           ))}
+          <Link className="cx-switcher__more" to="/features" hash={more.hash}>
+            <span>
+              {more.title}
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 12h14m-5-6 6 6-6 6" />
+              </svg>
+            </span>
+            <small>{more.text}</small>
+          </Link>
         </div>
 
         <figure className="cx-switcher__media" id={mediaId}>
@@ -749,22 +747,12 @@ function HomePage() {
         intro="PC Sync drives a compatible entertainment area from your display, or hands the same area to a Hue Play HDMI Sync Box. It is a Mote Pro feature."
         label="PC Sync views"
         items={syncViews}
+        more={{
+          hash: "pc-sync-title",
+          title: "Every PC Sync screen",
+          text: "Screen sampling, the Hue Play HDMI Sync Box, and the full requirements.",
+        }}
       />
-
-      <section className="cx-final cx-reveal" aria-labelledby="cx-final-title">
-        <div className="cx-final__inner">
-          <h2 id="cx-final-title">Mote Desktop for Windows.</h2>
-          <p>Free on the Microsoft Store.</p>
-          <div className="cx-final__actions">
-            <a className="cx-button" href={MICROSOFT_STORE_URL} target="_blank" rel="noreferrer">
-              Get Mote Free
-            </a>
-            <Link className="cx-button cx-button--quiet" to="/features" hash="comparison-title">
-              Compare Free and Pro
-            </Link>
-          </div>
-        </div>
-      </section>
     </main>
   );
 }
