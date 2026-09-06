@@ -124,7 +124,7 @@ The palette moves between graphite night and mineral daylight, with neon orange 
 
 ### Secondary
 
-- **Hue Scene Color:** The interactive scene control may introduce focused yellow, amber, coral, and aqua. These colors belong to live lighting state, glows, and the controlled room wash rather than general page chrome.
+- **Hue Scene Color:** The interactive scene control may introduce focused yellow, amber, coral, and aqua. These colors belong to live lighting state, glows, the controlled room wash, and the ambient field described under Hue Ambient Light rather than to page chrome, type, or control surfaces.
 
 ### Neutral
 
@@ -186,6 +186,7 @@ The system is tonal and atmospheric at rest, then selectively lifted around prod
 - **Product Lift:** Large offset shadows under Mote captures and the scene lab so the evidence reads as a physical window above the page.
 - **Context Capsule:** A smaller soft shadow beneath the hero capture caption.
 - **Hue Emission:** Colored blur and glow radiate from scene state, lamp light, and the widget atmosphere; they never replace legible control boundaries.
+- **Hue Ambient Light:** A small number of very large, low-opacity Hue lights sit behind the whole page, drifting slowly. They are the room the product is used in, not an effect applied to it: they stay behind every surface, carry no contrast of their own, and are removed under forced colors.
 
 ### Named Rules
 
@@ -261,16 +262,25 @@ Three related widget stories share one evidence surface instead of repeating thr
 - **Do** preserve visible keyboard focus, semantic control state, forced-color borders, and descriptive image alternatives.
 - **Do** reduce transitions to effectively instantaneous timing and disable smooth scrolling when reduced motion is requested.
 - **Do** keep the site in its single mineral-light presentation and let dark product UI provide contrast.
+- **Do** treat ambient Hue light as the ground the page sits on, holding it behind every legible surface and letting the reader's motion preference stop it.
 
 ### Don't:
 
 - **Don't** turn the story into a generic stack of same-sized feature cards.
 - **Don't** spread glass blur across ordinary content surfaces or use it without a functional reason.
-- **Don't** use colorful Hue gradients as generic decoration detached from product evidence or lighting state.
+- **Don't** put colorful Hue gradients on content surfaces, type, or controls. Ambient Hue light belongs behind the page, where nothing legible is painted on it.
 - **Don't** flatten Geist into one undifferentiated weight and size or use display styling for dense interface copy.
 - **Don't** hide essential interaction, navigation, or product evidence at mobile sizes; remove peripheral annotation first.
 - **Don't** animate scene changes, presses, or smooth scrolling when the user requests reduced motion.
 
 ### Selected frosted header refinement (September 2026)
 
-The header now uses one slim floating mineral-white glass bar, inset 20px on desktop, with a 64px minimum height, 16px corners, a fine translucent rim and a restrained downward shadow. A 10px backdrop blur and 58% mineral-white tint let the underlying page show through while supporting readable dark navigation. The original icon and wordmark remain left; Features, Free & Pro, Support and the compact orange primary action sit right. At narrow phone widths the links form a second row below the brand and action. The header action currently reads Coming soon and links to launch details; Get Mote free is the intended label once a Microsoft Store URL is available. This supersedes the earlier navigation veil and bracketed navigation descriptions.
+The header now uses one slim floating mineral-white glass bar, inset 20px on desktop, with a 64px minimum height, 16px corners, a fine translucent rim and a restrained downward shadow. A 10px backdrop blur and 58% mineral-white tint let the underlying page show through while supporting readable dark navigation. The original icon and wordmark remain left; Features, Support and the compact orange primary action sit right. At narrow phone widths the links form a second row below the brand and action. The header action reads Get Mote Free and links to the Microsoft Store listing. This supersedes the earlier navigation veil and bracketed navigation descriptions.
+
+### Ambient light and the single close (September 2026)
+
+The site canvas is no longer flat. Four very large Hue lights — amber, magenta, aqua and blue — are fixed to the viewport behind every page, with their centers off screen so only the falloff reaches the reader. They drift on slow, unequal cycles, hold still under reduced motion, and disappear under forced colors. Every page surface still paints its own ground over them, so no text ever sits on unmanaged color. The opening panel carries cool light at its left edge alongside the warm light it already had.
+
+The page's close and the site footer are one band rather than two. A single graphite surface, lit from inside by the same four colors screened over it, carries the call to action, the brand, the legal links and the copyright, and it now ends every page rather than only the homepage. This supersedes the separate closing section and thin footer rule.
+
+The homepage argues rather than catalogs. Its PC Sync section shows two views — what drives the lights, and where the lights are — and its third tile links through to the features page for the screens it no longer shows. Captures are not repeated across the two pages: where both pages cover a capability, each shows a different real screen.
