@@ -120,19 +120,6 @@ body[data-scrolled="true"] .site-header::after {
   object-fit: contain;
 }
 
-.brand-bars {
-  display: inline-flex;
-  flex: none;
-  height: 1.15rem;
-  align-items: stretch;
-  gap: 0.18rem;
-}
-.brand-bars i {
-  width: 0.24rem;
-  border-radius: 0.12rem;
-  background: var(--mote-signal);
-  transform: skewY(-7deg);
-}
 .site-navigation {
   flex: none;
 }
@@ -194,13 +181,20 @@ body[data-scrolled="true"] .site-header::after {
   }
 }
 .site-footer {
+  /* A full-bleed band in its own tone, set off from the page above. */
+  margin-top: 5rem;
+  border-top: 1px solid var(--mote-line);
+  background: var(--mote-panel);
+}
+.site-footer__inner {
   display: flex;
   width: min(var(--content-width), calc(100% - 2 * var(--page-gutter)));
   margin: 0 auto;
-  padding: 2rem 0;
+  padding: 3rem 0;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 1.25rem;
   color: var(--mote-muted);
   font-size: 0.84rem;
 }
@@ -264,9 +258,6 @@ body[data-scrolled="true"] .site-header::after {
     border-left: 1px solid CanvasText;
     color: CanvasText;
     background: Canvas;
-  }
-  .brand-bars i {
-    background: Highlight;
   }
 }
 

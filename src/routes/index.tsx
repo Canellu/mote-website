@@ -80,16 +80,6 @@ const syncViews = [
   },
 ] as const;
 
-function BrandMark() {
-  return (
-    <span className="brand-bars" aria-hidden="true">
-      <i />
-      <i />
-      <i />
-    </span>
-  );
-}
-
 function HeroMedia() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const playbackPreferenceRef = useRef<boolean | null>(null);
@@ -762,7 +752,6 @@ function HomePage() {
       />
 
       <section className="cx-final cx-shell cx-reveal" aria-labelledby="cx-final-title">
-        <BrandMark />
         <h2 id="cx-final-title">Mote Desktop for Windows.</h2>
         <p>Free on the Microsoft Store.</p>
         <div className="cx-final__actions">

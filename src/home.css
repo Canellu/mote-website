@@ -876,14 +876,6 @@ body:has(.home-page) :focus-visible {
   padding-top: var(--c-section);
   text-align: center;
 }
-.cx-final .brand-bars {
-  height: 1.75rem;
-  margin-bottom: 2rem;
-}
-.cx-final .brand-bars i {
-  width: 0.36rem;
-  background: var(--c-accent);
-}
 .cx-final h2 {
   max-width: 16ch;
   font-size: clamp(2.4rem, 4.6vw, 4rem);
