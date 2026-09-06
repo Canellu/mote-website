@@ -751,16 +751,18 @@ function HomePage() {
         items={syncViews}
       />
 
-      <section className="cx-final cx-shell cx-reveal" aria-labelledby="cx-final-title">
-        <h2 id="cx-final-title">Mote Desktop for Windows.</h2>
-        <p>Free on the Microsoft Store.</p>
-        <div className="cx-final__actions">
-          <a className="cx-button" href={MICROSOFT_STORE_URL} target="_blank" rel="noreferrer">
-            Get Mote Free
-          </a>
-          <Link className="cx-button cx-button--quiet" to="/features" hash="comparison-title">
-            Compare Free and Pro
-          </Link>
+      <section className="cx-final cx-reveal" aria-labelledby="cx-final-title">
+        <div className="cx-final__inner">
+          <h2 id="cx-final-title">Mote Desktop for Windows.</h2>
+          <p>Free on the Microsoft Store.</p>
+          <div className="cx-final__actions">
+            <a className="cx-button" href={MICROSOFT_STORE_URL} target="_blank" rel="noreferrer">
+              Get Mote Free
+            </a>
+            <Link className="cx-button cx-button--quiet" to="/features" hash="comparison-title">
+              Compare Free and Pro
+            </Link>
+          </div>
         </div>
       </section>
     </main>

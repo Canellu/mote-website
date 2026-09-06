@@ -84,33 +84,26 @@ function RootLayout() {
         <Outlet />
 
         <footer className="site-footer">
-          <div className="site-footer__inner">
-            <p>© {new Date().getFullYear()} Anton Vo</p>
-            <nav aria-label="Legal navigation">
-              <ul className="flex flex-wrap gap-x-5 gap-y-2">
-                <li>
-                  <Link className="footer-link" to="/privacy">
-                    Privacy policy
-                  </Link>
-                </li>
-                <li>
-                  <Link className="footer-link" to="/terms">
-                    Terms
-                  </Link>
-                </li>
-                <li>
-                  <Link className="footer-link" to="/support">
-                    Support
-                  </Link>
-                </li>
-                <li>
-                  <a className="footer-link" href="mailto:support@motedesktop.com">
-                    Email support
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
+          <p>© {new Date().getFullYear()} Anton Vo</p>
+          <nav aria-label="Legal navigation">
+            <ul className="flex flex-wrap gap-x-5 gap-y-2">
+              <li>
+                <Link className="footer-link" to="/privacy">
+                  Privacy policy
+                </Link>
+              </li>
+              <li>
+                <Link className="footer-link" to="/terms">
+                  Terms
+                </Link>
+              </li>
+              <li>
+                <Link className="footer-link" to="/support">
+                  Support
+                </Link>
+              </li>
+            </ul>
+          </nav>
         </footer>
         <Scripts />
       </body>
