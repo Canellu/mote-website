@@ -877,11 +877,26 @@ function HomePage() {
             Requirements, tier boundaries, and network behavior—answered from the current Windows
             release documentation.
           </p>
-          <div className="cx-faq__links">
-            <Link to="/guides/control-philips-hue-from-windows">Read the setup guide</Link>
-            <Link to="/features">Compare Free and Mote Pro</Link>
-            <Link to="/support">Get support</Link>
-          </div>
+          <nav className="cx-faq__links" aria-label="FAQ next steps">
+            <Link to="/guides/control-philips-hue-from-windows">
+              <span>Read the setup guide</span>
+              <svg aria-hidden="true" viewBox="0 0 20 20">
+                <path d="M4 10h12m-5-5 5 5-5 5" />
+              </svg>
+            </Link>
+            <Link to="/features">
+              <span>Compare Free and Mote Pro</span>
+              <svg aria-hidden="true" viewBox="0 0 20 20">
+                <path d="M4 10h12m-5-5 5 5-5 5" />
+              </svg>
+            </Link>
+            <Link to="/support">
+              <span>Get support</span>
+              <svg aria-hidden="true" viewBox="0 0 20 20">
+                <path d="M4 10h12m-5-5 5 5-5 5" />
+              </svg>
+            </Link>
+          </nav>
         </div>
 
         <div className="cx-faq__list">

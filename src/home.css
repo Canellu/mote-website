@@ -150,17 +150,45 @@ body:has(.home-page) :focus-visible {
 }
 .cx-faq__links {
   display: flex;
-  align-items: flex-start;
   flex-direction: column;
-  gap: 0.6rem;
-  margin-top: auto;
+  width: 100%;
+  max-width: 24rem;
+  margin-top: 0.35rem;
+  border-bottom: 1px solid var(--c-line);
 }
 .cx-faq__links a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  min-height: 3.25rem;
+  padding-block: 0.8rem;
+  border-top: 1px solid var(--c-line);
   color: var(--c-ink);
   font-weight: 600;
-  text-decoration-color: var(--c-accent);
-  text-decoration-thickness: 2px;
+  text-decoration-color: color-mix(in srgb, var(--c-accent) 55%, transparent);
+  text-decoration-thickness: 1.5px;
   text-underline-offset: 0.28em;
+}
+.cx-faq__links svg {
+  flex: 0 0 auto;
+  width: 1.1rem;
+  height: 1.1rem;
+  color: var(--c-accent);
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 180ms var(--cx-ease);
+}
+@media (hover: hover) and (pointer: fine) {
+  .cx-faq__links a:hover {
+    text-decoration-color: var(--c-accent);
+  }
+  .cx-faq__links a:hover svg {
+    transform: translateX(0.18rem);
+  }
 }
 .cx-faq__list {
   border-bottom: 1px solid var(--c-line);
@@ -1065,7 +1093,7 @@ body:has(.home-page) :focus-visible {
     gap: 1.15rem;
   }
   .cx-faq__links {
-    margin-top: 1.25rem;
+    margin-top: 0.75rem;
   }
   .cx-statement {
     grid-template-columns: 1fr;
@@ -1197,7 +1225,8 @@ body:has(.home-page) :focus-visible {
     animation: none;
   }
   .cx-faq__answer,
-  .cx-faq__item button svg {
+  .cx-faq__item button svg,
+  .cx-faq__links svg {
     transition-duration: 1ms;
   }
 }
