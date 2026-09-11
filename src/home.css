@@ -145,14 +145,15 @@ body:has(.home-page) :focus-visible {
   align-self: stretch;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: clamp(2rem, 5vw, 4.5rem);
+  justify-content: flex-start;
+  gap: 1.15rem;
 }
 .cx-faq__links {
   display: flex;
   align-items: flex-start;
   flex-direction: column;
   gap: 0.6rem;
+  margin-top: auto;
 }
 .cx-faq__links a {
   color: var(--c-ink);
