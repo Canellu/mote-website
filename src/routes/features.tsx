@@ -108,7 +108,7 @@ const featureGroups = [
     points: [
       "Video, Games, and Music modes for a compatible entertainment area",
       "Choose which part of the display each light follows",
-      "Position each light of the entertainment area in a three-dimensional model of the space",
+      "Build and position the entertainment area in a three-dimensional model of the room — that part is free, so you can confirm your hardware before buying",
       "Processing happens on your PC; captured pixels and audio are not uploaded",
     ],
     src: "/product/mote-sync-placement-screen-dark.png",
@@ -195,11 +195,18 @@ const comparisonRows: { name: string; free: ComparisonValue; pro: ComparisonValu
   { name: "Color and white temperature inspector", free: true, pro: true },
   { name: "Hue Play HDMI Sync Box", free: "One box", pro: "One box" },
   { name: "Hue Bridges", free: "One", pro: "Multiple" },
-  { name: "Desktop widgets", free: "1 standard", pro: "Unlimited" },
+  // The widget row counts nothing on purpose. The app has never limited how many
+  // widget windows are open; the paid boundary is how much one widget may hold,
+  // which is the row below it.
+  { name: "Desktop widgets", free: true, pro: true },
   { name: "Multiple controls in one widget", free: false, pro: true },
+  { name: "Widget theme, size, and placement", free: false, pro: true },
   { name: "Dashboard layout", free: "Standard", pro: "Custom" },
+  // Building and testing an entertainment area is free; only driving one from
+  // the PC is paid. The two used to share a row, which made the free half look
+  // like it was behind the purchase.
+  { name: "Entertainment area setup and testing", free: true, pro: true },
   { name: "PC Sync: Video, Games, and Music", free: false, pro: true },
-  { name: "Display sampling and 3D light placement", free: false, pro: true },
 ];
 
 /**
