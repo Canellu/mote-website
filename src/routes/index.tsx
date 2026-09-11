@@ -5,7 +5,7 @@
  * from this route's head — the page carries a whole visual language (its own
  * tokens, reveals and stage shapes) that no other route uses.
  */
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { ProductCapture } from "../components/product-capture";
 import { faqPageJsonLd, pageHead, softwareApplicationJsonLd } from "../lib/seo";
@@ -141,6 +141,42 @@ const faqItems = [
       "Check that the Hue Bridge is powered, connected to your router, and on the same local network as the PC. Network isolation, VPNs, firewalls, multicast filtering, and guest Wi-Fi can prevent discovery. Then try the setup flow again or contact support.",
   },
 ] as const;
+
+function FaqItem({ question, answer }: (typeof faqItems)[number]) {
+  const [isOpen, setIsOpen] = useState(false);
+  const answerId = useId();
+  const questionId = `${answerId}-question`;
+
+  return (
+    <div className="cx-faq__item" data-open={isOpen ? "true" : "false"}>
+      <h3>
+        <button
+          id={questionId}
+          type="button"
+          aria-expanded={isOpen}
+          aria-controls={answerId}
+          onClick={() => setIsOpen((open) => !open)}
+        >
+          <span>{question}</span>
+          <svg aria-hidden="true" viewBox="0 0 20 20">
+            <path d="m5.5 7.5 4.5 4.5 4.5-4.5" />
+          </svg>
+        </button>
+      </h3>
+      <div
+        id={answerId}
+        className="cx-faq__answer"
+        role="region"
+        aria-labelledby={questionId}
+        aria-hidden={!isOpen}
+      >
+        <div>
+          <p>{answer}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function HeroMedia() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -850,10 +886,7 @@ function HomePage() {
 
         <div className="cx-faq__list">
           {faqItems.map((item) => (
-            <details key={item.question}>
-              <summary>{item.question}</summary>
-              <p>{item.answer}</p>
-            </details>
+            <FaqItem key={item.question} {...item} />
           ))}
         </div>
       </section>
