@@ -40,15 +40,15 @@ Use clear product facts, readable documentation and original screenshots to help
 
 These are qualitative query hypotheses, not verified search-volume or competitiveness estimates. Validate them using actual search impressions and acquisition data.
 
-| Intent | Candidate queries | Primary destination | Publication condition |
-| --- | --- | --- | --- |
-| Find a Windows Hue controller | Philips Hue Windows app; Philips Hue desktop app; Philips Hue PC controller | Homepage | Verify Windows and Hue support |
-| Complete a task | control Philips Hue from PC; control Hue lights from Windows | `/guides/control-philips-hue-from-windows/` or the equivalent existing guide | Test the documented workflow |
-| Desktop widgets | Philips Hue desktop widgets; Hue widgets Windows | Widgets feature page | Verify widgets, placement and tier |
-| Screen synchronization | sync Philips Hue with PC; Philips Hue PC sync | PC Sync page | Verify exactly what is synchronized and requirements |
-| Supported OS | Hue lights Windows 11 | Homepage/requirements section | Confirm Windows 11 support |
-| Background access | Philips Hue system tray | Relevant feature page or FAQ | Use only if a shipping tray feature exists |
-| Brand and purchase | Mote Desktop; Mote Desktop download; Mote Pro | Homepage and pricing | Link to verified official Store product |
+| Intent                        | Candidate queries                                                           | Primary destination                                                          | Publication condition                                |
+| ----------------------------- | --------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------- |
+| Find a Windows Hue controller | Philips Hue Windows app; Philips Hue desktop app; Philips Hue PC controller | Homepage                                                                     | Verify Windows and Hue support                       |
+| Complete a task               | control Philips Hue from PC; control Hue lights from Windows                | `/guides/control-philips-hue-from-windows/` or the equivalent existing guide | Test the documented workflow                         |
+| Desktop widgets               | Philips Hue desktop widgets; Hue widgets Windows                            | Widgets feature page                                                         | Verify widgets, placement and tier                   |
+| Screen synchronization        | sync Philips Hue with PC; Philips Hue PC sync                               | PC Sync page                                                                 | Verify exactly what is synchronized and requirements |
+| Supported OS                  | Hue lights Windows 11                                                       | Homepage/requirements section                                                | Confirm Windows 11 support                           |
+| Background access             | Philips Hue system tray                                                     | Relevant feature page or FAQ                                                 | Use only if a shipping tray feature exists           |
+| Brand and purchase            | Mote Desktop; Mote Desktop download; Mote Pro                               | Homepage and pricing                                                         | Link to verified official Store product              |
 
 Assign one primary page per intent. Avoid separate near-identical pages for every keyword variation. Do not target “best,” “free,” music sync, Bluetooth-only control or remote control unless the content and product justify those terms.
 
@@ -110,15 +110,15 @@ Sitemap submission helps discovery but does not guarantee indexing. Follow Googl
 
 Proposed paths are suggestions; reuse equivalent existing pages. Link every published page from a relevant parent or related article.
 
-| Page | Purpose and required substance | Priority |
-| --- | --- | --- |
-| `/` | Product/category explanation, screenshot, requirements, download | First 48 hours |
+| Page                                        | Purpose and required substance                                                     | Priority                 |
+| ------------------------------------------- | ---------------------------------------------------------------------------------- | ------------------------ |
+| `/`                                         | Product/category explanation, screenshot, requirements, download                   | First 48 hours           |
 | `/guides/control-philips-hue-from-windows/` | Tested installation, pairing and first-control steps, screenshots, troubleshooting | First 48 hours or week 1 |
-| `/features/desktop-widgets/` | Actual widget types, workflow, limitations, tier and screenshots | Weeks 2–3 if supported |
-| `/features/pc-sync/` | What sync does, setup, hardware/OS/tier requirements and limitations | Weeks 2–3 if supported |
-| `/pricing/` | Verified base/Pro differences, purchase model and links; avoid stale price claims | Week 1 |
-| `/support/` | Contact route, compatibility and common connection problems | Week 1 |
-| `/privacy/` | Actual data handling consistent with the application | Verify immediately |
+| `/features/desktop-widgets/`                | Actual widget types, workflow, limitations, tier and screenshots                   | Weeks 2–3 if supported   |
+| `/features/pc-sync/`                        | What sync does, setup, hardware/OS/tier requirements and limitations               | Weeks 2–3 if supported   |
+| `/pricing/`                                 | Verified base/Pro differences, purchase model and links; avoid stale price claims  | Week 1                   |
+| `/support/`                                 | Contact route, compatibility and common connection problems                        | Week 1                   |
+| `/privacy/`                                 | Actual data handling consistent with the application                               | Verify immediately       |
 
 Content sequence:
 
@@ -178,18 +178,18 @@ Acceptance: listing copy matches app behavior and website tier labels, Store lin
 
 Publish plain visible questions and answers. The first draft may use the core definition below; all remaining answers require project evidence.
 
-| Question | Answer requirements |
-| --- | --- |
-| What is Mote Desktop? | A Windows app for controlling compatible Philips Hue lights and accessories over a local network; verify before publishing. |
-| Can I control Philips Hue lights from my PC? | Describe the tested Mote workflow, requirements and download link. |
-| Do I need a Hue Bridge? | State the actual requirement and supported models; explicitly address Bluetooth-only setups if known. |
-| Which Windows versions are supported? | Use current package and tested support information. |
-| What is included in Mote Pro? | List confirmed features and purchase model; link to the maintained tier comparison. |
-| Can I sync lights with my screen? | Explain verified PC Sync behavior, supported configurations, tier and limitations. |
-| Does Mote Desktop work without internet? | Distinguish local lighting control from setup, licensing, updates and other network dependencies. |
-| Can I use multiple Hue Bridges? | State confirmed tier and any tested limits. |
-| Is Mote Desktop an official Philips Hue app? | State the actual publisher relationship without implying endorsement. |
-| What should I do if my lights are not found? | Link to tested pairing/network troubleshooting and support. |
+| Question                                     | Answer requirements                                                                                                         |
+| -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| What is Mote Desktop?                        | A Windows app for controlling compatible Philips Hue lights and accessories over a local network; verify before publishing. |
+| Can I control Philips Hue lights from my PC? | Describe the tested Mote workflow, requirements and download link.                                                          |
+| Do I need a Hue Bridge?                      | State the actual requirement and supported models; explicitly address Bluetooth-only setups if known.                       |
+| Which Windows versions are supported?        | Use current package and tested support information.                                                                         |
+| What is included in Mote Pro?                | List confirmed features and purchase model; link to the maintained tier comparison.                                         |
+| Can I sync lights with my screen?            | Explain verified PC Sync behavior, supported configurations, tier and limitations.                                          |
+| Does Mote Desktop work without internet?     | Distinguish local lighting control from setup, licensing, updates and other network dependencies.                           |
+| Can I use multiple Hue Bridges?              | State confirmed tier and any tested limits.                                                                                 |
+| Is Mote Desktop an official Philips Hue app? | State the actual publisher relationship without implying endorsement.                                                       |
+| What should I do if my lights are not found? | Link to tested pairing/network troubleshooting and support.                                                                 |
 
 Do not publish unanswered questions, guessed compatibility or placeholder responses. A visible FAQ is useful independently of structured data. Do not add `QAPage` markup to a publisher-written FAQ. `FAQPage` markup is optional and has little expected Google presentation value for this product: Google limits FAQ rich results mainly to well-known authoritative government and health sites. Do not promise an FAQ rich result. Source: [Google's FAQ rich-result change](https://developers.google.com/search/blog/2023/08/howto-faq-changes).
 
@@ -236,16 +236,16 @@ Invite genuine users to leave honest feedback at an appropriate point in their e
 
 ### First 48 hours
 
-| Order | Work | Completion evidence |
-| --- | --- | --- |
-| P0 | Verify product facts, current routes and official Store URL | Claim/evidence table, unresolved questions listed |
-| P0 | Capture search and Store baseline where access exists | Dated exports with property, market and date range, or explicit access limitations |
-| P0 | Inspect and fix demonstrated indexing blockers | URL-by-URL HTTP, robots, canonical, sitemap and rendered-content checks |
-| P0 | Update homepage positioning, metadata and CTA | Reviewed page and mobile/desktop check |
-| P1 | Produce sitemap and verify Search Console setup | Valid production sitemap; submission/inspection record or named owner action |
-| P1 | Prepare Store copy, keyword candidates and screenshot plan | Complete reviewable listing draft |
-| P1 | Add truthful app JSON-LD and essential FAQ answers | Validation results and factual review |
-| P1 | Draft tested setup guide | Reproducible steps and original captures |
+| Order | Work                                                        | Completion evidence                                                                |
+| ----- | ----------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| P0    | Verify product facts, current routes and official Store URL | Claim/evidence table, unresolved questions listed                                  |
+| P0    | Capture search and Store baseline where access exists       | Dated exports with property, market and date range, or explicit access limitations |
+| P0    | Inspect and fix demonstrated indexing blockers              | URL-by-URL HTTP, robots, canonical, sitemap and rendered-content checks            |
+| P0    | Update homepage positioning, metadata and CTA               | Reviewed page and mobile/desktop check                                             |
+| P1    | Produce sitemap and verify Search Console setup             | Valid production sitemap; submission/inspection record or named owner action       |
+| P1    | Prepare Store copy, keyword candidates and screenshot plan  | Complete reviewable listing draft                                                  |
+| P1    | Add truthful app JSON-LD and essential FAQ answers          | Validation results and factual review                                              |
+| P1    | Draft tested setup guide                                    | Reproducible steps and original captures                                           |
 
 Complete work that can proceed without account access. Never claim an account configuration, submission or deployment was completed without evidence.
 
@@ -262,18 +262,18 @@ Do not expand to more content until foundational pages are accurate and usable. 
 
 Separate delivery criteria from desired market outcomes. The first month is an observation window, not a ranking guarantee.
 
-| Metric | Baseline and cadence | Success criterion or interpretation |
-| --- | --- | --- |
-| Technical readiness | Inspect at baseline and each release | 100% of the agreed indexable URL inventory returns a single final 200 response, declares the intended canonical, exposes its main content and has no accidental robots or `noindex` block |
-| Factual quality | Review each publication | 100% of product/compatibility/tier claims have a current ledger entry; zero placeholders, invented reviews or unmarked paid-feature claims |
-| Sitemap coverage | Check each release | 100% of the agreed canonical URL inventory is represented; zero redirect, error, duplicate or intentionally non-indexable URLs |
-| Search indexing | Search Console weekly | Homepage and priority guide indexed as a desired outcome; investigate non-indexed pages by recorded reason |
-| Non-brand discovery | Search Console weekly and day 30 | Record impressions, clicks, CTR and average position for a saved non-brand query filter; seek growth against baseline, not a promised position |
-| Relevant query reach | Count distinct observed target-intent queries | Establish first non-brand impressions if baseline is zero; report absolute counts and data limitations |
-| Website-to-Store engagement | Track outbound Store CTA clicks with a documented event name and denominator | Event fires once per intentional click in QA; compare clicks and rate over equal windows; outbound clicks are not installs |
-| Store acquisition | Available Partner Center reports weekly | Record listing visits, acquisitions and market/date filters where exposed; compute conversion only from compatible definitions and periods |
-| External discovery | Monthly candidate/outreach/mention log | Every candidate has a relevance rationale and checked promotion rule; record authorized sends, responses, authentic mentions and attributable traffic; no backlink or positive-response quota |
-| AI visibility | Fixed small prompt set at baseline and day 30 | Log system, date, locale, prompt, browsing mode, mention accuracy and cited URL; exploratory evidence only |
+| Metric                      | Baseline and cadence                                                         | Success criterion or interpretation                                                                                                                                                           |
+| --------------------------- | ---------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Technical readiness         | Inspect at baseline and each release                                         | 100% of the agreed indexable URL inventory returns a single final 200 response, declares the intended canonical, exposes its main content and has no accidental robots or `noindex` block     |
+| Factual quality             | Review each publication                                                      | 100% of product/compatibility/tier claims have a current ledger entry; zero placeholders, invented reviews or unmarked paid-feature claims                                                    |
+| Sitemap coverage            | Check each release                                                           | 100% of the agreed canonical URL inventory is represented; zero redirect, error, duplicate or intentionally non-indexable URLs                                                                |
+| Search indexing             | Search Console weekly                                                        | Homepage and priority guide indexed as a desired outcome; investigate non-indexed pages by recorded reason                                                                                    |
+| Non-brand discovery         | Search Console weekly and day 30                                             | Record impressions, clicks, CTR and average position for a saved non-brand query filter; seek growth against baseline, not a promised position                                                |
+| Relevant query reach        | Count distinct observed target-intent queries                                | Establish first non-brand impressions if baseline is zero; report absolute counts and data limitations                                                                                        |
+| Website-to-Store engagement | Track outbound Store CTA clicks with a documented event name and denominator | Event fires once per intentional click in QA; compare clicks and rate over equal windows; outbound clicks are not installs                                                                    |
+| Store acquisition           | Available Partner Center reports weekly                                      | Record listing visits, acquisitions and market/date filters where exposed; compute conversion only from compatible definitions and periods                                                    |
+| External discovery          | Monthly candidate/outreach/mention log                                       | Every candidate has a relevance rationale and checked promotion rule; record authorized sends, responses, authentic mentions and attributable traffic; no backlink or positive-response quota |
+| AI visibility               | Fixed small prompt set at baseline and day 30                                | Log system, date, locale, prompt, browsing mode, mention accuracy and cited URL; exploratory evidence only                                                                                    |
 
 At baseline, save available preceding-period data or record that the launch history is too short. Compare equal windows when possible; do not invent a prior 30-day period or report percentage growth from zero. Separate branded from non-branded queries. Small samples, reporting delays and changing rankings limit causal conclusions.
 
