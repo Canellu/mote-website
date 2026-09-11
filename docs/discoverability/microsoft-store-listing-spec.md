@@ -1,14 +1,20 @@
 # Microsoft Store listing specification
 
-Status: reviewable draft only; not submitted
+Status: submitted to certification on 11 September 2026; Partner Center is now the record
 
 Prepared: 11 September 2026
 
 Language: English (United States)
 
-This draft describes the currently available Free listing. Mote Pro is not yet available to buy, so
-the customer-facing description does not present a purchase path or price. Re-review every field in
-Partner Center against the release package before submission.
+This describes the currently available Free listing. Mote Pro still cannot be bought — its durable
+add-on was submitted the same day and publishes manually — so the customer-facing description
+presents no purchase path or price.
+
+Two corrections were made in Partner Center before submitting, and both are the reason to treat the
+live listing rather than this file as the record. A product feature read "Create one standard
+desktop lighting widget" and the short description called "multiple widgets" a Pro feature. Neither
+is true: the app sets no limit on widget windows, and the paid boundary is how much one widget may
+hold. The package, pricing, properties and age ratings were all unchanged.
 
 ## Product name
 
@@ -52,6 +58,12 @@ Learn more, compare Free with the planned Mote Pro tier, and get support at
 https://motedesktop.com.
 
 ## Mote Pro launch insert — hold until purchase is live
+
+Still held as of 11 September 2026. The add-on (`mote-pro`, Store ID `9P3J5KCBFVQZ`) was submitted
+that day but publishes manually, so it is not yet purchasable. Publishing it is what releases this
+insert — and the same window must update `/features` and `/terms`, which both currently say Mote Pro
+"is not yet available to buy". That sentence is true today and false the moment the add-on goes
+live.
 
 Insert only after Partner Center shows the durable add-on as published and release acceptance has
 verified purchase, restore, offline license, refund/revocation, and locked-state behavior:

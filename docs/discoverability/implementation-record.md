@@ -22,8 +22,8 @@ repository work, and owner-only account actions.
 | Pairing workflow       | “Choose Connect, select a discovered bridge when needed, then press the round bridge link button.”                                                | `mote-desktop/src/features/setup-wizard/steps/WelcomeStep.tsx`, `SelectBridgeStep.tsx`, and `PairingStep.tsx`                                                     | Implementation checked 2026-09-11                                    | Anton Vo | Verified                                                                         | Setup guide; FAQ                                        |
 | Local-network behavior | “Core lighting commands travel between the PC and Hue Bridge across the local network.”                                                           | `mote-desktop/docs/known-limitations.md`; website privacy policy; Hue client architecture                                                                         | Repository checked 2026-09-11                                        | Anton Vo | Verified with explicit exceptions                                                | Homepage; setup guide; FAQ; Store draft                 |
 | Free tier availability | “Mote Desktop is free on the Microsoft Store.”                                                                                                    | Live Store product ID `9P910JMMP9SZ`; website `PRODUCT.md`; `src/lib/links.ts`                                                                                    | Store and repositories checked 2026-09-11                            | Anton Vo | Verified                                                                         | Header, homepage, footer, features, schema, setup guide |
-| Mote Pro availability  | “Mote Pro is planned as a one-time Microsoft Store purchase and is not yet available to buy.”                                                     | Website `PRODUCT.md`; `mote-desktop/docs/windows-store-commerce-spike.md`; hidden add-on state                                                                    | Repositories checked 2026-09-11                                      | Anton Vo | Verified current state; must change when the add-on is published                 | Features; FAQ; Store draft notes                        |
-| Mote Pro features      | “Mote Pro adds PC Sync, advanced and additional widgets, a custom dashboard layout, and multiple saved Hue Bridges.”                              | `mote-desktop/docs/free-pro-feature-matrix.md`; `docs/known-limitations.md`; current app implementation                                                           | Docs reviewed 2026-08-14; implementation checked 2026-09-11          | Anton Vo | Verified as entitlement plan; purchase/restore acceptance remains a release gate | Homepage PC Sync section; features; FAQ; Store draft    |
+| Mote Pro availability  | “Mote Pro is a one-time Microsoft Store purchase and is not yet available to buy.”                                                                | Website `PRODUCT.md`; `mote-desktop/docs/windows-store-commerce-spike.md`; hidden add-on state                                                                    | Repositories checked 2026-09-11                                      | Anton Vo | Verified current state; must change when the add-on is published                 | Features; FAQ; Store draft notes                        |
+| Mote Pro features      | “Mote Pro adds PC Sync, advanced widget composition and customization, a custom dashboard layout, and multiple saved Hue Bridges.”                | `mote-desktop/docs/free-pro-feature-matrix.md`; `docs/known-limitations.md`; current app implementation                                                           | Docs reviewed 2026-08-14; implementation checked 2026-09-11          | Anton Vo | Verified as entitlement plan; purchase/restore acceptance remains a release gate | Homepage PC Sync section; features; FAQ; Store draft    |
 | Multiple bridges       | “Mote Pro can save and switch among multiple Hue Bridges, with one active at a time.”                                                             | `mote-desktop/docs/free-pro-feature-matrix.md`; `docs/known-limitations.md`                                                                                       | Docs reviewed 2026-08-14                                             | Anton Vo | Verified                                                                         | Features; setup guide; FAQ; Store draft                 |
 | PC Sync                | “PC Sync can run Video, Games, and Music modes with compatible Hue entertainment hardware; Music uses system-audio loopback, not the microphone.” | `mote-desktop/docs/v1-feature-inventory.md`; `docs/known-limitations.md`; PC Sync UI and host commands                                                            | Docs reviewed 2026-08-14; implementation checked 2026-09-11          | Anton Vo | Verified with display/HDR/audio/hardware acceptance caveat                       | Homepage; features; FAQ; Store draft                    |
 | Publisher relationship | “Mote Desktop is not affiliated with, authorized by, sponsored by, or endorsed by Signify.”                                                       | `mote-desktop/docs/microsoft-store-listing-copy.md`; website legal copy                                                                                           | Listing draft reviewed 2026-08-14; website checked 2026-09-11        | Anton Vo | Owner-approved repository wording; final legal review remains required           | FAQ; Store draft                                        |
@@ -213,3 +213,27 @@ Consequences for the day-30 review, which falls on 11 October 2026:
 - The first search data will describe a site that already carries the trailing-slash fix and the
   feature pages, so early impressions cannot be attributed to any single change. Record release
   dates and accept the confounding rather than explaining it away.
+
+## Mote Pro and enforcement — 11 September 2026
+
+The paid tier stopped being a plan on this date, which changes what the claim ledger above has to
+guard.
+
+- The `mote-pro` durable add-on (Store ID `9P3J5KCBFVQZ`) was submitted to certification: hidden from
+  Store discovery, purchasable only from inside the app, NOK 149 base across 240 markets, publishing
+  manually. It is therefore **still not purchasable**, and every "not yet available to buy" claim on
+  the site remains accurate until someone publishes it.
+- The parent listing was submitted the same day with two corrections. A product feature read "Create
+  one standard desktop lighting widget" and the short description called "multiple widgets" a Pro
+  feature. The app sets no limit on widget windows; the paid boundary is how much a single widget may
+  hold. Both were wrong in the customer's favour to correct — they understated the free product.
+- The same wrong claim was fixed on `/features`, on the widgets page, and in
+  `mote-desktop/docs/microsoft-store-listing-copy.md`, which is where it originated. Fixing only the
+  Store would have let it come back on the next submission.
+- The application now enforces Pro on starting a PC Sync session and on saving a second bridge. The
+  custom dashboard layout and advanced widget composition are described as paid but are not yet
+  gated, so the site should not claim they are locked.
+
+Two things must move together when the add-on is published: the Store insert held in
+`microsoft-store-listing-spec.md`, and the sentences on `/features` and `/terms` saying Mote Pro is
+not yet available to buy. They are true now and false immediately afterwards.

@@ -32,7 +32,8 @@ People use Mote while working, playing, watching video, or listening to music at
 - PC Sync availability can depend on display capture, system-audio loopback, networking, firewall, VPN, and hardware conditions.
 - The initial release targets Windows. Core product language should describe Mote as a desktop product; mention Windows only for current availability, requirements, or platform-specific behavior.
 - The Microsoft Store listing is live and the free tier can be downloaded today. The one-time Mote Pro purchase is not yet available, so the website must not imply that visitors can buy Pro today.
-- A Mote Pro base retail price of NOK 149 is saved in Partner Center, but the site must not show it. The add-on is hidden and set to publish manually, its market conversions are unreviewed, and the sibling repository's `docs/website-launch-plan.md` forbids advertising a price before it appears in approved Store listing copy. Source: `mote-desktop/docs/windows-store-commerce-spike.md`.
+- A Mote Pro base retail price of NOK 149 is saved in Partner Center, but the site must not show it. The add-on was submitted on 11 September 2026 and remains hidden from Store discovery, purchasable only from inside the app, and set to publish manually; its market conversions are unreviewed, and the sibling repository's `docs/website-launch-plan.md` forbids advertising a price before it appears in approved Store listing copy. Source: `mote-desktop/docs/windows-store-commerce-spike.md`.
+- Publishing the add-on is a website event too. `/features` and `/terms` both state that Mote Pro "is not yet available to buy", which is accurate now and wrong the moment it is published, so the two changes belong in the same window.
 
 ## Brand Commitments
 
