@@ -21,3 +21,9 @@ scripts/capture-*.cjs
 
 # Local development process output.
 .codex-vite.*.log
+
+# graft's local graph cache — regenerable, not committed (run `graft build`).
+/graft/
+
+# Machine-local Claude Code settings.
+.claude/settings.local.json
