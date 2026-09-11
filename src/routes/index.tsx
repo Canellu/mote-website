@@ -754,7 +754,7 @@ function HomePage() {
         <div className="cx-hero__layout">
           <div className="cx-hero__copy">
             <h1 className="cx-reveal" id="cx-hero-title">
-              Control your Philips Hue lights from Windows.
+              Control Philips Hue lights from your Windows PC.
             </h1>
             <p className="cx-reveal">
               Mote Desktop is an unofficial Windows app for controlling compatible Philips Hue

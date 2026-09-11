@@ -1,6 +1,7 @@
 # Discoverability implementation record
 
-Status: repository implementation in progress; no deployment or account submission performed
+Status: repository implementation complete and passing locally; NOT yet live. Production serves a
+build that predates the discoverability work. No account submission performed.
 
 Checked: 11 September 2026
 
@@ -112,3 +113,33 @@ No public deployment, indexing request, Store submission, or outreach was perfor
 - Graft served an automatically refreshed working graph copied from the main checkout for repository
   orientation. `graft_check_freshness` reported that this worktree has no committed
   `graft/manifest.json`, so committed-graph freshness could not be certified here.
+
+## Production verification — 11 September 2026
+
+Checked against `https://motedesktop.com` with `curl`. No account access was used or required.
+
+The deployed site predates commit `a8671eb`, so none of the discoverability work above is live. The
+Cloudflare build was blocked by documentation formatting; `67aa19e` fixed that, but no successful
+deploy has followed. `vp check` and the full `bun run build` both pass locally as of this date, so
+the build gate is clear and a rebuild is the only outstanding step.
+
+| Check                                      | Production                                                                                                                                                                                     | Repository / local build                            |
+| ------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
+| FAQ disclosure elements                    | Zero `<details>` in the homepage HTML                                                                                                                                                          | Ten evidence-backed questions                       |
+| FAQ markup                                 | No `FAQPage`, `Question`, or `Answer` types                                                                                                                                                    | Emitted by `src/lib/seo.ts`                         |
+| Application markup                         | `SoftwareApplication`, `Offer`, `Person` present from the earlier pass                                                                                                                         | Unchanged                                           |
+| `/guides/control-philips-hue-from-windows` | Returns 200 but serves the homepage: homepage `<title>`, homepage `<h1>`, and `canonical` pointing at `https://motedesktop.com/`                                                               | Prerenders as its own page with its own canonical   |
+| `sitemap.xml`                              | Five URLs; the setup guide is absent. `cf-cache-status: DYNAMIC` and a cache-busted request returned the same five, so this is a stale deploy rather than an edge cache                        | Six URLs including the guide                        |
+| Apex host                                  | `http://motedesktop.com` redirects once to `https://motedesktop.com/` and returns 200                                                                                                          | —                                                   |
+| `www` host                                 | Not attached to the Pages project; serves Cloudflare's "is not set up yet" placeholder. `public/_redirects` now carries the www-to-apex rule and takes effect once the custom domain is added  | —                                                   |
+| Analytics beacon                           | No Cloudflare Insights script in the production HTML, so `VITE_CF_BEACON_TOKEN` is unset in the build environment                                                                              | Loads only when the token is configured             |
+| `robots.txt`                               | Cloudflare's managed robots.txt prepends `Disallow: /` for ClaudeBot, GPTBot, Google-Extended, CCBot, Applebot-Extended, meta-externalagent and Bytespider, plus `Content-Signal: ai-train=no` | Repository file is `Allow: /` plus the sitemap line |
+
+The guide result is the most damaging: the priority non-brand landing page does not exist in
+production, and the fallback canonicalises it to the homepage, so it would be dropped even if
+crawled. Do not submit the sitemap or request indexing until a rebuild has shipped, or the first
+Search Console data will describe a site that does not contain the work.
+
+The `robots.txt` blocks are blanket `Disallow` directives, so they prevent retrieval and citation,
+not only model training. That contradicts section 10 of the brief and is a Cloudflare dashboard
+setting, not a repository change; record an explicit owner decision either way.
