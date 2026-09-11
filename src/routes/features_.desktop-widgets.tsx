@@ -8,14 +8,14 @@ import { pageHead } from "../lib/seo";
  * Sourced from `mote-desktop/docs/free-pro-feature-matrix.md` and
  * `docs/known-limitations.md`, reviewed 2026-09-01.
  *
- * One claim is deliberately absent: how many widgets the free app allows. The
- * feature matrix and known-limitations both say the app sets no limit on widget
- * windows, while `/features` and the Store listing spec both describe a
- * one-widget free allowance. Until an owner decision settles that, this page
- * describes the control-composition boundary, which both readings agree on, and
- * claims no number. Do not add a count here without updating the claim ledger.
+ * The widget count was contested — `/features` and the Store listing spec both
+ * described a one-widget free allowance the feature matrix contradicts — and was
+ * settled by reading the app: no command limits how many widget windows exist,
+ * and the capability the matrix reserves is named `advanced_widgets` because it
+ * gates composition, not creation. Both other surfaces were corrected to match.
  */
 const freeCapabilities = [
+  "As many widgets as you want on the desktop — the app sets no limit",
   "One single-target control per widget — a room, a zone, or a light each count as one target",
   "Standard widget size, the system theme, and ordinary window behaviour",
 ];
@@ -32,7 +32,8 @@ function DesktopWidgetsPage() {
       <PageIntro title="Desktop widgets for your Hue lights">
         <p>
           A widget is a small always-available window that controls one room, zone, or light without
-          opening the full dashboard — the light you reach for most, kept one click away.
+          opening the full dashboard. Keep as many as you like — the free app sets no limit on how
+          many sit on your desktop.
         </p>
       </PageIntro>
 

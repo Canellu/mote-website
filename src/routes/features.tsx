@@ -79,12 +79,15 @@ const featureGroups = [
     tiers: ["Free", "Mote Pro"],
     title: "Desktop widgets",
     summary: "Keep the controls you use most pinned beside your work.",
+    // The tier split here is composition, not count: the app has never limited
+    // how many widget windows you open. Sourced from the Free/Pro feature matrix
+    // in mote-desktop, which the `advanced_widgets` capability is named after.
     points: [
       "Name each widget so it is easy to recognize later",
-      "Combine rooms, zones, and individual lights in one widget",
+      "Free keeps one room, zone, or light in each widget",
       "Arrange the controls, choose the density and appearance, and preview the result",
-      "Free includes one standard widget with one room, zone, or light",
-      "Mote Pro adds unlimited advanced widgets with multiple controls and customization",
+      "Mote Pro combines several controls, or a whole toggle group, in one widget",
+      "Mote Pro also chooses each widget's theme, size, placement, and always-on-top behavior",
     ],
     src: "/product/mote-widget-stack-dark.png",
     alt: "A stack of colorful Mote Desktop widgets for rooms, scenes, and lights",
