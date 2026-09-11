@@ -1,7 +1,7 @@
 import { MICROSOFT_STORE_URL } from "./links";
 import { PUBLISHER } from "./legal";
 
-const siteUrl = "https://motedesktop.com";
+import { canonical, SITE_URL } from "./canonical";
 
 /**
  * The card every link preview shows. One card serves every page: a share of
@@ -26,8 +26,8 @@ interface PageHeadOptions {
 }
 
 export function pageHead({ description, path, title, jsonLd }: PageHeadOptions) {
-  const canonicalUrl = new URL(path, siteUrl).toString();
-  const imageUrl = new URL(socialCard.path, siteUrl).toString();
+  const canonicalUrl = canonical(path);
+  const imageUrl = new URL(socialCard.path, SITE_URL).toString();
 
   return {
     meta: [
@@ -68,19 +68,19 @@ export function softwareApplicationJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "@id": `${siteUrl}/#software`,
+    "@id": `${SITE_URL}/#software`,
     name: "Mote Desktop",
     description:
       "A Windows app for controlling compatible Philips Hue lights, rooms, zones, and scenes over a local network.",
     applicationCategory: "UtilitiesApplication",
     applicationSubCategory: "Home automation",
     operatingSystem: "Windows 10, Windows 11",
-    url: `${siteUrl}/`,
-    mainEntityOfPage: `${siteUrl}/`,
+    url: `${SITE_URL}/`,
+    mainEntityOfPage: `${SITE_URL}/`,
     downloadUrl: MICROSOFT_STORE_URL,
     installUrl: MICROSOFT_STORE_URL,
-    image: new URL(socialCard.path, siteUrl).toString(),
-    softwareHelp: `${siteUrl}/support`,
+    image: new URL(socialCard.path, SITE_URL).toString(),
+    softwareHelp: canonical("/support"),
     author: { "@type": "Person", name: PUBLISHER },
     publisher: { "@type": "Person", name: PUBLISHER },
     offers: {
@@ -114,7 +114,7 @@ export function faqPageJsonLd(items: readonly FaqItem[]) {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "@id": `${siteUrl}/#faq`,
+    "@id": `${SITE_URL}/#faq`,
     mainEntity: items.map((item) => ({
       "@type": "Question",
       name: item.question,

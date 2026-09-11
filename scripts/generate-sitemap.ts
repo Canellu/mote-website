@@ -1,15 +1,14 @@
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { canonical } from "../src/lib/canonical";
 
-const siteUrl = "https://motedesktop.com";
 const inventoryPath = path.resolve("scripts/public-routes.json");
 const sitemapPath = path.resolve("public/sitemap.xml");
 const inventory = JSON.parse(await readFile(inventoryPath, "utf8")) as { paths: string[] };
 
-const urls = inventory.paths.map((route) => {
-  const canonical = new URL(route, siteUrl).toString();
-  return `  <url><loc>${canonical}</loc></url>`;
-});
+// canonical() comes from the page metadata so a sitemap entry and the canonical
+// tag on the page it names can never disagree about the trailing slash.
+const urls = inventory.paths.map((route) => `  <url><loc>${canonical(route)}</loc></url>`);
 
 const sitemap = [
   '<?xml version="1.0" encoding="UTF-8"?>',

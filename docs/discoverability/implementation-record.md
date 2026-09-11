@@ -1,7 +1,8 @@
 # Discoverability implementation record
 
-Status: repository implementation complete and passing locally; NOT yet live. Production serves a
-build that predates the discoverability work. No account submission performed.
+Status: repository implementation complete and passing locally. The discoverability build reached
+production on 11 September 2026; a trailing-slash canonical fix is committed and awaiting the next
+deploy. No account submission performed.
 
 Checked: 11 September 2026
 
@@ -118,28 +119,34 @@ No public deployment, indexing request, Store submission, or outreach was perfor
 
 Checked against `https://motedesktop.com` with `curl`. No account access was used or required.
 
-The deployed site predates commit `a8671eb`, so none of the discoverability work above is live. The
-Cloudflare build was blocked by documentation formatting; `67aa19e` fixed that, but no successful
-deploy has followed. `vp check` and the full `bun run build` both pass locally as of this date, so
-the build gate is clear and a rebuild is the only outstanding step.
+A Cloudflare deploy landed partway through this check, so the results come in two halves. Earlier in
+the session production still served a build predating `a8671eb`: the homepage carried no FAQ and no
+`FAQPage` markup, the sitemap listed five URLs without the setup guide, and the guide path returned
+200 while serving homepage content under a canonical pointing at `/`. Those readings were taken with
+cache-busted requests against `cf-cache-status: DYNAMIC` responses, so they reflect the origin at the
+time rather than a stale edge copy. The documentation formatting fixed by `67aa19e` had been blocking
+that build.
 
-| Check                                      | Production                                                                                                                                                                                     | Repository / local build                            |
-| ------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
-| FAQ disclosure elements                    | Zero `<details>` in the homepage HTML                                                                                                                                                          | Ten evidence-backed questions                       |
-| FAQ markup                                 | No `FAQPage`, `Question`, or `Answer` types                                                                                                                                                    | Emitted by `src/lib/seo.ts`                         |
-| Application markup                         | `SoftwareApplication`, `Offer`, `Person` present from the earlier pass                                                                                                                         | Unchanged                                           |
-| `/guides/control-philips-hue-from-windows` | Returns 200 but serves the homepage: homepage `<title>`, homepage `<h1>`, and `canonical` pointing at `https://motedesktop.com/`                                                               | Prerenders as its own page with its own canonical   |
-| `sitemap.xml`                              | Five URLs; the setup guide is absent. `cf-cache-status: DYNAMIC` and a cache-busted request returned the same five, so this is a stale deploy rather than an edge cache                        | Six URLs including the guide                        |
-| Apex host                                  | `http://motedesktop.com` redirects once to `https://motedesktop.com/` and returns 200                                                                                                          | —                                                   |
-| `www` host                                 | Not attached to the Pages project; serves Cloudflare's "is not set up yet" placeholder. `public/_redirects` now carries the www-to-apex rule and takes effect once the custom domain is added  | —                                                   |
-| Analytics beacon                           | No Cloudflare Insights script in the production HTML, so `VITE_CF_BEACON_TOKEN` is unset in the build environment                                                                              | Loads only when the token is configured             |
-| `robots.txt`                               | Cloudflare's managed robots.txt prepends `Disallow: /` for ClaudeBot, GPTBot, Google-Extended, CCBot, Applebot-Extended, meta-externalagent and Bytespider, plus `Content-Signal: ai-train=no` | Repository file is `Allow: /` plus the sitemap line |
+The current deployed state is good: ten FAQ disclosures render, `FAQPage`, `Question`, `Answer`,
+`SoftwareApplication` and `Offer` are all present, the sitemap lists all six canonical URLs, and the
+setup guide serves its own title and canonical. Treat the earlier half as the reason the first
+indexing attempt should not be trusted, not as the current state.
 
-The guide result is the most damaging: the priority non-brand landing page does not exist in
-production, and the fallback canonicalises it to the homepage, so it would be dropped even if
-crawled. Do not submit the sitemap or request indexing until a rebuild has shipped, or the first
-Search Console data will describe a site that does not contain the work.
+One defect remains, found during the same pass:
+
+| Check            | Result                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Trailing slashes | Every non-root route 308-redirects to a trailing-slash URL (`/features` to `/features/`, and the same for `/privacy`, `/terms`, `/support` and the guide), while the sitemap and each page's own canonical declared the slashless form. Five of six inventory URLs were therefore redirects, and each canonical named a URL that redirects rather than the 200 answering it. Fixed in source: `canonical()` in `src/lib/seo.ts` now appends the slash, and `scripts/generate-sitemap.ts` builds every entry through it |
+| Apex host        | `http://motedesktop.com` redirects once to `https://motedesktop.com/` and returns 200                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `www` host       | Not attached to the Pages project; serves Cloudflare's "is not set up yet" placeholder. `public/_redirects` carries the www-to-apex rule and takes effect once the custom domain is added                                                                                                                                                                                                                                                                                                                              |
+| Analytics beacon | No Cloudflare Insights script in the production HTML, so `VITE_CF_BEACON_TOKEN` is unset in the build environment                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `robots.txt`     | Cloudflare's managed robots.txt prepends `Disallow: /` for ClaudeBot, GPTBot, Google-Extended, CCBot, Applebot-Extended, meta-externalagent and Bytespider, plus `Content-Signal: ai-train=no`                                                                                                                                                                                                                                                                                                                         |
+
+The trailing-slash mismatch failed two of the section 12 criteria at once — a single final 200
+response for the whole indexable inventory, and a sitemap carrying zero redirect URLs — so hold
+sitemap submission and indexing requests until the deploy carrying the fix is live and the routes
+have been rechecked.
 
 The `robots.txt` blocks are blanket `Disallow` directives, so they prevent retrieval and citation,
 not only model training. That contradicts section 10 of the brief and is a Cloudflare dashboard
-setting, not a repository change; record an explicit owner decision either way.
+setting rather than a repository change; record an explicit owner decision either way.
