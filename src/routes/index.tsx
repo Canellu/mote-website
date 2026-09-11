@@ -362,7 +362,6 @@ function Carousel({
   const [nav, setNav] = useState({ atEnd: false, atStart: true, index: 0 });
   const [isPlaying, setIsPlaying] = useState(false);
   const [userPaused, setUserPaused] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
   const [hasEntered, setHasEntered] = useState(false);
   const frameRef = useRef(0);
   // What is left of the current slide's time, and when the run began. A pause
@@ -507,11 +506,7 @@ function Carousel({
 
     const sync = () => {
       setIsPlaying(
-        inView &&
-          document.visibilityState === "visible" &&
-          !motion.matches &&
-          !userPaused &&
-          !isHovered,
+        inView && document.visibilityState === "visible" && !motion.matches && !userPaused,
       );
     };
 
@@ -532,7 +527,7 @@ function Carousel({
       motion.removeEventListener("change", sync);
       document.removeEventListener("visibilitychange", sync);
     };
-  }, [autoplay, userPaused, isHovered]);
+  }, [autoplay, userPaused]);
 
   // Declared before the timer below so that on a slide change the ordering is:
   // the timer's cleanup banks its remainder, this resets the budget, and only
@@ -541,8 +536,8 @@ function Carousel({
     remainingRef.current = SLIDE_MS;
   }, [active]);
 
-  // A timeout over what remains, not a fixed interval: pausing (hover, off
-  // screen, the play control) has to hold the slide's clock where it is, and an
+  // A timeout over what remains, not a fixed interval: pausing (off screen,
+  // the play control) has to hold the slide's clock where it is, and an
   // interval would silently restart it from a full slide on every resume.
   useEffect(() => {
     if (!isPlaying) return;
@@ -648,20 +643,6 @@ function Carousel({
         role="group"
         aria-label={label}
         tabIndex={0}
-        onPointerEnter={
-          autoplay
-            ? (event) => {
-                if (event.pointerType === "mouse") setIsHovered(true);
-              }
-            : undefined
-        }
-        onPointerLeave={
-          autoplay
-            ? (event) => {
-                if (event.pointerType === "mouse") setIsHovered(false);
-              }
-            : undefined
-        }
       >
         {items.map((item) => (
           <figure key={item.src}>
