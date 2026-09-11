@@ -1,8 +1,8 @@
 # Discoverability implementation record
 
-Status: repository implementation complete and live. The discoverability build and the trailing-slash
-canonical fix both reached production on 11 September 2026 and were verified there. No account
-submission performed; the owner actions below remain open.
+Status: complete and live. The discoverability build and the trailing-slash canonical fix reached
+production on 11 September 2026, and the three Cloudflare dashboard actions were applied and
+verified the same day. Search Console sitemap submission and the Partner Center review remain open.
 
 Checked: 11 September 2026
 
@@ -87,33 +87,40 @@ baseline is zero or small; do not calculate percentage growth from zero.
 Deployment reached production through the existing Cloudflare Pages Git integration. No indexing
 request, Store submission, or outreach was performed.
 
-### Cloudflare dashboard steps
+### Cloudflare dashboard actions — completed 11 September 2026
 
-Three of the actions above are Cloudflare dashboard changes with no repository equivalent. Paths as
-documented in September 2026; Cloudflare moves these pages, so treat the navigation as a hint and the
-outcome as the check.
+All three were applied in the Cloudflare dashboard for account `9e22016d…` and verified against the
+live site. Navigation is recorded because Cloudflare moves these pages.
 
-1. **Redirect www to the apex.** Pages does not support domain-level rules in `_redirects`, so this
-   is DNS plus a redirect rule. Add a DNS record for `www` as an `A` record pointing at `192.0.2.1`
-   with the orange-cloud proxy on — that address is the reserved documentation IP that exists only to
-   give the proxy something to attach a rule to. Then under Bulk Redirects create a list with source
-   `www.motedesktop.com`, target `https://motedesktop.com`, status 301, and the parameters preserve
-   query string, subpath matching, preserve path suffix and include subdomains, and create a rule
-   using it. Verify with `curl -sSI https://www.motedesktop.com/` and confirm a single 301 to the
-   apex. Attaching www as a second Pages custom domain is not required and would serve a duplicate
-   site rather than redirecting.
-2. **Set the analytics token.** Take the site token from Web Analytics for `motedesktop.com`, then
-   add `VITE_CF_BEACON_TOKEN` under the Pages project's Settings, Environment variables, for the
-   production environment, and redeploy — the site is prerendered, so the value is read at build time
-   and a redeploy is what bakes it in. If Web Analytics is also enabled directly on the Pages
-   project, Cloudflare injects its own beacon and the page would report every view twice; use one
-   mechanism, and confirm exactly one request to `cloudflareinsights.com` in the network panel.
-3. **Decide the AI crawler preference.** The managed robots.txt setting is under Security, Settings,
-   filtered to Bot traffic, as "set your preference to block training in robots.txt". Turning it off
-   stops Cloudflare prepending its Disallow groups and leaves the repository's `Allow: /` as what
-   crawlers receive. Check whether a separate AI Crawl Control or Block AI Bots rule is also active,
-   since that enforces at the network layer and would keep blocking regardless of robots.txt. Verify
-   with `curl https://motedesktop.com/robots.txt` and record the decision and date here.
+1. **www now redirects to the apex.** `www.motedesktop.com` already existed as a proxied `A` record,
+   so no DNS change was needed and the documented `192.0.2.1` placeholder record did not apply. Under
+   Rules, Redirect Rules, the "Redirect from WWW to root" template was deployed as a single redirect
+   named "Redirect www to apex": wildcard `https://www.*` to `https://${1}`, 301, with preserve query
+   string enabled. Cloudflare warned that www might not be proxied; that warning was a false negative
+   and "ignore and deploy" was correct, since creating a second record would have conflicted.
+2. **Always Use HTTPS was turned on** under SSL/TLS, Edge Certificates. The redirect rule matches
+   only the `https://` scheme, so `http://www.motedesktop.com` was still answering 200 without ever
+   reaching the apex. The zone is on Full encryption mode, so the redirect-loop warning attached to
+   this setting — which applies to Flexible mode — did not apply. It also closed roughly 140 requests
+   in the preceding 24 hours that were being served over plaintext HTTP.
+3. **Cloudflare's managed robots.txt was disabled** under Security, Settings, Bot traffic, "Manage
+   your robots.txt", by selecting "Disable robots.txt configuration" in place of "Instruct AI bots to
+   not scrape content". The live file is now exactly the repository's, with zero `Disallow`
+   directives. Separately, the AI bot policies for Search, Agent and Training were already set to
+   "Allow (do not block)", and the deprecated Block AI bots preference was changed from "mixed
+   purpose crawlers will be blocked on September 15" to "will continue to be allowed", since
+   mixed-purpose crawlers are used for search indexing as well as training.
+
+`VITE_CF_BEACON_TOKEN` was deliberately **not** set. Web Analytics for `motedesktop.com` is already
+configured with RUM automatic injection, and the live page loads `beacon.min.js` under token
+`6720e39a…` with page views recording. Adding the build-time token would have injected a second
+beacon and double-counted every view, which is the duplicate-beacon failure the owner action above
+warns about. A `curl` of the HTML does not show the script because the edge skips injection for
+non-browser clients; verify this one in a real browser, not with `curl`.
+
+Two observations worth carrying forward: the apex is a proxied `CNAME` to `mote-website.pages.dev`,
+which names the Pages project, and a `google-site-verification` TXT record already exists on the
+apex, so Search Console is verified and only the sitemap submission remains.
 
 ## Local verification — 11 September 2026
 
@@ -167,9 +174,9 @@ One defect remains, found during the same pass:
 | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Trailing slashes | Every non-root route 308-redirects to a trailing-slash URL (`/features` to `/features/`, and the same for `/privacy`, `/terms`, `/support` and the guide), while the sitemap and each page's own canonical declared the slashless form. Five of six inventory URLs were therefore redirects, and each canonical named a URL that redirects rather than the 200 answering it. Fixed and verified live: `canonical()` in `src/lib/canonical.ts` appends the slash, and both the page metadata and `scripts/generate-sitemap.ts` build every URL through it |
 | Apex host        | `http://motedesktop.com` redirects once to `https://motedesktop.com/` and returns 200                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| `www` host       | Serves Cloudflare's "is not set up yet" placeholder. A `_redirects` file cannot fix this: Pages documents domain-level redirects as unsupported there, so it only ever matches paths. The documented route is a proxied DNS A record for www pointing at 192.0.2.1 plus a Bulk Redirect to the apex, both dashboard actions                                                                                                                                                                                                                              |
-| Analytics beacon | No Cloudflare Insights script in the production HTML, so `VITE_CF_BEACON_TOKEN` is unset in the build environment                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| `robots.txt`     | Cloudflare's managed robots.txt prepends `Disallow: /` for ClaudeBot, GPTBot, Google-Extended, CCBot, Applebot-Extended, meta-externalagent and Bytespider, plus `Content-Signal: ai-train=no`                                                                                                                                                                                                                                                                                                                                                           |
+| `www` host       | Was serving Cloudflare's "is not set up yet" placeholder. A `_redirects` file cannot fix this: Pages documents domain-level redirects as unsupported there, so it only ever matches paths. Fixed with a Redirect Rule plus Always Use HTTPS; every www variant now reaches the apex over HTTPS with the query string preserved                                                                                                                                                                                                                           |
+| Analytics beacon | No Insights script appears in a `curl` of the HTML, but the edge injects it for real browsers. Web Analytics is configured with RUM automatic injection and is recording views, so `VITE_CF_BEACON_TOKEN` must stay unset to avoid a second beacon                                                                                                                                                                                                                                                                                                       |
+| `robots.txt`     | Cloudflare's managed robots.txt was prepending `Disallow: /` for ClaudeBot, GPTBot, Google-Extended, CCBot, Applebot-Extended, meta-externalagent and Bytespider, plus `Content-Signal: ai-train=no`. Managed robots.txt is now disabled and the live file carries zero `Disallow` directives                                                                                                                                                                                                                                                            |
 
 The trailing-slash mismatch failed two of the section 12 criteria at once: a single final 200
 response for the whole indexable inventory, and a sitemap carrying zero redirect URLs. The fix
