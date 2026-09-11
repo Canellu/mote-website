@@ -92,6 +92,21 @@ const SYNC_INTRO =
 
 const faqItems = [
   {
+    question: "Can I control Philips Hue with a keyboard shortcut on Windows?",
+    answer:
+      "Yes. Mote Desktop can bind a system-wide keyboard shortcut to a light, room, zone, or scene, and it works anywhere in Windows while Mote is running, including from the tray. Shortcuts are part of Mote Pro. They can be set up before buying and start working as soon as Pro is unlocked.",
+  },
+  {
+    question: "Can Mote Desktop create Hue scenes, or only use existing ones?",
+    answer:
+      "It can create them. Build a scene from the colors a room is showing now or from the Hue gallery, then edit or delete your own scenes from the desktop. Supported dynamic scenes can also be started, which move through their palette on their own. Scene control is free.",
+  },
+  {
+    question: "Does Mote Desktop run in the system tray?",
+    answer:
+      "Yes. Mote Desktop can close to the Windows tray instead of quitting, reopen from the tray icon, and start with Windows straight into the tray. These are free.",
+  },
+  {
     question: "What is Mote Desktop?",
     answer:
       "Mote Desktop is an unofficial Windows app for controlling compatible Philips Hue lights, rooms, zones, and scenes over your local network.",

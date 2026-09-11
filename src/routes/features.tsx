@@ -60,11 +60,13 @@ const featureGroups = [
     weight: "standard",
     tiers: ["Free"],
     title: "Hue scenes",
-    summary: "Preview and save the Hue scenes already set up for a space.",
+    summary: "Build the scenes a room should have, and reach them in one click.",
     points: [
-      "Browse the scene gallery for a room or zone",
+      "Create a scene from the colors a room is showing now, or from the gallery",
+      "Edit and delete your own scenes without leaving the desktop",
       "Preview a scene before applying it",
-      "Save scenes for recall from the dashboard or a widget",
+      "Run supported dynamic scenes that move through their palette on their own",
+      "Recall any scene from the dashboard or a widget",
     ],
     src: "/product/mote-scene-gallery-dark.png",
     alt: "Mote Desktop Hue scene gallery with colorful preset palettes",
@@ -160,10 +162,11 @@ const featureGroups = [
     weight: "compact",
     tiers: ["Free"],
     title: "App preferences",
-    summary:
-      "Choose the appearance, feedback, and window behavior. Everything Mote saves stays on your device.",
+    summary: "Live in the tray, start with Windows, and keep everything Mote saves on your device.",
     points: [
-      "Choose the app appearance, feedback, and window behavior",
+      "Light, dark, or system appearance",
+      "Close to the tray instead of quitting, and reopen from the tray icon",
+      "Start with Windows and open straight into the tray",
       "Connection details, preferences, layouts, and widgets stay on your device",
     ],
     src: "/product/mote-settings-theme-dark.png",
@@ -202,6 +205,7 @@ const comparisonRows: { name: string; free: ComparisonValue; pro: ComparisonValu
   { name: "Multiple controls in one widget", free: false, pro: true },
   { name: "Widget theme, size, and placement", free: false, pro: true },
   { name: "Dashboard layout", free: "Standard", pro: "Custom" },
+  { name: "Global keyboard shortcuts", free: false, pro: true },
   // Building and testing an entertainment area is free; only driving one from
   // the PC is paid. The two used to share a row, which made the free half look
   // like it was behind the purchase.
