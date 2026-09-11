@@ -189,3 +189,27 @@ longer blocked.
 The `robots.txt` blocks are blanket `Disallow` directives, so they prevent retrieval and citation,
 not only model training. That contradicts section 10 of the brief and is a Cloudflare dashboard
 setting rather than a repository change; record an explicit owner decision either way.
+
+## Measurement baseline — 11 September 2026
+
+Section 12 asks for a dated baseline before growth is claimed. This is it. Every figure below was
+read from the live account on 11 September 2026; where a figure does not exist yet, that is recorded
+as an absence rather than as a zero measurement, because the two mean different things.
+
+| Source                   | Baseline                                                                                                                                                                                            | Definition and caveat                                                                                                                                                                                                                          |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Google Search Console    | Domain property `sc-domain:motedesktop.com`, verified by DNS TXT. Performance reports "Processing data, please check again in a day or so" and returns no queries, impressions, clicks or positions | This is data not yet available, not a measured zero. The property predates this pass; search performance has never been collected for it                                                                                                       |
+| Sitemap                  | `https://motedesktop.com/sitemap.xml` submitted 11 September 2026, status Success, six pages discovered                                                                                             | Submitted before the feature pages shipped, so the inventory becomes eight once that deploy lands. Google re-reads on its own schedule                                                                                                         |
+| Cloudflare Web Analytics | Site created 7 September 2026, RUM automatic injection. Eight page views and zero visits in the trailing 24 hours as read at roughly 13:00 UTC                                                      | A visit requires arrival from another site or a direct entry, so zero visits alongside eight page views is a definition difference, not a contradiction. Four days of history exists, so day 30 is not comparing against an empty prior period |
+| Bing Webmaster Tools     | Not set up                                                                                                                                                                                          | No site, no sitemap, no crawl history                                                                                                                                                                                                          |
+| Partner Center           | Not read during this pass                                                                                                                                                                           | Listing visits and acquisitions by market remain uncaptured                                                                                                                                                                                    |
+
+Consequences for the day-30 review, which falls on 11 October 2026:
+
+- Report absolute numbers. There is no prior 28-day search period to compare against, and percentage
+  growth from an unavailable baseline is meaningless.
+- Search Console and Cloudflare count different things over different windows. Do not add them, and
+  do not treat a page view as a visit or an outbound click as an install.
+- The first search data will describe a site that already carries the trailing-slash fix and the
+  feature pages, so early impressions cannot be attributed to any single change. Record release
+  dates and accept the confounding rather than explaining it away.
