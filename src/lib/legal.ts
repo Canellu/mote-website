@@ -4,7 +4,7 @@
  * them should not have to reconcile two dates. Bump it when either document
  * changes in substance — not for a typo.
  */
-export const LEGAL_EFFECTIVE_DATE = "10 September 2026";
+export const LEGAL_EFFECTIVE_DATE = "11 September 2026";
 
 /** The publisher of record, named on both legal pages and in the footer. */
 export const PUBLISHER = "Anton Vo";

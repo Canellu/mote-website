@@ -154,11 +154,11 @@ function PrivacyPage() {
             provider.
           </p>
           <p>
-            Visits are measured with Cloudflare Web Analytics, which counts page views and clicks
-            through to the Microsoft Store so the publisher can tell whether the site does its job.
-            It sets no cookies, stores no identifier on your device, and builds no profile of you
-            across sites or visits. The site sets no cookies of its own either, which is why it
-            never asks you to accept any.
+            Visits are measured with Cloudflare Web Analytics, which counts page views so the
+            publisher can tell whether the site does its job. It records no custom events, so it
+            cannot see which links you follow. It sets no cookies, stores no identifier on your
+            device, and builds no profile of you across sites or visits. The site sets no cookies of
+            its own either, which is why it never asks you to accept any.
           </p>
         </section>
 
@@ -182,6 +182,12 @@ function PrivacyPage() {
             acquisition counts, ratings, reliability data, and the reviews people choose to leave.
             Individual visitors cannot be picked out of the aggregate figures. A review shows
             whatever nickname you have set in the Store, because you chose to publish it there.
+          </p>
+          <p>
+            Links from this site to the Store carry a short campaign tag naming the button you used
+            — the header, the hero, the footer, the feature comparison, or the setup guide. It
+            identifies the link, not you, and it reaches the publisher only inside those same
+            aggregated reports.
           </p>
         </section>
 
