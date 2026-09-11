@@ -14,6 +14,8 @@ import { Route as FeaturesRouteImport } from './routes/features'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as SupportRouteImport } from './routes/support'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as FeaturesDesktopWidgetsRouteImport } from './routes/features_.desktop-widgets'
+import { Route as FeaturesPcSyncRouteImport } from './routes/features_.pc-sync'
 import { Route as GuidesControlPhilipsHueFromWindowsRouteImport } from './routes/guides.control-philips-hue-from-windows'
 
 const IndexRoute = IndexRouteImport.update({
@@ -41,6 +43,16 @@ const TermsRoute = TermsRouteImport.update({
   path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FeaturesDesktopWidgetsRoute = FeaturesDesktopWidgetsRouteImport.update({
+  id: '/features_/desktop-widgets',
+  path: '/features/desktop-widgets',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FeaturesPcSyncRoute = FeaturesPcSyncRouteImport.update({
+  id: '/features_/pc-sync',
+  path: '/features/pc-sync',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GuidesControlPhilipsHueFromWindowsRoute =
   GuidesControlPhilipsHueFromWindowsRouteImport.update({
     id: '/guides/control-philips-hue-from-windows',
@@ -54,6 +66,8 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PrivacyRoute
   '/support': typeof SupportRoute
   '/terms': typeof TermsRoute
+  '/features/desktop-widgets': typeof FeaturesDesktopWidgetsRoute
+  '/features/pc-sync': typeof FeaturesPcSyncRoute
   '/guides/control-philips-hue-from-windows': typeof GuidesControlPhilipsHueFromWindowsRoute
 }
 export interface FileRoutesByTo {
@@ -62,6 +76,8 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyRoute
   '/support': typeof SupportRoute
   '/terms': typeof TermsRoute
+  '/features/desktop-widgets': typeof FeaturesDesktopWidgetsRoute
+  '/features/pc-sync': typeof FeaturesPcSyncRoute
   '/guides/control-philips-hue-from-windows': typeof GuidesControlPhilipsHueFromWindowsRoute
 }
 export interface FileRoutesById {
@@ -71,6 +87,8 @@ export interface FileRoutesById {
   '/privacy': typeof PrivacyRoute
   '/support': typeof SupportRoute
   '/terms': typeof TermsRoute
+  '/features_/desktop-widgets': typeof FeaturesDesktopWidgetsRoute
+  '/features_/pc-sync': typeof FeaturesPcSyncRoute
   '/guides/control-philips-hue-from-windows': typeof GuidesControlPhilipsHueFromWindowsRoute
 }
 export interface FileRouteTypes {
@@ -81,6 +99,8 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/support'
     | '/terms'
+    | '/features/desktop-widgets'
+    | '/features/pc-sync'
     | '/guides/control-philips-hue-from-windows'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -89,6 +109,8 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/support'
     | '/terms'
+    | '/features/desktop-widgets'
+    | '/features/pc-sync'
     | '/guides/control-philips-hue-from-windows'
   id:
     | '__root__'
@@ -97,6 +119,8 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/support'
     | '/terms'
+    | '/features_/desktop-widgets'
+    | '/features_/pc-sync'
     | '/guides/control-philips-hue-from-windows'
   fileRoutesById: FileRoutesById
 }
@@ -106,6 +130,8 @@ export interface RootRouteChildren {
   PrivacyRoute: typeof PrivacyRoute
   SupportRoute: typeof SupportRoute
   TermsRoute: typeof TermsRoute
+  FeaturesDesktopWidgetsRoute: typeof FeaturesDesktopWidgetsRoute
+  FeaturesPcSyncRoute: typeof FeaturesPcSyncRoute
   GuidesControlPhilipsHueFromWindowsRoute: typeof GuidesControlPhilipsHueFromWindowsRoute
 }
 
@@ -146,6 +172,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/features_/desktop-widgets': {
+      id: '/features_/desktop-widgets'
+      path: '/features/desktop-widgets'
+      fullPath: '/features/desktop-widgets'
+      preLoaderRoute: typeof FeaturesDesktopWidgetsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/features_/pc-sync': {
+      id: '/features_/pc-sync'
+      path: '/features/pc-sync'
+      fullPath: '/features/pc-sync'
+      preLoaderRoute: typeof FeaturesPcSyncRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/guides/control-philips-hue-from-windows': {
       id: '/guides/control-philips-hue-from-windows'
       path: '/guides/control-philips-hue-from-windows'
@@ -162,6 +202,8 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   SupportRoute: SupportRoute,
   TermsRoute: TermsRoute,
+  FeaturesDesktopWidgetsRoute: FeaturesDesktopWidgetsRoute,
+  FeaturesPcSyncRoute: FeaturesPcSyncRoute,
   GuidesControlPhilipsHueFromWindowsRoute:
     GuidesControlPhilipsHueFromWindowsRoute,
 }

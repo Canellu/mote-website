@@ -12,7 +12,14 @@ export const MICROSOFT_STORE_URL = "https://apps.microsoft.com/detail/9p910jmmp9
  * where click-through lives instead. It also measures further down the funnel
  * than a click event would.
  */
-type StoreCampaign = "web-header" | "web-hero" | "web-footer" | "web-compare" | "web-guide";
+type StoreCampaign =
+  | "web-header"
+  | "web-hero"
+  | "web-footer"
+  | "web-compare"
+  | "web-guide"
+  | "web-pc-sync"
+  | "web-widgets";
 
 export function storeUrl(campaign: StoreCampaign): string {
   return `${MICROSOFT_STORE_URL}?cid=${campaign}`;

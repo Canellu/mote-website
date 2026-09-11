@@ -12,6 +12,8 @@ describe("route tree", () => {
       expect.arrayContaining([
         "/",
         "/features",
+        "/features/pc-sync",
+        "/features/desktop-widgets",
         "/guides/control-philips-hue-from-windows",
         "/privacy",
         "/terms",
