@@ -8,7 +8,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { ProductCapture } from "../components/product-capture";
-import { pageHead, softwareApplicationJsonLd } from "../lib/seo";
+import { faqPageJsonLd, pageHead, softwareApplicationJsonLd } from "../lib/seo";
 import { storeUrl } from "../lib/links";
 import homeStyles from "../home.css?url";
 
@@ -89,6 +89,58 @@ const HERO_POSTER = "/product/derived/mote-hero-poster-hd-1440.webp";
 const SYNC_TITLE = "Light that follows what is on screen.";
 const SYNC_INTRO =
   "PC Sync, a Mote Pro feature, drives a compatible entertainment area from your display. A Hue Play HDMI Sync Box can drive the same area instead, in Free and Mote Pro.";
+
+const faqItems = [
+  {
+    question: "What is Mote Desktop?",
+    answer:
+      "Mote Desktop is an unofficial Windows app for controlling compatible Philips Hue lights, rooms, zones, and scenes over your local network.",
+  },
+  {
+    question: "Can I control Philips Hue lights from my PC?",
+    answer:
+      "Yes. Install Mote Desktop on a Windows 10 or Windows 11 x64 PC, keep the PC and Hue Bridge on the same local network, and pair by pressing the bridge link button.",
+  },
+  {
+    question: "Do I need a Hue Bridge?",
+    answer:
+      "Yes. A compatible Hue Bridge is required for lighting control. Mote Desktop does not connect directly to Bluetooth-only lights.",
+  },
+  {
+    question: "Which Windows versions are supported?",
+    answer: "The first release supports Windows 10 and Windows 11 on x64 PCs.",
+  },
+  {
+    question: "What is included in Mote Pro?",
+    answer:
+      "Mote Pro adds Video, Games, and Music PC Sync modes, advanced and additional widgets, a custom dashboard layout, and multiple saved Hue Bridges. It is planned as a one-time Microsoft Store purchase and is not yet available to buy.",
+  },
+  {
+    question: "Can I sync my lights with my screen?",
+    answer:
+      "Yes, with Mote Pro and a compatible Hue entertainment area. PC Sync can follow a supported display in Video or Games mode; Music mode follows system-audio loopback rather than the microphone. Display, driver, HDR, audio, and hardware conditions can affect availability.",
+  },
+  {
+    question: "Does Mote Desktop work without internet?",
+    answer:
+      "Core lighting commands travel between your PC and Hue Bridge on your local network. Internet access can still be needed to install or update Mote through Microsoft Store, verify Store licensing, or use fallback bridge discovery.",
+  },
+  {
+    question: "Can I use multiple Hue Bridges?",
+    answer:
+      "Mote Pro can save and switch among multiple Hue Bridges, with one bridge active at a time. Combined cross-bridge views and cross-bridge PC Sync are not included.",
+  },
+  {
+    question: "Is Mote Desktop an official Philips Hue app?",
+    answer:
+      "No. Mote Desktop is an independent application and is not affiliated with, authorized by, sponsored by, or endorsed by Signify.",
+  },
+  {
+    question: "What should I do if my lights are not found?",
+    answer:
+      "Check that the Hue Bridge is powered, connected to your router, and on the same local network as the PC. Network isolation, VPNs, firewalls, multicast filtering, and guest Wi-Fi can prevent discovery. Then try the setup flow again or contact support.",
+  },
+] as const;
 
 function HeroMedia() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -721,15 +773,15 @@ function HomePage() {
         <div className="cx-hero__layout">
           <div className="cx-hero__copy">
             <h1 className="cx-reveal" id="cx-hero-title">
-              Philips Hue controls on your desktop.
+              Control your Philips Hue lights from Windows.
             </h1>
             <p className="cx-reveal">
-              Mote Desktop keeps your lights, rooms, zones, and scenes available while you use your
-              PC.
+              Mote Desktop is an unofficial Windows app for controlling compatible Philips Hue
+              lights, rooms, zones, and scenes over your local network.
             </p>
             <div className="cx-hero-actions cx-reveal">
               <a className="cx-button" href={storeUrl("web-hero")} target="_blank" rel="noreferrer">
-                Get Mote Free
+                Get Mote Desktop on Microsoft Store
               </a>
               <Link className="cx-button cx-button--quiet" to="/features">
                 See all features
@@ -800,6 +852,30 @@ function HomePage() {
         label="PC Sync views"
         items={syncViews}
       />
+
+      <section className="cx-faq cx-shell cx-reveal" aria-labelledby="cx-faq-title">
+        <div className="cx-section-head">
+          <h2 id="cx-faq-title">Questions before you connect.</h2>
+          <p>
+            Requirements, tier boundaries, and network behavior—answered from the current Windows
+            release documentation.
+          </p>
+          <div className="cx-faq__links">
+            <Link to="/guides/control-philips-hue-from-windows">Read the setup guide</Link>
+            <Link to="/features">Compare Free and Mote Pro</Link>
+            <Link to="/support">Get support</Link>
+          </div>
+        </div>
+
+        <div className="cx-faq__list">
+          {faqItems.map((item) => (
+            <details key={item.question}>
+              <summary>{item.question}</summary>
+              <p>{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </section>
     </main>
   );
 }
@@ -807,11 +883,11 @@ function HomePage() {
 export const Route = createFileRoute("/")({
   head: () => {
     const head = pageHead({
-      title: "Mote Desktop — Philips Hue controls for Windows",
+      title: "Mote Desktop | Control Philips Hue from Windows",
       description:
-        "Control compatible Philips Hue lights, rooms, zones, and scenes from your Windows desktop. Free on the Microsoft Store.",
+        "Control compatible Philips Hue lights and accessories from your Windows PC with Mote Desktop. Explore features, requirements, and the Microsoft Store download.",
       path: "/",
-      jsonLd: softwareApplicationJsonLd(),
+      jsonLd: [softwareApplicationJsonLd(), faqPageJsonLd(faqItems)],
     });
 
     return {

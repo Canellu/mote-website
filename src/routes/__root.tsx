@@ -13,6 +13,7 @@ import styles from "../styles.css?url";
 
 const navigation = [
   { label: "Features", to: "/features", hash: "" },
+  { label: "Setup guide", to: "/guides/control-philips-hue-from-windows", hash: "" },
   { label: "Support", to: "/support", hash: "" },
 ] as const;
 

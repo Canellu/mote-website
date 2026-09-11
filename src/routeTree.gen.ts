@@ -14,6 +14,7 @@ import { Route as FeaturesRouteImport } from './routes/features'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as SupportRouteImport } from './routes/support'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as GuidesControlPhilipsHueFromWindowsRouteImport } from './routes/guides.control-philips-hue-from-windows'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,6 +41,12 @@ const TermsRoute = TermsRouteImport.update({
   path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GuidesControlPhilipsHueFromWindowsRoute =
+  GuidesControlPhilipsHueFromWindowsRouteImport.update({
+    id: '/guides/control-philips-hue-from-windows',
+    path: '/guides/control-philips-hue-from-windows',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -47,6 +54,7 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PrivacyRoute
   '/support': typeof SupportRoute
   '/terms': typeof TermsRoute
+  '/guides/control-philips-hue-from-windows': typeof GuidesControlPhilipsHueFromWindowsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +62,7 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyRoute
   '/support': typeof SupportRoute
   '/terms': typeof TermsRoute
+  '/guides/control-philips-hue-from-windows': typeof GuidesControlPhilipsHueFromWindowsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,13 +71,33 @@ export interface FileRoutesById {
   '/privacy': typeof PrivacyRoute
   '/support': typeof SupportRoute
   '/terms': typeof TermsRoute
+  '/guides/control-philips-hue-from-windows': typeof GuidesControlPhilipsHueFromWindowsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/features' | '/privacy' | '/support' | '/terms'
+  fullPaths:
+    | '/'
+    | '/features'
+    | '/privacy'
+    | '/support'
+    | '/terms'
+    | '/guides/control-philips-hue-from-windows'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/features' | '/privacy' | '/support' | '/terms'
-  id: '__root__' | '/' | '/features' | '/privacy' | '/support' | '/terms'
+  to:
+    | '/'
+    | '/features'
+    | '/privacy'
+    | '/support'
+    | '/terms'
+    | '/guides/control-philips-hue-from-windows'
+  id:
+    | '__root__'
+    | '/'
+    | '/features'
+    | '/privacy'
+    | '/support'
+    | '/terms'
+    | '/guides/control-philips-hue-from-windows'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -77,6 +106,7 @@ export interface RootRouteChildren {
   PrivacyRoute: typeof PrivacyRoute
   SupportRoute: typeof SupportRoute
   TermsRoute: typeof TermsRoute
+  GuidesControlPhilipsHueFromWindowsRoute: typeof GuidesControlPhilipsHueFromWindowsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -116,6 +146,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/guides/control-philips-hue-from-windows': {
+      id: '/guides/control-philips-hue-from-windows'
+      path: '/guides/control-philips-hue-from-windows'
+      fullPath: '/guides/control-philips-hue-from-windows'
+      preLoaderRoute: typeof GuidesControlPhilipsHueFromWindowsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -125,6 +162,8 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   SupportRoute: SupportRoute,
   TermsRoute: TermsRoute,
+  GuidesControlPhilipsHueFromWindowsRoute:
+    GuidesControlPhilipsHueFromWindowsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

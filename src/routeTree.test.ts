@@ -9,7 +9,14 @@ describe("route tree", () => {
     const paths = Object.values(router.routesById).map((route) => route.fullPath);
 
     expect(paths).toEqual(
-      expect.arrayContaining(["/", "/features", "/privacy", "/terms", "/support"]),
+      expect.arrayContaining([
+        "/",
+        "/features",
+        "/guides/control-philips-hue-from-windows",
+        "/privacy",
+        "/terms",
+        "/support",
+      ]),
     );
   });
 });

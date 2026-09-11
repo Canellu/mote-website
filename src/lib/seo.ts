@@ -68,13 +68,15 @@ export function softwareApplicationJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+    "@id": `${siteUrl}/#software`,
     name: "Mote Desktop",
     description:
-      "Control compatible Philips Hue lights, rooms, zones, and scenes from your Windows desktop, with a customizable dashboard and desktop widgets.",
+      "A Windows app for controlling compatible Philips Hue lights, rooms, zones, and scenes over a local network.",
     applicationCategory: "UtilitiesApplication",
     applicationSubCategory: "Home automation",
     operatingSystem: "Windows 10, Windows 11",
     url: `${siteUrl}/`,
+    mainEntityOfPage: `${siteUrl}/`,
     downloadUrl: MICROSOFT_STORE_URL,
     installUrl: MICROSOFT_STORE_URL,
     image: new URL(socialCard.path, siteUrl).toString(),
@@ -95,5 +97,31 @@ export function softwareApplicationJsonLd() {
       "Hue Play HDMI Sync Box controls",
       "PC Sync with Video, Games, and Music modes (Mote Pro)",
     ],
+  };
+}
+
+interface FaqItem {
+  answer: string;
+  question: string;
+}
+
+/**
+ * The same questions rendered on the home page, without inferred reviews or
+ * user-generated answers. FAQ markup is an entity-consistency aid here; this
+ * product does not qualify for Google's restricted FAQ rich-result treatment.
+ */
+export function faqPageJsonLd(items: readonly FaqItem[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": `${siteUrl}/#faq`,
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
   };
 }

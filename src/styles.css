@@ -949,6 +949,119 @@ body[data-scrolled="true"] .site-header::after,
   }
 }
 
+.guide-page {
+  max-width: 44rem;
+  padding-block: 4rem 6rem;
+}
+.guide-page section + section,
+.guide-page figure + section {
+  margin-top: 3.5rem;
+}
+.guide-page h2 {
+  color: var(--mote-text);
+  font-size: 1.5rem;
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  scroll-margin-top: calc(var(--site-header-height) + 3rem);
+}
+.guide-page h3 {
+  color: var(--mote-text);
+  font-size: 1.0625rem;
+  line-height: 1.45;
+  font-weight: 650;
+}
+.guide-page p {
+  margin-top: 1rem;
+  color: var(--mote-muted);
+  font-size: 1.0625rem;
+  line-height: 1.75;
+}
+.guide-page a:not(.guide-store-link) {
+  color: var(--mote-text);
+  font-weight: 600;
+  text-decoration-color: var(--mote-signal);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.22em;
+}
+.guide-page ul {
+  margin: 1.25rem 0 0;
+  padding-left: 1.2rem;
+  color: var(--mote-muted);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+}
+.guide-page li + li {
+  margin-top: 0.75rem;
+}
+.guide-steps {
+  display: grid;
+  gap: 0;
+  margin: 1.75rem 0 0;
+  padding: 0;
+  counter-reset: guide-step;
+  list-style: none;
+}
+.guide-steps li {
+  position: relative;
+  min-height: 5rem;
+  padding: 0 0 1.75rem 3.5rem;
+  counter-increment: guide-step;
+}
+.guide-steps li::before {
+  position: absolute;
+  top: -0.15rem;
+  left: 0;
+  display: grid;
+  width: 2.35rem;
+  height: 2.35rem;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--mote-ink);
+  background: var(--mote-signal);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  content: counter(guide-step);
+}
+.guide-steps li:not(:last-child)::after {
+  position: absolute;
+  top: 2.45rem;
+  bottom: 0;
+  left: 1.15rem;
+  width: 1px;
+  background: var(--mote-line);
+  content: "";
+}
+.guide-steps p {
+  margin-top: 0.45rem;
+}
+.guide-store-link {
+  display: inline-flex;
+  min-height: 3rem;
+  margin-top: 1.75rem;
+  padding: 0.75rem 1.1rem;
+  align-items: center;
+  border-radius: 999px;
+  color: var(--mote-ink);
+  background: var(--mote-signal);
+  font-weight: 650;
+  text-decoration: none;
+}
+.guide-capture {
+  margin-block: 4rem;
+}
+.guide-capture img {
+  width: 100%;
+  border-radius: 1rem;
+  box-shadow: 0 1.75rem 4rem rgb(16 18 15 / 0.18);
+}
+.guide-capture figcaption {
+  margin-top: 1rem;
+  color: var(--mote-muted);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
 /* The date the wording took effect, sat under the standfirst rather than in it:
    it is the one thing on a legal page a returning reader checks first, and it
    should not have to be read as part of the sentence above it. */

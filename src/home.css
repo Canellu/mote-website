@@ -134,6 +134,51 @@ body:has(.home-page) :focus-visible {
   }
 }
 
+/* ---------------------------------------------------------------- FAQ */
+.cx-faq {
+  display: grid;
+  gap: clamp(3rem, 7vw, 7rem);
+  padding-block: clamp(5rem, 9vw, 8rem);
+  grid-template-columns: minmax(16rem, 0.72fr) minmax(0, 1.28fr);
+}
+.cx-faq__links {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.cx-faq__links a {
+  color: var(--c-ink);
+  font-weight: 600;
+  text-decoration-color: var(--c-accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.28em;
+}
+.cx-faq__list {
+  border-bottom: 1px solid var(--c-line);
+}
+.cx-faq__list details {
+  border-top: 1px solid var(--c-line);
+}
+.cx-faq__list summary {
+  min-height: 3.75rem;
+  padding-block: 1.15rem;
+  color: var(--c-ink);
+  font-size: 1.0625rem;
+  line-height: 1.45;
+  font-weight: 600;
+  cursor: pointer;
+}
+.cx-faq__list summary::marker {
+  color: var(--c-accent);
+}
+.cx-faq__list details p {
+  max-width: 62ch;
+  padding: 0 2rem 1.35rem 0;
+  color: var(--c-muted);
+  line-height: 1.7;
+}
+
 /* ---------------------------------------------------------------- type */
 .cx-section-head {
   display: grid;
@@ -954,6 +999,9 @@ body:has(.home-page) :focus-visible {
 }
 
 @media (max-width: 60rem) {
+  .cx-faq {
+    grid-template-columns: 1fr;
+  }
   .cx-statement {
     grid-template-columns: 1fr;
     gap: 2.75rem;

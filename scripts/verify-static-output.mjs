@@ -2,7 +2,8 @@ import { access, readFile } from "node:fs/promises";
 import { constants } from "node:fs";
 import path from "node:path";
 
-const routes = ["", "features", "privacy", "terms", "support"];
+const inventory = JSON.parse(await readFile(path.resolve("scripts/public-routes.json"), "utf8"));
+const routes = inventory.paths.map((route) => route.replace(/^\//, ""));
 // Served from public/ during development, so they are in the copy Vite makes of
 // it; a plugin removes them again after the client build. This is the assertion
 // that the removal actually happened before anything is deployed.
