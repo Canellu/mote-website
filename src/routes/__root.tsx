@@ -7,7 +7,8 @@ import {
   Scripts,
   useRouterState,
 } from "@tanstack/react-router";
-import { MICROSOFT_STORE_URL } from "../lib/links";
+import { analyticsScripts } from "../lib/analytics";
+import { storeUrl } from "../lib/links";
 import styles from "../styles.css?url";
 
 const navigation = [
@@ -108,7 +109,7 @@ function SiteClose() {
           <h2 id="site-close-title">Mote Desktop for Windows.</h2>
           <p>Free on the Microsoft Store.</p>
           <div className="site-close__actions">
-            <a className="site-cta" href={MICROSOFT_STORE_URL} target="_blank" rel="noreferrer">
+            <a className="site-cta" href={storeUrl("web-footer")} target="_blank" rel="noreferrer">
               Get Mote Free
             </a>
             {/* The features page, from its top. Aimed at the comparison it used to
@@ -222,7 +223,7 @@ function SiteHeader() {
         <div className="site-header__actions">
           <a
             className="site-nav__primary"
-            href={MICROSOFT_STORE_URL}
+            href={storeUrl("web-header")}
             target="_blank"
             rel="noreferrer"
           >
@@ -343,6 +344,7 @@ export const Route = createRootRoute({
       { rel: "stylesheet", href: styles },
       { rel: "icon", href: "/brand/mote-app-icon.png", type: "image/png" },
     ],
+    scripts: analyticsScripts(),
   }),
   component: RootLayout,
   notFoundComponent: NotFound,

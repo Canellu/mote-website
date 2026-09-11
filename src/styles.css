@@ -61,6 +61,13 @@
     color: inherit;
     text-underline-offset: 0.24em;
   }
+  /* Every stage on this site positions the capture itself — as a grid item, or
+     absolutely against the frame around it. `<picture>` only exists to carry
+     the AVIF and WebP sources, so it is taken out of the box tree entirely and
+     those rules keep reaching the image directly. */
+  picture {
+    display: contents;
+  }
   ::selection {
     color: #15170f;
     background: var(--mote-signal);
@@ -900,6 +907,9 @@ body[data-scrolled="true"] .site-header::after,
     line-height: 1.25;
     font-weight: 600;
     letter-spacing: -0.02em;
+    /* Every heading here is a link target from the contents index above, and
+       the fixed bar would otherwise land on top of the one just jumped to. */
+    scroll-margin-top: calc(var(--site-header-height) + 3rem);
   }
   & p {
     margin-top: 1rem;
@@ -909,6 +919,87 @@ body[data-scrolled="true"] .site-header::after,
   }
   & p + p {
     margin-top: 1.25rem;
+  }
+  /* Legal prose lists an obligation at a time; the marker is the same orange
+     tick the feature lists use, so the two pages read as one site. */
+  & ul {
+    margin: 1.25rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  & ul li {
+    position: relative;
+    padding-left: 1.5rem;
+    color: var(--mote-muted);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+  }
+  & ul li + li {
+    margin-top: 0.75rem;
+  }
+  & ul li::before {
+    position: absolute;
+    top: 0.68rem;
+    left: 0.15rem;
+    width: 0.35rem;
+    height: 0.35rem;
+    border-radius: 50%;
+    background: var(--mote-signal);
+    content: "";
+  }
+}
+
+/* The date the wording took effect, sat under the standfirst rather than in it:
+   it is the one thing on a legal page a returning reader checks first, and it
+   should not have to be read as part of the sentence above it. */
+.prose-effective {
+  margin-top: 1.25rem;
+  color: var(--mote-muted);
+  font-size: 0.95rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/*
+ * The section index. Two columns where there is room, because a dozen headings
+ * stacked single-file would push the document itself off the first screen —
+ * which is exactly the problem the index exists to solve.
+ */
+.prose-contents {
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid var(--mote-line);
+}
+.prose-contents + section {
+  margin-top: 3rem;
+}
+.prose-contents ol {
+  display: grid;
+  gap: 0.6rem 2rem;
+  margin: 0;
+  padding: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  counter-reset: prose-contents;
+  list-style: none;
+}
+.prose-contents li {
+  counter-increment: prose-contents;
+  color: var(--mote-muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+/* The numerals are what makes two columns readable: the list fills row by row,
+   so without them there is no telling whether the second entry is the one to
+   the right or the one below. */
+.prose-contents li::before {
+  display: inline-block;
+  min-width: 1.5rem;
+  color: color-mix(in srgb, var(--mote-muted) 55%, transparent);
+  font-variant-numeric: tabular-nums;
+  content: counter(prose-contents);
+}
+
+@media (max-width: 40rem) {
+  .prose-contents ol {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 @media (hover: hover) and (pointer: fine) {
@@ -986,33 +1077,185 @@ body[data-scrolled="true"] .site-header::after,
     padding-inline: 0.85rem;
   }
 }
-
-/* Feature catalog on /features: alternating copy and product capture. */
-.feature-catalog {
-  display: grid;
-  gap: clamp(3.5rem, 6vw, 5.5rem);
+/*
+ * The /features catalog.
+ *
+ * It used to be eight blocks of one height alternating sides on a two-period
+ * cycle, with the frame colour on a three-period cycle, so the combination
+ * repeated every six blocks and read as drift rather than pattern. Both are now
+ * written per feature instead of derived from position, because with graded
+ * weights there is no position to derive them from: a hero block has no side.
+ *
+ * The page manages its own width rather than sitting inside one shell, so the
+ * hero stages can take the wider media measure while the reading column and the
+ * comparison stay at the content measure.
+ */
+.features-page {
+  padding-block: var(--site-header-clearance) 6rem;
+}
+.features-shell {
+  width: min(var(--content-width), calc(100% - 2 * var(--page-gutter)));
+  margin-inline: auto;
+}
+.tier-compare {
   padding-block: 1rem 2rem;
 }
+.tier-table td {
+  font-variant-numeric: tabular-nums;
+}
+/* A fixed layout gives a cell its width whether the word inside fits or not,
+   and an over-long value simply paints past the column. On a phone the tier
+   columns are about a hundred pixels, which one long word can beat, so this is
+   the floor: break rather than overflow. Values are kept short enough that it
+   should never fire. */
+.tier-table th,
+.tier-table td {
+  overflow-wrap: break-word;
+}
+/* The footer row carries no rule of its own — the last body row already drew
+   one, and a second under the actions would fence them off from the table they
+   belong to. */
+.tier-table__actions td {
+  border: 0;
+}
+
+/* On a phone the tier columns are about eighty pixels wide, which is a column
+   for a tick and not for a button: squeezed into one, Get Mote Free broke over
+   three lines and pushed the table wider than the screen. Below this width the
+   footer leaves the column grid and stacks, while the rows above it — which are
+   ticks and two-word values — stay in it. */
+@media (max-width: 40rem) {
+  .tier-table__actions tr,
+  .tier-table__actions td {
+    display: block;
+    width: 100%;
+  }
+  .tier-table__actions td:first-child {
+    display: none;
+  }
+  .tier-table__actions td {
+    padding-inline: 0;
+  }
+  .tier-table__actions td + td {
+    padding-top: 1.25rem;
+  }
+}
+
+.feature-catalog {
+  display: grid;
+  width: min(var(--media-width), calc(100% - 2 * var(--page-gutter)));
+  margin-inline: auto;
+  gap: clamp(3rem, 5vw, 4.5rem);
+  padding-block: 1.5rem 2rem;
+}
+/* Everything but a hero is held back to the reading measure, so the catalog's
+   extra width belongs to the two features that earned it. */
+.feature-block[data-weight="standard"],
+.feature-row {
+  width: min(var(--content-width), 100%);
+  margin-inline: auto;
+}
+
 .feature-block {
   display: grid;
   align-items: center;
   gap: clamp(2rem, 4vw, 4rem);
   grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
 }
-.feature-block:nth-child(even) .feature-block__media {
+/*
+ * The media column is the wide one, whichever side it is on. Reordering alone
+ * put a left-side capture into the narrow column — the fault the old catalog
+ * had too, hidden there because a fitted capture never filled its column
+ * anyway. With the capture cropped to the column it is immediately visible as
+ * two different sizes down the page, so the track widths swap with the order.
+ */
+.feature-block[data-side="left"] {
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+}
+.feature-block[data-side="left"] .feature-block__media {
   order: -1;
 }
+
+/*
+ * A hero stacks instead of alternating: the copy runs across the top in two
+ * columns and the capture takes a stage of its own beneath. Side by side, a
+ * capture this size would leave the copy in a column too narrow to read.
+ */
+.feature-block[data-weight="hero"] {
+  gap: clamp(2rem, 3.5vw, 3rem);
+  grid-template-columns: minmax(0, 1fr);
+}
+.feature-block[data-weight="hero"] .feature-block__copy {
+  display: grid;
+  width: min(var(--content-width), 100%);
+  margin-inline: auto;
+  gap: clamp(1.5rem, 4vw, 4rem);
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  align-items: end;
+}
+/*
+ * The stage stops at 60rem even where the catalog is wider. Past that the
+ * capture would be painted above the width it was taken at, and an upscaled
+ * screenshot of small interface text is worse than a smaller sharp one.
+ */
+.feature-block[data-weight="hero"] .feature-block__media {
+  --feature-stage-ratio: 16 / 9;
+
+  width: min(60rem, 100%);
+  margin-inline: auto;
+}
+
+/* Two setup features to a row. They are read once, and a screen each was more
+   than they were worth. */
+.feature-row {
+  display: grid;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.feature-block[data-weight="compact"] {
+  --feature-stage-ratio: 2 / 1;
+
+  gap: 1.75rem;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+}
+/* Media first: the capture is what identifies the screen being described, and
+   at this size the copy under it reads as its caption. */
+.feature-block[data-weight="compact"] .feature-block__media {
+  order: -1;
+}
+.feature-block[data-weight="compact"] h2 {
+  font-size: clamp(1.35rem, 1.8vw, 1.6rem);
+}
+
+.feature-tiers {
+  display: flex;
+  margin: 0 0 1.1rem;
+  padding: 0;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  list-style: none;
+}
 .feature-tier {
-  margin: 0 0 1rem;
+  display: inline-flex;
+  min-height: 1.8rem;
+  padding-inline: 0.7rem;
+  align-items: center;
+  border: 1px solid var(--mote-line);
+  border-radius: 999px;
   color: var(--mote-muted);
-  font-size: 0.72rem;
+  font-size: 0.8125rem;
   font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
 }
+/* Paid features carry the site's signal colour, so scanning the page shows how
+   much of it Pro accounts for without reading a word. */
 .feature-tier--pro {
+  border-color: color-mix(in srgb, var(--mote-signal) 40%, transparent);
+  background: color-mix(in srgb, var(--mote-signal) 10%, transparent);
   color: var(--mote-signal-strong);
+  font-weight: 600;
 }
+
 .feature-block__copy h2 {
   margin: 0;
   font-size: clamp(1.9rem, 2.8vw, 2.5rem);
@@ -1020,6 +1263,9 @@ body[data-scrolled="true"] .site-header::after,
   font-weight: 650;
   letter-spacing: -0.035em;
   text-wrap: balance;
+}
+.feature-block[data-weight="hero"] .feature-block__copy h2 {
+  font-size: clamp(2.2rem, 3.4vw, 3.1rem);
 }
 .feature-block__summary {
   max-width: 34rem;
@@ -1033,6 +1279,11 @@ body[data-scrolled="true"] .site-header::after,
   margin: 1.75rem 0 0;
   padding: 0;
   list-style: none;
+}
+/* In a hero the points are the second column, already beside the summary they
+   follow, so the gap that separated them vertically is the grid's job now. */
+.feature-block[data-weight="hero"] .feature-block__points {
+  margin-top: 0;
 }
 .feature-block__points li {
   position: relative;
@@ -1054,63 +1305,115 @@ body[data-scrolled="true"] .site-header::after,
   background: var(--mote-signal);
   content: "";
 }
+
+/*
+ * The stage, and the reason the captures are legible again.
+ *
+ * It used to fit a whole 1402px window inside a 24rem height cap, which painted
+ * it about 396px wide — a megabyte of screenshot rendered too small to read a
+ * label on. This is the crop the home page's switcher already uses: the capture
+ * is scaled to the stage's width and held to its top, so the window's lower
+ * edge runs out of the frame rather than the whole thing shrinking to fit.
+ *
+ * The sizer is in flow and gives the stage its height; the capture is taken out
+ * of flow so its own tall intrinsic height cannot.
+ */
 .feature-block__media {
+  --feature-pad: clamp(1.25rem, 2.4vw, 2.25rem);
+  --feature-stage-ratio: 16 / 9;
+
   position: relative;
-  display: grid;
   min-width: 0;
-  min-height: 26rem;
   margin: 0;
-  padding: clamp(1.5rem, 3vw, 2.5rem);
-  place-items: center;
   overflow: hidden;
   border-radius: 1rem;
   background:
     radial-gradient(circle at 15% 18%, rgb(255 179 66 / 0.2), transparent 36%),
     radial-gradient(circle at 88% 78%, rgb(113 224 207 / 0.16), transparent 36%), #171917;
 }
-.feature-block:nth-child(3n + 2) .feature-block__media {
+.feature-block__media[data-frame="magenta"] {
   background:
     radial-gradient(circle at 18% 20%, rgb(255 171 64 / 0.2), transparent 35%),
     radial-gradient(circle at 82% 74%, rgb(193 72 213 / 0.2), transparent 38%), #171917;
 }
-.feature-block:nth-child(3n) .feature-block__media {
+.feature-block__media[data-frame="aqua"] {
   background:
     radial-gradient(circle at 18% 16%, rgb(113 224 207 / 0.22), transparent 34%),
     radial-gradient(circle at 82% 72%, rgb(69 126 255 / 0.24), transparent 39%), #171917;
 }
-.feature-block__media img {
+.feature-block__media::before {
   display: block;
-  width: min(100%, 46rem);
-  max-height: 24rem;
+  width: 100%;
+  aspect-ratio: var(--feature-stage-ratio);
+  content: "";
+}
+.feature-block__media img {
+  /* Width and height are set rather than left to the offsets: an absolutely
+     positioned replaced element takes its intrinsic size when both are auto,
+     and right/bottom are dropped as over-constrained. */
+  position: absolute;
+  inset: var(--feature-pad) var(--feature-pad) 0;
+  display: block;
+  width: calc(100% - 2 * var(--feature-pad));
+  height: calc(100% - var(--feature-pad));
+  object-fit: cover;
+  object-position: top;
+  /* Top corners only: the bottom edge is cropped away by the stage. */
+  border-radius: 0.75rem 0.75rem 0 0;
+  box-shadow: 0 1.25rem 2.5rem rgb(0 0 0 / 0.34);
+}
+/* A portrait capture has no top to hold: cropping a stack of widgets just
+   removes one. It is fitted whole and stood on the stage floor instead, in a
+   squarer stage — fitting a tall picture into a 16/9 frame paints it at a third
+   of the width the frame had to spare. */
+.feature-block__media[data-fit="contain"] {
+  --feature-stage-ratio: 5 / 4;
+}
+.feature-block__media[data-fit="contain"] img {
   object-fit: contain;
-  object-position: center;
-  border-radius: 0.75rem;
-  filter: drop-shadow(1.25rem 1.75rem 2.25rem rgb(0 0 0 / 0.32));
+  object-position: bottom center;
+  border-radius: 0.75rem 0.75rem 0 0;
+  box-shadow: none;
+  filter: drop-shadow(0.75rem 1.25rem 2rem rgb(0 0 0 / 0.34));
 }
 
 @media (max-width: 62rem) {
-  .feature-block {
+  .feature-block,
+  .feature-block[data-weight="hero"] .feature-block__copy {
     grid-template-columns: minmax(0, 1fr);
     gap: 2rem;
   }
-  .feature-block:nth-child(even) .feature-block__media {
+  .feature-block[data-side="left"] .feature-block__media {
     order: 0;
   }
-  .feature-block__media {
-    min-height: 22rem;
+  /* The compact pair keep their two-up as long as the row still holds two
+     readable captures; below that they become two ordinary stacked blocks. */
+  .feature-row {
+    gap: 2.5rem;
   }
-  .feature-block__media img {
-    max-height: 20rem;
+  .feature-block[data-weight="hero"] .feature-block__points {
+    margin-top: 0.5rem;
+  }
+  /* Stacked, a hero and a standard block are the same shape, so the size
+     difference that marked one on a wide screen is gone. Leading with the
+     capture is what is left to say this feature is the bigger one. The heading
+     still comes first in the document, where it labels the section. */
+  .feature-block[data-weight="compact"] .feature-block__media,
+  .feature-block[data-weight="hero"] .feature-block__media {
+    order: -1;
   }
 }
 
-@media (max-width: 35rem) {
-  .feature-block__media {
-    min-height: 17rem;
-    padding: 1rem;
+@media (max-width: 46rem) {
+  .feature-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(3.5rem, 6vw, 5rem);
   }
-  .feature-block__media img {
-    max-height: 15rem;
+  .feature-block[data-weight="compact"] {
+    --feature-stage-ratio: 3 / 2;
+  }
+  .feature-block[data-side="left"] {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 

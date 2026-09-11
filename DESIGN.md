@@ -352,3 +352,71 @@ build served a bar that no current Chrome would blur, while dev served the
 authored file and blurred correctly. Vendor prefixes are the build's to write.
 It adds them from its own browser targets; a hand-written prefix here only takes
 that decision away from it, and takes it wrongly.
+
+### The features page stops being a metronome (September 2026)
+
+The catalog was eight blocks between 421 and 464 pixels tall, alternating sides
+on a two-block cycle while the frame colour cycled on three, so the combination
+repeated every six and read as drift rather than pattern. Everything on it
+weighed the same: PC Sync, which is the reason to buy Mote Pro, took exactly as
+much of the page as choosing a window behaviour. Both the side and the frame
+colour are now written per feature rather than derived from a position, because
+with graded weights there is no position left to derive them from.
+
+Features are worth different amounts of page. Two are hero blocks: the home
+dashboard, which is what the application is, and PC Sync, which is what Pro is.
+A hero stacks rather than alternating — its copy runs across the top in two
+columns and the capture takes a stage of its own beneath, because a capture that
+size beside its copy leaves the copy in a column too narrow to read. Four are
+ordinary two-column blocks. The two setup features, bridges and preferences,
+share one two-up row and say their whole piece in the summary; a bullet list
+under them would have made the pair as tall as the blocks they were compressed
+out of.
+
+The captures are cropped now rather than fitted. A whole 1402-pixel window
+inside a 24rem height cap painted about 396 pixels wide — a megabyte of
+screenshot rendered too small to read a label on. They take the crop the home
+page's switcher already used: scaled to the stage's width and held to its top,
+so the window's lower edge runs out of the frame instead of the whole thing
+shrinking to fit. A hero capture now paints at about 890 pixels and a standard
+one at about 615. The stage is capped at 60rem however wide the page gets, since
+past that the capture would be painted above the width it was taken at, and an
+upscaled screenshot of small interface text is worse than a smaller sharp one.
+The one portrait capture, the widget stack, is fitted rather than cropped —
+cropping a stack of widgets only removes one — and takes a squarer stage so
+being fitted does not cost it the width.
+
+The media column is the wide one whichever side it is on. Reordering alone put a
+left-side capture into the narrow column, which the old catalog did too; a
+fitted capture never filled its column, so it never showed.
+
+The tier is a badge rather than a caption. At 0.72rem of muted uppercase it was
+the quietest mark on a page whose whole axis it is. Free is an outline, Mote Pro
+carries the signal colour, two badges mean the feature is in both tiers, and the
+same badges head the comparison's columns.
+
+The comparison opens the page rather than closing it. It sat about five thousand
+pixels down behind a small muted jump link, which put the one thing a reader
+weighing the two tiers came for behind the entire catalog; it now sits directly
+under the standfirst, and the catalog beneath it has something to be evidence
+for. The jump link is gone because there is nothing left to jump to. This also
+finishes the closing band's Compare Free and Pro, which goes to the top of the
+features page: it now lands on the comparison itself rather than near it, and
+supersedes the note above that the page opens with its own jump to the table.
+
+The comparison is marks rather than sentences. Every cell used to be a clause —
+"Lights, rooms, zones, scenes, devices, and entertainment areas" set against
+"Same Hue controls as Free" — which is a table you have to read rather than one
+you can scan, and which needed 44rem of width to lay out, so the page's most
+wanted content arrived on a phone behind a horizontal scrollbar. Six broad rows
+became ten specific ones, each answered with a tick, a dash, or a word or two,
+and the table now lays out fixed so a long name wraps inside its column instead
+of the table growing past the screen. The scroll region it used to need is gone
+with the need for it.
+
+It also ends somewhere. The table stopped and dropped the reader into the
+catalog with nothing to act on; a footer row now carries Get Mote Free under the
+Free column and, under Pro, the fact that it is a one-time purchase and not yet
+buyable. On a phone the tier columns are about a hundred pixels — a column for a
+tick, not for a button — so below 40rem that footer row alone leaves the column
+grid and stacks, while the tick rows above it stay in it.

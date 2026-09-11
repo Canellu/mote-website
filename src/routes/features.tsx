@@ -1,12 +1,26 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageIntro } from "../components/page-intro";
 import { ProductCapture } from "../components/product-capture";
+import { storeUrl } from "../lib/links";
 import { pageHead } from "../lib/seo";
+
+/**
+ * How much of the page a feature is worth.
+ *
+ * The catalog used to be eight blocks of the same height alternating sides,
+ * which said that positioning a light in a 3D room and choosing a window
+ * behaviour matter equally. They do not. `hero` is for the two features that
+ * are reasons to install the application at all; `standard` is the ordinary
+ * two-column block; `compact` is for setup, which people read once and which
+ * shares a two-up row with its neighbour rather than taking a screen of its own.
+ */
+type FeatureWeight = "hero" | "standard" | "compact";
 
 const featureGroups = [
   {
     id: "dashboard",
-    tier: "Free",
+    weight: "hero",
+    tiers: ["Free"],
     title: "Home dashboard",
     summary:
       "Every room, zone, and light in one view. Check power, color, and brightness at a glance, then adjust what you need.",
@@ -20,10 +34,13 @@ const featureGroups = [
     alt: "Mote Desktop dashboard showing colorful Hue rooms and zones",
     width: 960,
     height: 1061,
+    frame: "amber",
+    side: "right",
   },
   {
     id: "room-control",
-    tier: "Free",
+    weight: "standard",
+    tiers: ["Free"],
     title: "Room and light control",
     summary: "Open a room to work with scenes and individual lights in the same view.",
     points: [
@@ -35,10 +52,13 @@ const featureGroups = [
     alt: "Mote Desktop room view with scene tiles, individual light controls, and a color inspector",
     width: 1402,
     height: 1122,
+    frame: "magenta",
+    side: "left",
   },
   {
     id: "scenes",
-    tier: "Free",
+    weight: "standard",
+    tiers: ["Free"],
     title: "Hue scenes",
     summary: "Preview and save the Hue scenes already set up for a space.",
     points: [
@@ -50,10 +70,13 @@ const featureGroups = [
     alt: "Mote Desktop Hue scene gallery with colorful preset palettes",
     width: 1402,
     height: 1122,
+    frame: "aqua",
+    side: "right",
   },
   {
     id: "widgets",
-    tier: "Free and Mote Pro",
+    weight: "standard",
+    tiers: ["Free", "Mote Pro"],
     title: "Desktop widgets",
     summary: "Keep the controls you use most pinned beside your work.",
     points: [
@@ -67,10 +90,16 @@ const featureGroups = [
     alt: "A stack of colorful Mote Desktop widgets for rooms, scenes, and lights",
     width: 401,
     height: 702,
+    frame: "amber",
+    side: "left",
+    // The one portrait capture on the page. A crop of a stack of widgets is a
+    // stack of widgets with the bottom one missing, so this one is fitted.
+    fit: "contain",
   },
   {
     id: "pc-sync",
-    tier: "Mote Pro",
+    weight: "hero",
+    tiers: ["Mote Pro"],
     title: "PC Sync",
     summary: "Match a compatible entertainment area to what is happening on your PC.",
     points: [
@@ -83,10 +112,13 @@ const featureGroups = [
     alt: "Mote Desktop light placement screen showing display sampling regions",
     width: 1298,
     height: 1121,
+    frame: "aqua",
+    side: "right",
   },
   {
     id: "sync-box",
-    tier: "Free and Mote Pro",
+    weight: "standard",
+    tiers: ["Free", "Mote Pro"],
     title: "Hue Play HDMI Sync Box",
     summary: "Drive the same entertainment area from a Sync Box instead of your PC.",
     points: [
@@ -99,172 +131,298 @@ const featureGroups = [
     alt: "Mote Desktop Sync Box screen showing HDMI sources and sync style controls",
     width: 989,
     height: 1108,
+    frame: "magenta",
+    side: "left",
   },
   {
     id: "hardware",
-    tier: "Free and Mote Pro",
+    weight: "compact",
+    tiers: ["Free", "Mote Pro"],
     title: "Hue Bridges",
-    summary: "Connect the Hue Bridge you already own.",
+    summary:
+      "Pair the Hue Bridge Pro or classic bridge you already own. Free saves one; Mote Pro switches among several.",
     points: [
       "Choose a Hue Bridge Pro or a classic Hue Bridge found on your network",
       "Pair using the bridge link button",
-      "Free saves one bridge; Mote Pro switches among multiple bridges",
     ],
     src: "/product/mote-bridge-dark.png",
     alt: "Mote Desktop setup screen with a selected Hue Bridge Pro beside a classic Hue Bridge",
     width: 960,
     height: 1061,
+    frame: "aqua",
+    side: "right",
   },
   {
     id: "preferences",
-    tier: "Free",
+    weight: "compact",
+    tiers: ["Free"],
     title: "App preferences",
-    summary: "Set how Mote looks and behaves on your desktop.",
+    summary:
+      "Choose the appearance, feedback, and window behavior. Everything Mote saves stays on your device.",
     points: [
-      "Choose the app appearance",
-      "Set feedback and window behavior",
-      "Keep connection details, preferences, layouts, and widget configuration on your device",
+      "Choose the app appearance, feedback, and window behavior",
+      "Connection details, preferences, layouts, and widgets stay on your device",
     ],
     src: "/product/mote-settings-theme-dark.png",
     alt: "Mote Desktop general settings with appearance and window behavior controls",
     width: 960,
     height: 1061,
+    frame: "amber",
+    side: "right",
   },
 ] as const;
 
-const comparisonRows = [
-  {
-    name: "Hue control",
-    free: "Lights, rooms, zones, scenes, devices, and entertainment areas",
-    pro: "Same Hue controls as Free",
-  },
-  {
-    name: "Hue Bridge",
-    free: "Save and use one bridge",
-    pro: "Save and switch among multiple bridges",
-  },
-  {
-    name: "Desktop widgets",
-    free: "One standard widget with one room, zone, or light",
-    pro: "Unlimited advanced widgets with multiple controls and customization",
-  },
-  {
-    name: "Home dashboard",
-    free: "Standard grouping layouts",
-    pro: "Reorder cards and save a custom layout",
-  },
-  {
-    name: "PC Sync",
-    free: "Requirements and upgrade information",
-    pro: "Video, Games, and Music modes with a compatible entertainment area",
-  },
-  {
-    name: "Hue Play HDMI Sync Box",
-    free: "Current single-box controls",
-    pro: "Same Sync Box controls as Free",
-  },
+type FeatureGroup = (typeof featureGroups)[number];
+
+/**
+ * One capability a row, stated as a mark rather than a sentence.
+ *
+ * Every cell used to be a clause — "Lights, rooms, zones, scenes, devices, and
+ * entertainment areas" against "Same Hue controls as Free" — which is a table
+ * you have to read rather than one you can scan, and which needed 44rem of
+ * width to lay out, so a phone got a horizontal scrollbar over the page's most
+ * wanted content. `true` is included, `false` is not, and a string is used only
+ * where the tiers differ by amount rather than by presence.
+ */
+type ComparisonValue = boolean | string;
+
+const comparisonRows: { name: string; free: ComparisonValue; pro: ComparisonValue }[] = [
+  { name: "Rooms, zones, lights, and scenes", free: true, pro: true },
+  { name: "Devices and entertainment areas", free: true, pro: true },
+  { name: "Color and white temperature inspector", free: true, pro: true },
+  { name: "Hue Play HDMI Sync Box", free: "One box", pro: "One box" },
+  { name: "Hue Bridges", free: "One", pro: "Multiple" },
+  { name: "Desktop widgets", free: "1 standard", pro: "Unlimited" },
+  { name: "Multiple controls in one widget", free: false, pro: true },
+  { name: "Dashboard layout", free: "Standard", pro: "Custom" },
+  { name: "PC Sync: Video, Games, and Music", free: false, pro: true },
+  { name: "Display sampling and 3D light placement", free: false, pro: true },
 ];
 
-function FeatureBlock({ group }: { group: (typeof featureGroups)[number] }) {
-  const headingId = `${group.id}-title`;
-  const tierClass = group.tier === "Mote Pro" ? "feature-tier feature-tier--pro" : "feature-tier";
+/**
+ * A tick, a dash, or a short value. The glyph is hidden from assistive
+ * technology and the word is given instead: a table read aloud as "check,
+ * check, dash" is a table nobody can follow.
+ */
+function ComparisonCell({ value }: { value: ComparisonValue }) {
+  if (typeof value === "string") return <>{value}</>;
 
   return (
-    <section className="feature-block" aria-labelledby={headingId}>
+    <>
+      <span aria-hidden="true">{value ? "✓" : "—"}</span>
+      <span className="sr-only">{value ? "Included" : "Not included"}</span>
+    </>
+  );
+}
+
+/**
+ * The tier, as a badge rather than the caption it used to be. It is the axis
+ * the whole page turns on, and at 0.72rem of muted uppercase it was the
+ * quietest mark on it. Two badges mean the feature is in both tiers; the points
+ * beneath say where the line falls.
+ */
+function TierBadges({ tiers }: { tiers: FeatureGroup["tiers"] }) {
+  return (
+    <ul className="feature-tiers">
+      {tiers.map((tier) => (
+        <li
+          className={tier === "Mote Pro" ? "feature-tier feature-tier--pro" : "feature-tier"}
+          key={tier}
+        >
+          {tier}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/**
+ * How wide the capture paints, by weight. The hero stage is the widest on the
+ * page; the compact pair sit two to a row; a standard block's capture takes a
+ * little under half of it.
+ */
+function stageSizes(weight: FeatureWeight): string {
+  if (weight === "hero") return "(min-width: 62rem) 62vw, 88vw";
+  if (weight === "compact") return "(min-width: 62rem) 40vw, 88vw";
+  return "(min-width: 62rem) 44vw, 88vw";
+}
+
+function FeatureBlock({ group }: { group: FeatureGroup }) {
+  const headingId = `${group.id}-title`;
+  const fit = "fit" in group ? group.fit : "cover";
+
+  return (
+    <section
+      className="feature-block"
+      data-weight={group.weight}
+      data-side={group.side}
+      aria-labelledby={headingId}
+    >
       <div className="feature-block__copy">
-        <p className={tierClass}>{group.tier}</p>
-        <h2 id={headingId}>{group.title}</h2>
-        <p className="feature-block__summary">{group.summary}</p>
-        <ul className="feature-block__points">
-          {group.points.map((point) => (
-            <li key={point}>{point}</li>
-          ))}
-        </ul>
+        <div className="feature-block__lead">
+          <TierBadges tiers={group.tiers} />
+          <h2 id={headingId}>{group.title}</h2>
+          <p className="feature-block__summary">{group.summary}</p>
+        </div>
+        {/* A compact feature says its whole piece in the summary. A bullet
+            list under it would make the pair as tall as the blocks they were
+            compressed out of. */}
+        {group.weight !== "compact" && (
+          <ul className="feature-block__points">
+            {group.points.map((point) => (
+              <li key={point}>{point}</li>
+            ))}
+          </ul>
+        )}
       </div>
-      <figure className="feature-block__media">
-        <ProductCapture src={group.src} alt={group.alt} width={group.width} height={group.height} />
+      <figure className="feature-block__media" data-frame={group.frame} data-fit={fit}>
+        <ProductCapture
+          src={group.src}
+          alt={group.alt}
+          width={group.width}
+          height={group.height}
+          sizes={stageSizes(group.weight)}
+        />
       </figure>
     </section>
   );
 }
 
+/**
+ * Consecutive compact features share one two-up row. Grouping is read out of
+ * the data rather than assumed to be the tail of it, so moving a compact
+ * feature up the catalog moves its row with it.
+ */
+function toRuns(groups: readonly FeatureGroup[]): (FeatureGroup | FeatureGroup[])[] {
+  const runs: (FeatureGroup | FeatureGroup[])[] = [];
+
+  for (const group of groups) {
+    const last = runs[runs.length - 1];
+    if (group.weight !== "compact") runs.push(group);
+    else if (Array.isArray(last)) last.push(group);
+    else runs.push([group]);
+  }
+
+  return runs;
+}
+
 function FeaturesPage() {
   return (
-    <main id="main" className="page-shell">
-      <PageIntro title="Everything Mote Desktop does">
-        <p>
-          Mote keeps Philips Hue lights, rooms, zones, and scenes available while you use your PC.
-          Everyday control is free. Mote Pro adds multiple bridges, advanced widgets, custom
-          dashboard layouts, and PC Sync as a one-time Microsoft Store purchase.
-        </p>
-        <p className="mt-6 text-base">
-          <a className="footer-link" href="#comparison-title">
-            Skip to the Free and Mote Pro comparison
-          </a>
-        </p>
-      </PageIntro>
+    <main id="main" className="features-page">
+      <div className="features-shell">
+        <PageIntro title="Everything Mote Desktop does">
+          <p>
+            Mote keeps Philips Hue lights, rooms, zones, and scenes available while you use your PC.
+            Everyday control is free. Mote Pro adds multiple bridges, advanced widgets, custom
+            dashboard layouts, and PC Sync.
+          </p>
+        </PageIntro>
 
-      <div className="feature-catalog">
-        {featureGroups.map((group) => (
-          <FeatureBlock group={group} key={group.id} />
-        ))}
+        {/*
+         * The comparison opens the page rather than closing it. It used to sit
+         * about five thousand pixels down behind a small muted jump link, which
+         * put the one thing a reader weighing the two tiers came for behind the
+         * whole catalog. Read first, it also gives the catalog underneath
+         * something to be evidence for.
+         */}
+        <section className="tier-compare" aria-labelledby="comparison-title">
+          <h2 id="comparison-title" className="text-3xl font-semibold tracking-tight sm:text-4xl">
+            Free and Mote Pro
+          </h2>
+          <p className="mt-5 max-w-2xl leading-7 text-mote-muted">
+            Both tiers share the same Hue control. Pro expands the workflow rather than holding back
+            everyday functionality. It is a one-time purchase rather than a subscription, and it is
+            not yet available to buy.
+          </p>
+          {/*
+           * table-layout: fixed, so the columns take the widths declared here
+           * and long feature names wrap inside them. Left to auto the table
+           * sizes to its content and simply runs off the side of a phone,
+           * which is what a min-width could floor but never prevent.
+           */}
+          <div className="mt-8 overflow-x-auto rounded-lg focus-visible:outline-offset-4 sm:mt-10">
+            <table className="tier-table w-full table-fixed border-collapse text-left">
+              <thead>
+                <tr className="border-b border-mote-muted/40 text-base text-mote-ink">
+                  <th className="w-2/5 py-4 pr-2 font-medium sm:pr-6" scope="col">
+                    Feature
+                  </th>
+                  <th className="px-2 py-4 font-medium sm:px-6" scope="col">
+                    <span className="feature-tier">Free</span>
+                  </th>
+                  <th className="px-2 py-4 font-medium sm:px-6" scope="col">
+                    <span className="feature-tier feature-tier--pro">Mote Pro</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {comparisonRows.map((row) => (
+                  <tr className="border-b border-mote-line" key={row.name}>
+                    <th className="py-4 pr-2 leading-6 font-medium sm:pr-6" scope="row">
+                      {row.name}
+                    </th>
+                    <td className="px-2 py-4 leading-6 text-mote-muted sm:px-6">
+                      <ComparisonCell value={row.free} />
+                    </td>
+                    <td className="px-2 py-4 leading-6 font-medium text-mote-ink sm:px-6">
+                      <ComparisonCell value={row.pro} />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+              {/*
+               * The table used to end and drop the reader into the catalog with
+               * nothing to act on. Every comparison worth copying puts the way
+               * out in the column it belongs to — which is what a tfoot is, and
+               * it stays aligned with the columns for free.
+               */}
+              <tfoot className="tier-table__actions">
+                <tr>
+                  <td />
+                  <td className="px-2 pt-8 align-top sm:px-6">
+                    <a
+                      className="inline-flex min-h-11 items-center rounded-xl bg-mote-mint px-5 py-3 font-semibold text-mote-ink no-underline outline-offset-4 transition-transform duration-150 active:scale-[0.97]"
+                      href={storeUrl("web-compare")}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Get Mote Free
+                    </a>
+                  </td>
+                  <td className="px-2 pt-8 align-top leading-6 text-mote-muted sm:px-6">
+                    A one-time purchase rather than a subscription. Not yet available to buy.
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </section>
       </div>
 
-      <section className="py-12 sm:py-16" aria-labelledby="comparison-title">
-        <h2 id="comparison-title" className="text-3xl font-semibold tracking-tight sm:text-4xl">
-          Free and Mote Pro
-        </h2>
-        <p className="mt-5 max-w-2xl leading-7 text-mote-muted">
-          Both tiers share the same Hue control. Pro expands the workflow rather than holding back
-          everyday functionality.
-        </p>
-        <p className="mt-8 text-sm text-mote-muted sm:hidden">Scroll horizontally to compare.</p>
-        <div
-          className="mt-6 overflow-x-auto rounded-lg focus-visible:outline-offset-4 sm:mt-10"
-          role="region"
-          aria-label="Scrollable Free and Mote Pro comparison"
-          tabIndex={0}
-        >
-          <table className="w-full min-w-[44rem] border-collapse text-left">
-            <thead>
-              <tr className="border-b border-mote-muted/40 text-base text-mote-ink">
-                <th className="w-1/4 py-4 pr-6 font-medium" scope="col">
-                  Feature
-                </th>
-                <th className="w-3/8 px-6 py-4 font-medium" scope="col">
-                  Free
-                </th>
-                <th
-                  className="w-3/8 py-4 pl-6 font-semibold text-[var(--mote-signal-strong)]"
-                  scope="col"
-                >
-                  Mote Pro
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {comparisonRows.map((row) => (
-                <tr className="border-b border-mote-line align-top" key={row.name}>
-                  <th className="py-6 pr-6 font-semibold" scope="row">
-                    {row.name}
-                  </th>
-                  <td className="px-6 py-6 leading-7 text-mote-muted">{row.free}</td>
-                  <td className="py-6 pl-6 font-medium leading-7 text-mote-ink">{row.pro}</td>
-                </tr>
+      <div className="feature-catalog">
+        {toRuns(featureGroups).map((run) =>
+          Array.isArray(run) ? (
+            <div className="feature-row" key={run[0].id}>
+              {run.map((group) => (
+                <FeatureBlock group={group} key={group.id} />
               ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
+            </div>
+          ) : (
+            <FeatureBlock group={run} key={run.id} />
+          ),
+        )}
+      </div>
 
-      <aside className="readable py-12 text-mote-muted">
-        <h2 className="text-xl font-semibold text-mote-ink">PC Sync requirements</h2>
-        <p className="mt-4 leading-7">
-          PC Sync requires Windows, a compatible Hue Bridge and entertainment area, and supported
-          display capture or system-audio loopback. Network isolation, VPNs, firewalls, and hardware
-          capabilities can affect availability.
-        </p>
-      </aside>
+      <div className="features-shell">
+        <aside className="readable py-12 text-mote-muted">
+          <h2 className="text-xl font-semibold text-mote-ink">PC Sync requirements</h2>
+          <p className="mt-4 leading-7">
+            PC Sync requires Windows, a compatible Hue Bridge and entertainment area, and supported
+            display capture or system-audio loopback. Network isolation, VPNs, firewalls, and
+            hardware capabilities can affect availability.
+          </p>
+        </aside>
+      </div>
     </main>
   );
 }

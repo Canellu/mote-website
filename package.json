@@ -9,7 +9,7 @@
     "check:fix": "vp check --fix",
     "test": "vp test run",
     "test:watch": "vp test",
-    "build": "vp check && vp test run && vp build && node scripts/verify-static-output.mjs",
+    "build": "vp check && vp test run && bun scripts/encode-product-images.ts && vp build && node scripts/verify-static-output.mjs",
     "preview": "vp preview",
     "prepare": "vp config"
   },
@@ -23,9 +23,11 @@
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.3",
     "@tanstack/router-plugin": "^1.168.35",
+    "@types/node": "^22.20.2",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.5",
     "@vitejs/plugin-react": "^6.1.1",
+    "sharp": "^0.35.4",
     "tailwindcss": "^4.3.3",
     "typescript": "^7.0.2",
     "vite": "npm:@voidzero-dev/vite-plus-core@0.3.0",

@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageIntro } from "../components/page-intro";
+import { SUPPORT_EMAIL } from "../lib/legal";
 import { pageHead } from "../lib/seo";
 
 const checks = [
@@ -15,7 +16,7 @@ function SupportPage() {
       <PageIntro title="Mote Desktop support">
         <p>
           Run these checks before requesting help. If you still need a hand, email{" "}
-          <a href="mailto:support@motedesktop.com">support@motedesktop.com</a>.
+          <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>.
         </p>
       </PageIntro>
 
@@ -60,7 +61,7 @@ function SupportPage() {
         </p>
         <a
           className="mt-8 inline-flex min-h-11 items-center rounded-xl bg-mote-mint px-5 py-3 font-semibold text-mote-ink no-underline outline-offset-4 transition-transform duration-150 active:scale-[0.97]"
-          href="mailto:support@motedesktop.com?subject=Mote%20Desktop%20support"
+          href={`mailto:${SUPPORT_EMAIL}?subject=Mote%20Desktop%20support`}
         >
           Email support
         </a>

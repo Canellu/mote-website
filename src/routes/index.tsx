@@ -8,8 +8,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { ProductCapture } from "../components/product-capture";
-import { pageHead } from "../lib/seo";
-import { MICROSOFT_STORE_URL } from "../lib/links";
+import { pageHead, softwareApplicationJsonLd } from "../lib/seo";
+import { storeUrl } from "../lib/links";
 import homeStyles from "../home.css?url";
 
 // One chapter proving Mote is a complete Hue client, rather than two that made
@@ -72,6 +72,17 @@ const syncViews = [
     height: 1119,
   },
 ] as const;
+
+/*
+ * The first thing the page paints, and until now it was a 766 KB PNG for a
+ * frame that is never wider than about 800 CSS pixels. WebP rather than the
+ * smaller AVIF because a poster has no fallback mechanism at all: whatever this
+ * names is what the reader gets or does not get, and WebP is understood by
+ * every browser that can play the sources beneath it. Preloaded from the route
+ * head, since the browser cannot see a poster attribute until it has parsed the
+ * video element.
+ */
+const HERO_POSTER = "/product/derived/mote-hero-poster-hd-1440.webp";
 
 // Shared by the two sync sections below, which are the same section at two
 // widths.
@@ -163,7 +174,7 @@ function HeroMedia() {
           loop
           playsInline
           preload="metadata"
-          poster="/product/mote-hero-poster-hd.png?v=2"
+          poster={HERO_POSTER}
           width={960}
           height={1060}
           aria-label="Mote Desktop demo: dim the Studio room, apply a scene, adjust the desk lamp's color and white temperature, and return to the dashboard"
@@ -367,6 +378,8 @@ function Carousel({
    * Cards past the first sit outside the track's own viewport, so lazy loading
    * never fires for them until they are scrolled to — and autoplay would then
    * advance onto a blank card. Once the section is near, load the whole set.
+   * Eagerly, but not at high priority: the set is wanted before the reader
+   * reaches it, not ahead of whatever the page is still painting.
    */
   useEffect(() => {
     const section = sectionRef.current;
@@ -606,7 +619,8 @@ function Carousel({
                 alt={item.alt}
                 width={item.width}
                 height={item.height}
-                priority={hasEntered}
+                load={hasEntered ? "eager" : "lazy"}
+                sizes="(min-width: 62rem) 54vw, 86vw"
               />
             </div>
             <figcaption>
@@ -666,6 +680,7 @@ function Switcher({ className = "", headingId, intro, items, label, title }: Swi
             alt={active.alt}
             width={active.width}
             height={active.height}
+            sizes="(min-width: 62rem) 52vw, 86vw"
           />
         </figure>
       </div>
@@ -713,7 +728,7 @@ function HomePage() {
               PC.
             </p>
             <div className="cx-hero-actions cx-reveal">
-              <a className="cx-button" href={MICROSOFT_STORE_URL} target="_blank" rel="noreferrer">
+              <a className="cx-button" href={storeUrl("web-hero")} target="_blank" rel="noreferrer">
                 Get Mote Free
               </a>
               <Link className="cx-button cx-button--quiet" to="/features">
@@ -742,6 +757,7 @@ function HomePage() {
             alt="A stack of colorful Mote Desktop widgets for rooms, scenes, and lights"
             width={401}
             height={702}
+            sizes="401px"
           />
           <figcaption>
             <i aria-hidden="true" />
@@ -795,9 +811,23 @@ export const Route = createFileRoute("/")({
       description:
         "Control compatible Philips Hue lights, rooms, zones, and scenes from your Windows desktop. Free on the Microsoft Store.",
       path: "/",
+      jsonLd: softwareApplicationJsonLd(),
     });
 
-    return { ...head, links: [...head.links, { rel: "stylesheet", href: homeStyles }] };
+    return {
+      ...head,
+      links: [
+        ...head.links,
+        { rel: "stylesheet", href: homeStyles },
+        {
+          rel: "preload",
+          as: "image",
+          href: HERO_POSTER,
+          type: "image/webp",
+          fetchPriority: "high",
+        },
+      ],
+    };
   },
   component: HomePage,
 });
