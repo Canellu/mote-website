@@ -1,16 +1,13 @@
-# This file is not the whole story in production. Cloudflare's managed robots.txt
-# feature prepends its own block to whatever is served here, and that block ends
-# with Disallow: / for ClaudeBot, GPTBot, Google-Extended, CCBot,
-# Applebot-Extended, meta-externalagent and Bytespider, plus a
-# Content-Signal: ai-train=no. A per-agent group beats the wildcard group below,
-# so those crawlers are blocked no matter what this file says.
+# What crawlers receive is not necessarily what is written here. Cloudflare's
+# managed robots.txt setting, when enabled on the zone, prepends its own
+# Disallow groups for known AI crawlers ahead of this file, and a per-agent
+# group beats the wildcard group below. That setting lives in the dashboard
+# under Security > Settings > Bot traffic, so no commit can change it.
 #
-# That is a deliberate-looking opt-out the repository cannot override: turning it
-# off is a Cloudflare dashboard change, not a commit. Check the live file with
-# `curl https://motedesktop.com/robots.txt` before assuming the rules below are
-# what crawlers actually receive. Blanket Disallow also blocks retrieval and
-# citation, not just model training, which works against the AI-discoverability
-# goal in docs/discoverability.
+# Check the live file with `curl https://motedesktop.com/robots.txt` before
+# concluding that the rules below are in effect. A blanket Disallow there blocks
+# retrieval and citation as well as model training, which works against the
+# AI-discoverability goal recorded in docs/discoverability.
 
 User-agent: *
 Allow: /

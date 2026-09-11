@@ -1,8 +1,0 @@
-# Cloudflare Pages redirect rules. Everything in public/ is copied verbatim into
-# dist/client, which is the deploy root, so this file is what Pages reads.
-#
-# Send the www hostname to the apex so one canonical origin serves the site.
-# Pages only consults this file for hostnames attached to the Pages project:
-# until www.motedesktop.com is added there as a custom domain it resolves to
-# Cloudflare's "is not set up yet" placeholder and this rule never runs.
-https://www.motedesktop.com/* https://motedesktop.com/:splat 301
