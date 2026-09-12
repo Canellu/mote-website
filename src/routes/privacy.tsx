@@ -20,6 +20,7 @@ const sections = [
   { id: "not-included", label: "What Mote does not do" },
   { id: "website", label: "This website" },
   { id: "store", label: "The Microsoft Store" },
+  { id: "in-app-feedback", label: "Feedback you send from the app" },
   { id: "support-email", label: "Email you send to support" },
   { id: "children", label: "Children" },
   { id: "your-rights", label: "Your rights" },
@@ -135,9 +136,10 @@ function PrivacyPage() {
           <h2 id="not-included">What Mote does not do</h2>
           <p>
             The application has no Mote accounts, no advertising, no automatic analytics, no
-            automatic crash uploads, no session replay, and no in-app feedback upload. It does not
-            send the publisher your Hue names, bridge or Sync Box addresses, credentials,
-            screenshots, captured frames, audio, clipboard contents, or file paths.
+            automatic crash uploads, and no session replay. Nothing is uploaded unless you fill in
+            the feedback form and press Send. Mote does not send the publisher your Hue names,
+            bridge or Sync Box addresses, credentials, screenshots, captured frames, audio,
+            clipboard contents, or file paths.
           </p>
           <p>
             Nothing about your lighting or your PC is sold, rented, or handed to advertisers or data
@@ -188,6 +190,38 @@ function PrivacyPage() {
             — the header, the hero, the footer, the feature comparison, or the setup guide. It
             identifies the link, not you, and it reaches the publisher only inside those same
             aggregated reports.
+          </p>
+        </section>
+
+        <section>
+          <h2 id="in-app-feedback">Feedback you send from the app</h2>
+          <p>
+            Mote has a feedback form in its title bar and under Settings. It sends nothing until you
+            press Send. When you do, your message is delivered to a Cloudflare Worker on this domain
+            and stored in a Cloudflare D1 database in the European Union, together with the
+            application version, the platform, the release channel, and the time. You get back a
+            short reference such as <code>f_abc123</code> so you can quote the report later.
+          </p>
+          <p>
+            Before your message leaves your PC, Mote removes text that looks like an email address,
+            a phone number, an IP or bridge address, a Hue resource identifier, a credential, or a
+            Windows file path, and replaces each with a placeholder. The form says so, and the
+            hosted endpoint repeats the same pass on arrival. It is a safety net rather than a
+            guarantee: please still leave personal details out of the message.
+          </p>
+          <p>
+            The email field is optional and empty by default. Leave it blank and no address is sent
+            or stored. Fill it in and it is attached to that one report, used only to answer you or
+            to tell you what happened to it, and never used for a newsletter, for product
+            announcements, for analytics, or to recognise you across reports. It is deleted ninety
+            days after the report is resolved, or after twelve months, whichever comes first, and
+            the message text is kept without it. Ask for it to be deleted sooner and it will be.
+          </p>
+          <p>
+            No account, device identifier, or installation identifier is sent. Your IP address is
+            not stored: it is combined with a daily-rotating secret and hashed to count submissions
+            per connection, and those counters expire on their own. Feedback is private and is not
+            published anywhere.
           </p>
         </section>
 

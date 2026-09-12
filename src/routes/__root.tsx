@@ -268,13 +268,11 @@ function SiteHeader() {
 }
 
 function RootLayout() {
-  // The header is frosted throughout; this only tells it whether anything has
-  // scrolled under it yet, which is when the tint deepens and the hairline
-  // appears, so the bar reads as an edge rather than as chrome over the top of
-  // every page.
+  // Keep the opening navigation visually bare, then restore its frosted
+  // surface as soon as page content moves beneath it.
   useEffect(() => {
     const syncScrolled = () => {
-      document.body.dataset.scrolled = String(window.scrollY > 8);
+      document.body.dataset.scrolled = String(window.scrollY > 0);
     };
 
     syncScrolled();

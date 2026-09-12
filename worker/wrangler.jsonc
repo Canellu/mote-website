@@ -1,0 +1,37 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "mote-api",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-01",
+
+  // A standalone Worker rather than Pages Functions, deliberately. The
+  // marketing site is a Pages project with hand-tuned DNS, redirect and
+  // robots configuration, and adding a Wrangler config to it would make that
+  // file the source of truth and the dashboard read-only. A Worker on a route
+  // of the same zone is same-origin with the site, deploys separately, and
+  // cannot take the site down if it breaks.
+  "routes": [{ "pattern": "motedesktop.com/api/*", "zone_name": "motedesktop.com" }],
+
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "mote-feedback",
+      "database_id": "eb3acf44-a661-4ba5-ae40-355ebe490292",
+      "migrations_dir": "migrations",
+    },
+  ],
+
+  "kv_namespaces": [{ "binding": "RATE_LIMIT", "id": "d2975a376a674418a71b29709c531d27" }],
+
+  // Which shape the notification webhook expects: telegram | discord | slack |
+  // ntfy | json. The channel itself is the NOTIFY_WEBHOOK_URL secret, and
+  // NOTIFY_TARGET carries a destination where the channel needs one (a Telegram
+  // chat id). With either unset the Worker stores the report and stays silent.
+  "vars": { "NOTIFY_FORMAT": "telegram" },
+
+  // Retention, per the feedback plan: a contact address outlives its report by
+  // at most 90 days once resolved, and never by more than a year.
+  "triggers": { "crons": ["0 3 * * *"] },
+
+  "observability": { "enabled": true },
+}

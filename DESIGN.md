@@ -353,6 +353,17 @@ authored file and blurred correctly. Vendor prefixes are the build's to write.
 It adds them from its own browser targets; a hand-written prefix here only takes
 that decision away from it, and takes it wrongly.
 
+### The header waits for the scroll (September 2026)
+
+At the top of every page the header is only its contents: no tint, blur,
+hairline, shadow, or other visible container. As soon as the reader scrolls,
+the existing 66% mineral-white tint, 4px backdrop blur, and quiet bottom
+hairline resolve over 360ms on a gentle ease-in-out curve, with the hairline
+following 80ms behind the glass. Opening the phone menu still creates
+its stronger glass surface at the top because those links need a readable
+ground. This supersedes the resting frost and short-viewport homepage exception
+above.
+
 ### The features page stops being a metronome (September 2026)
 
 The catalog was eight blocks between 421 and 464 pixels tall, alternating sides
@@ -420,3 +431,46 @@ Free column and, under Pro, the fact that it is a one-time purchase and not yet
 buyable. On a phone the tier columns are about a hundred pixels — a column for a
 tick, not for a button — so below 40rem that footer row alone leaves the column
 grid and stacks, while the tick rows above it stay in it.
+
+### The Hue setup guide reads as a manual (September 2026)
+
+The Windows Hue guide uses a quieter, opaque mineral ground local to its body.
+Its shared header and closing footer retain their existing behavior and styling;
+this reading surface does not replace the site's illumination-led world. The
+guide has a narrower container (72rem) with the shared responsive gutters. Its
+opening pairs the title and introduction, then a desktop index (12rem) sits
+beside the article with a generous gap (4.5rem).
+
+Geist shifts into a reading hierarchy: the title is compact and moderately bold
+(`clamp(2.5rem, 4.5vw, 4.1rem)`, weight 650), section headings are smaller
+(`clamp(1.6rem, 2.25vw, 2rem)`), and step headings use 1.25rem. Body text uses
+1rem with 1.75 leading, and step paragraphs stop at 70ch. The prerequisites
+occupy one softly rounded, slightly darker mineral block before the numbered
+setup sequence. Orange continues to identify the download action, links, and
+the current index entry.
+
+At desktop widths (64rem and above), the index is sticky below the header and
+tracks the current section with an orange rule, stronger text, and
+`aria-current="location"`. Below that breakpoint it moves above the article
+inside initially collapsed native details. Below 40rem the opening stacks,
+the title becomes 2.65rem, and figures extend into the step-number gutter to
+preserve useful image width. Troubleshooting uses native details by symptom,
+with the bridge-discovery answer initially open. Keyboard focus, anchor
+clearance, and reduced-motion behavior remain part of the reading experience.
+
+Authentic dark Mote captures illustrate bridge selection and room controls;
+their provenance remains in `public/product/PROVENANCE.md`. The bridge image
+(960 × 1061) uses a deliberate crop (1.75 aspect ratio, 1.45 below 40rem), with
+its object position at center 48% to retain the relevant setup interface. The
+room-control capture (1402 × 1122) retains its full proportions. Both have
+descriptive alternatives and short captions. Finish review disposition: ship.
+
+### The guide keeps its light (September 2026)
+
+The guide's mineral body is transparent again, revealing the shared animated
+Hue background. The requirements panel uses a 65% mineral tint so that color
+remains visible behind the readable text. This supersedes the opaque guide
+surface above. The four step markers are filled signal orange with a soft glow
+and joined by a thin orange line. Each connector stops just short of the next
+marker and the final step ends the line. On phones, images stay inside the
+content column so the connected number rail remains visible alongside them.
