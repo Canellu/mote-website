@@ -86,10 +86,21 @@ export async function notify(
     headers["tags"] = input.category === "bug" ? "beetle" : "bulb";
   }
 
+  // Best-effort, but never silent. A failed notification must not fail the
+  // submission — the report is already stored — yet a channel that has quietly
+  // stopped delivering is invisible until someone notices reports going
+  // unanswered. The failure goes to the Worker log so `wrangler tail` can show
+  // it. The URL is never logged: it carries the bot token.
   try {
-    await fetch(url, { method: "POST", headers, body });
-  } catch {
-    // Swallowed on purpose. The report is stored; losing the ping is a nuisance,
-    // losing the submission would not be.
+    const response = await fetch(url, { method: "POST", headers, body });
+
+    if (!response.ok) {
+      const detail = await response.text().catch(() => "");
+      console.error(`notify(${format}) rejected: HTTP ${response.status} ${detail.slice(0, 300)}`);
+    }
+  } catch (error) {
+    console.error(
+      `notify(${format}) failed: ${error instanceof Error ? error.message : String(error)}`,
+    );
   }
 }
