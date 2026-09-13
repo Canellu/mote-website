@@ -7,10 +7,6 @@
   margin-inline: auto;
 }
 .setup-opening {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  align-items: end;
-  gap: 3.5rem;
   padding-block: 1rem 3.75rem;
   border-bottom: 1px solid var(--mote-line);
 }
@@ -20,36 +16,6 @@
   line-height: 1.06;
   letter-spacing: -0.04em;
   text-wrap: balance;
-}
-.setup-opening__intro > p {
-  max-width: 36ch;
-  color: var(--mote-muted);
-  font-size: 1.125rem;
-  line-height: 1.65;
-}
-.setup-download {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 2.75rem;
-  margin-top: 1.4rem;
-  padding: 0.65rem 1.2rem;
-  border-radius: 999px;
-  background: var(--mote-signal);
-  color: var(--mote-ink);
-  font-size: 0.875rem;
-  font-weight: 650;
-  text-decoration: none;
-  transition: background 160ms ease;
-}
-.setup-download:hover {
-  background: #ff6026;
-}
-.setup-opening__availability {
-  display: block;
-  margin-top: 0.7rem;
-  color: var(--mote-muted);
-  font-size: 0.75rem;
 }
 .setup-layout {
   display: grid;
@@ -378,10 +344,6 @@
   }
 }
 @media (max-width: 63.999rem) {
-  .setup-opening {
-    gap: 2rem;
-    grid-template-columns: 1.2fr 1fr;
-  }
   .setup-layout {
     grid-template-columns: minmax(0, 1fr);
     gap: 1.5rem;
@@ -411,24 +373,11 @@
     padding-bottom: 3.5rem;
   }
   .setup-opening {
-    display: block;
     padding-block: 0 2rem;
   }
   .setup-opening h1 {
     max-width: 15ch;
     font-size: 2.65rem;
-  }
-  .setup-opening__intro {
-    margin-top: 1.25rem;
-  }
-  .setup-opening__intro > p {
-    font-size: 1rem;
-    max-width: 38ch;
-  }
-  .setup-opening__availability {
-    display: inline-block;
-    margin-left: 0.8rem;
-    font-size: 0.7rem;
   }
   .setup-index {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -460,7 +409,6 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .setup-download,
   .setup-answers summary::before,
   .setup-answers summary svg {
     transition: none;

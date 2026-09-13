@@ -61,21 +61,6 @@ function SetupGuidePage() {
             Control Philips Hue
             <br className="hidden sm:block" /> from Windows.
           </h1>
-          <div className="setup-opening__intro">
-            <p>
-              From your Hue Bridge to your first light change. Get connected with Mote Desktop, then
-              make the room your own.
-            </p>
-            <a
-              className="setup-download"
-              href={storeUrl("web-guide")}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Get Mote Free
-            </a>
-            <span className="setup-opening__availability">For Windows 10 &amp; 11 · x64</span>
-          </div>
         </header>
         <div className="setup-layout">
           <aside className="setup-sidebar">
