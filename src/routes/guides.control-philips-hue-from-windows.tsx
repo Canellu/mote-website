@@ -119,8 +119,8 @@ function SetupGuidePage() {
                       <a href={storeUrl("web-guide")} target="_blank" rel="noreferrer">
                         Microsoft Store
                       </a>
-                      , then open the app. The Free tier includes pairing and control of one saved
-                      Hue Bridge.
+                      , then open it from Start or the desktop shortcut it adds. The Free tier
+                      includes pairing and control of one saved Hue Bridge.
                     </p>
                   </div>
                 </li>

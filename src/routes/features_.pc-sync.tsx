@@ -50,7 +50,7 @@ function PcSyncPage() {
         <p>
           PC Sync drives a Hue entertainment area from your Windows PC — from a display, or from
           what the PC is playing. It needs compatible Hue entertainment hardware and Mote Pro, which
-          is a one-time purchase rather than a subscription and is not yet available to buy.
+          is a one-time purchase through the Microsoft Store rather than a subscription.
         </p>
       </PageIntro>
 

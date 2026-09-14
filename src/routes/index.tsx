@@ -128,7 +128,7 @@ const faqItems = [
   {
     question: "What is included in Mote Pro?",
     answer:
-      "Mote Pro adds Video, Games, and Music PC Sync modes, advanced and additional widgets, a custom dashboard layout, and multiple saved Hue Bridges. It is planned as a one-time Microsoft Store purchase and is not yet available to buy.",
+      "Mote Pro adds Video, Games, and Music PC Sync modes, advanced and additional widgets, a custom dashboard layout, and multiple saved Hue Bridges. It is a one-time Microsoft Store purchase rather than a subscription.",
   },
   {
     question: "Can I sync my lights with my screen?",

@@ -345,8 +345,8 @@ function FeaturesPage() {
           </h2>
           <p className="mt-5 max-w-2xl leading-7 text-mote-muted">
             Both tiers share the same Hue control. Pro expands the workflow rather than holding back
-            everyday functionality. It is a one-time purchase rather than a subscription, and it is
-            not yet available to buy.
+            everyday functionality. It is a one-time purchase through the Microsoft Store rather
+            than a subscription.
           </p>
           {/*
            * table-layout: fixed, so the columns take the widths declared here
@@ -404,7 +404,7 @@ function FeaturesPage() {
                     </a>
                   </td>
                   <td className="px-2 pt-8 align-top leading-6 text-mote-muted sm:px-6">
-                    A one-time purchase rather than a subscription. Not yet available to buy.
+                    A one-time purchase through the Microsoft Store rather than a subscription.
                   </td>
                 </tr>
               </tfoot>
