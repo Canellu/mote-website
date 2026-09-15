@@ -406,8 +406,8 @@ function FeaturesPage() {
                     </a>
                   </td>
                   <td className="px-2 pt-8 align-top leading-6 text-mote-muted sm:px-6">
-                    Free to try for 14 days, then a one-time purchase through the Microsoft Store
-                    rather than a subscription.
+                    Free to try for 14 days with no login or credit card required, then a one-time
+                    purchase through the Microsoft Store rather than a subscription.
                   </td>
                 </tr>
               </tfoot>
