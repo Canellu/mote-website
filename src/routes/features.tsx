@@ -110,7 +110,7 @@ const featureGroups = [
     points: [
       "Video, Games, and Music modes for a compatible entertainment area",
       "Choose which part of the display each light follows",
-      "Build and position the entertainment area in a three-dimensional model of the room — that part is free, so you can confirm your hardware before buying",
+      "Set up the entertainment area and place its lights in a 3D view — that part is free, so you can confirm your hardware before buying",
       "Processing happens on your PC; captured pixels and audio are not uploaded",
     ],
     src: "/product/mote-sync-placement-screen-dark.png",

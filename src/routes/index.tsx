@@ -66,7 +66,7 @@ const syncViews = [
   {
     src: "/product/mote-sync-placement-room-dark.png",
     title: "3D room",
-    text: "Position each light of the entertainment area in a model of the space, so the sync knows which light is where.",
+    text: "Place each light of the entertainment area in a 3D view, so the sync knows which light is where.",
     alt: "Mote Desktop three-dimensional room view for positioning entertainment lights",
     width: 1301,
     height: 1119,
