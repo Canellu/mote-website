@@ -109,8 +109,7 @@ function SiteClose() {
         <section className="site-close__cta" aria-labelledby="site-close-title">
           <h2 id="site-close-title">Mote Desktop for Windows.</h2>
           <p>
-            Free on the Microsoft Store. Mote Pro: 14-day trial with no login or credit card
-            required, then a one-time purchase, no subscription.
+            Free on the Microsoft Store. Mote Pro: 14-day trial, one-time purchase, no subscription.
           </p>
           <div className="site-close__actions">
             <a className="site-cta" href={storeUrl("web-footer")} target="_blank" rel="noreferrer">

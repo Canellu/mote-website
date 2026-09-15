@@ -820,8 +820,7 @@ function HomePage() {
               </Link>
               <span>
                 <span>Free on the Microsoft Store ·</span> <span>14-day Mote Pro trial ·</span>{" "}
-                <span>No login or credit card required ·</span> <span>No subscription ·</span>{" "}
-                <span>Windows 10 and 11</span>
+                <span>No subscription ·</span> <span>Windows 10 and 11</span>
               </span>
             </div>
           </div>
