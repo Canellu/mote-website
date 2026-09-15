@@ -819,7 +819,8 @@ function HomePage() {
                 See all features
               </Link>
               <span>
-                <span>On the Microsoft Store ·</span> <span>For Windows 10 and 11</span>
+                <span>Free on the Microsoft Store ·</span>{" "}
+                <span>14-day Mote Pro trial · Windows 10 and 11</span>
               </span>
             </div>
           </div>

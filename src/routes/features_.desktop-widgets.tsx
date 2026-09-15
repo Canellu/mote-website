@@ -93,7 +93,8 @@ function DesktopWidgetsPage() {
       <section className="readable py-12 sm:py-16">
         <h2 className="text-2xl font-semibold tracking-tight">Try it free</h2>
         <p className="mt-5 leading-7 text-mote-muted">
-          Widgets work on the free app as soon as a bridge is paired. See the{" "}
+          Widgets work on the free app as soon as a bridge is paired, and pairing also starts a
+          14-day Mote Pro trial, so multi-control widgets are free to try too. See the{" "}
           <Link to="/features">full feature and tier comparison</Link>, or start with the{" "}
           <Link to="/guides/control-philips-hue-from-windows">Windows setup guide</Link>.
         </p>

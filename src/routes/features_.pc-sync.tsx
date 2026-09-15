@@ -113,8 +113,8 @@ function PcSyncPage() {
         <h2 className="text-2xl font-semibold tracking-tight">Start with the free app</h2>
         <p className="mt-5 leading-7 text-mote-muted">
           Mote Desktop is free on the Microsoft Store, and entertainment areas can be created,
-          positioned, and tested without Pro. That is the way to find out whether your hardware is
-          ready before anything is charged for. See the{" "}
+          positioned, and tested without Pro. Pairing your first bridge also starts a 14-day Mote
+          Pro trial, so you can run PC Sync itself before anything is charged for. See the{" "}
           <Link to="/features">full feature and tier comparison</Link>, or follow the{" "}
           <Link to="/guides/control-philips-hue-from-windows">Windows setup guide</Link> to pair a
           bridge first.
