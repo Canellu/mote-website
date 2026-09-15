@@ -104,7 +104,7 @@ const faqItems = [
   {
     question: "Does Mote Desktop run in the system tray?",
     answer:
-      "Yes. Mote Desktop can close to the Windows tray instead of quitting, reopen from the tray icon, and start with Windows straight into the tray. These are free.",
+      "Yes. Mote Desktop can close to the Windows tray instead of quitting, reopen from the tray icon, and start with Windows straight into the tray. Starting with Windows is on by default and can be switched off in Settings. These are free.",
   },
   {
     question: "What is Mote Desktop?",
@@ -128,7 +128,7 @@ const faqItems = [
   {
     question: "What is included in Mote Pro?",
     answer:
-      "Mote Pro adds Video, Games, and Music PC Sync modes, advanced and additional widgets, a custom dashboard layout, and multiple saved Hue Bridges. It is a one-time Microsoft Store purchase rather than a subscription.",
+      "Mote Pro adds Video, Games, and Music PC Sync modes, global keyboard shortcuts, advanced and additional widgets, a custom dashboard layout, and multiple saved Hue Bridges. Every Pro feature is free to try for 14 days, starting when you pair your first bridge. After that it is a one-time Microsoft Store purchase rather than a subscription.",
   },
   {
     question: "Can I sync my lights with my screen?",

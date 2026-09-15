@@ -95,7 +95,7 @@ function TermsPage() {
             </li>
             <li>
               Work around the licensing that separates Free from Mote Pro, or unlock paid features
-              by any means other than buying them
+              by any means other than the Mote Pro trial or buying them
             </li>
             <li>
               Reverse engineer, decompile, or disassemble the application, except to the extent the
@@ -116,16 +116,24 @@ function TermsPage() {
           <h2 id="pro">Mote Pro</h2>
           <p>
             Everyday Hue control is free. Mote Pro is a paid tier that adds multiple bridges,
-            advanced widgets, custom dashboard layouts, and PC Sync. It is a one-time purchase
-            through the Microsoft Store rather than a subscription.
+            advanced widgets, custom dashboard layouts, global keyboard shortcuts, and PC Sync. It
+            is a one-time purchase through the Microsoft Store rather than a subscription.
           </p>
           <p>
-            When it is, the purchase happens through the Microsoft Store: Microsoft takes the
-            payment, issues the receipt, and handles refunds and billing questions under the Store
-            policy that applies where you bought it. The publisher cannot process or refund a Store
-            payment. Which capabilities sit in each tier may change as the application develops; the
-            features page describes the current split, and paid features already unlocked are not
-            moved back behind a further purchase.
+            Each copy of Mote Desktop can try Mote Pro free for 14 days. The trial starts when that
+            copy first pairs a Hue Bridge, needs no account or payment details, and ends on its own:
+            nothing is charged and nothing renews. When it ends, Mote Pro features stop working
+            until you buy Mote Pro, and what you set up with them stays saved. There is one trial
+            for each copy on a PC. Reinstalling does not start another, and resetting or extending a
+            trial by other means is working around the licensing that separates Free from Mote Pro.
+          </p>
+          <p>
+            The purchase happens through the Microsoft Store: Microsoft takes the payment, issues
+            the receipt, and handles refunds and billing questions under the Store policy that
+            applies where you bought it. The publisher cannot process or refund a Store payment.
+            Which capabilities sit in each tier may change as the application develops; the features
+            page describes the current split, and paid features already unlocked are not moved back
+            behind a further purchase.
           </p>
         </section>
 

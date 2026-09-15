@@ -73,18 +73,23 @@ function PrivacyPage() {
             <li>Application preferences, including appearance and window behavior</li>
             <li>Your dashboard layout and the widgets you have configured</li>
             <li>The names of the rooms, zones, lights, and scenes your bridge reports</li>
+            <li>When this copy of Mote started its Mote Pro trial, and when it last ran</li>
           </ul>
           <p>
             The credentials Mote is issued when you pair with a bridge or a Sync Box are held in the
-            Windows credential store rather than in a settings file. None of this is sent to the
-            publisher.
+            Windows credential store rather than in a settings file. The trial dates are kept both
+            in Mote&apos;s settings folder and in the credential store, so that reinstalling Mote
+            does not start a second trial. None of this is sent to the publisher: the trial is
+            counted on your PC, with no account and no check against a server.
           </p>
           <p>
             Removing a saved bridge or Sync Box in Mote&apos;s settings is what clears it.
             Uninstalling the application may deliberately leave your preferences and credentials
             behind, so that reinstalling or upgrading does not silently erase a setup you spent time
-            on. If you want everything gone, remove the saved bridge and your widgets inside Mote
-            first.
+            on. The trial dates are left behind on purpose, for the reason above. They record only
+            when a trial began and when Mote last ran, and they can be removed like any other entry
+            in Windows Credential Manager. If you want everything else gone, remove the saved bridge
+            and your widgets inside Mote first.
           </p>
         </section>
 

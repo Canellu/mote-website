@@ -328,7 +328,8 @@ function FeaturesPage() {
           <p>
             Mote keeps Philips Hue lights, rooms, zones, and scenes available while you use your PC.
             Everyday control is free. Mote Pro adds multiple bridges, advanced widgets, custom
-            dashboard layouts, and PC Sync.
+            dashboard layouts, global shortcuts, and PC Sync, and all of it is free to try for 14
+            days.
           </p>
         </PageIntro>
 
@@ -345,8 +346,9 @@ function FeaturesPage() {
           </h2>
           <p className="mt-5 max-w-2xl leading-7 text-mote-muted">
             Both tiers share the same Hue control. Pro expands the workflow rather than holding back
-            everyday functionality. It is a one-time purchase through the Microsoft Store rather
-            than a subscription.
+            everyday functionality. Every Pro feature is free to try for 14 days from the moment you
+            pair your first bridge, then a one-time purchase through the Microsoft Store rather than
+            a subscription.
           </p>
           {/*
            * table-layout: fixed, so the columns take the widths declared here
@@ -404,7 +406,8 @@ function FeaturesPage() {
                     </a>
                   </td>
                   <td className="px-2 pt-8 align-top leading-6 text-mote-muted sm:px-6">
-                    A one-time purchase through the Microsoft Store rather than a subscription.
+                    Free to try for 14 days, then a one-time purchase through the Microsoft Store
+                    rather than a subscription.
                   </td>
                 </tr>
               </tfoot>

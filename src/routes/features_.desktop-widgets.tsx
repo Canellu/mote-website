@@ -60,8 +60,8 @@ function DesktopWidgetsPage() {
               ))}
             </ul>
             <p className="mt-6 leading-7 text-mote-muted">
-              Mote Pro is a one-time purchase through the Microsoft Store rather than a
-              subscription.
+              Mote Pro is free to try for 14 days, then a one-time purchase through the Microsoft
+              Store rather than a subscription.
             </p>
           </section>
         </div>
