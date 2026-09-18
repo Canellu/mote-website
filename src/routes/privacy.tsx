@@ -16,6 +16,7 @@ const sections = [
   { id: "on-your-device", label: "What Mote stores on your PC" },
   { id: "local-network", label: "What travels on your local network" },
   { id: "pc-sync", label: "PC Sync, screen capture, and audio" },
+  { id: "automations", label: "Automations, the microphone, and the camera" },
   { id: "internet", label: "When Mote reaches the internet" },
   { id: "not-included", label: "What Mote does not do" },
   { id: "website", label: "This website" },
@@ -72,6 +73,7 @@ function PrivacyPage() {
             <li>Hue Bridge and Hue Play HDMI Sync Box connection details</li>
             <li>Application preferences, including appearance and window behavior</li>
             <li>Your dashboard layout and the widgets you have configured</li>
+            <li>The automations you have set up</li>
             <li>The names of the rooms, zones, lights, and scenes your bridge reports</li>
             <li>When this copy of Mote started its Mote Pro trial, and when it last ran</li>
           </ul>
@@ -119,6 +121,23 @@ function PrivacyPage() {
             That reduction happens on your PC. Captured pixels and audio are not written to disk,
             not kept past the frame they came from, and not uploaded anywhere. What leaves your PC
             is lighting output — the same kind of instruction any other Hue command carries.
+          </p>
+        </section>
+
+        <section>
+          <h2 id="automations">Automations, the microphone, and the camera</h2>
+          <p>
+            The on-air light, a Mote Pro automation, changes your lights while an app is using your
+            microphone or camera. To know when that is, Mote reads the record Windows keeps of which
+            apps are using them — the same record behind the microphone and camera indicators in the
+            taskbar. It learns an app&apos;s name and whether it is capturing, nothing more. Mote
+            never opens your microphone or camera and never receives any audio or video.
+          </p>
+          <p>
+            The away automation reacts to this PC locking, unlocking, sleeping, and waking. Both run
+            only on your PC and send nothing anywhere. The one thing either keeps is what you
+            choose: apps you tell the on-air light to ignore are saved with your automation
+            settings.
           </p>
         </section>
 
