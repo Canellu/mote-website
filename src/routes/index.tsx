@@ -128,7 +128,7 @@ const faqItems = [
   {
     question: "What is included in Mote Pro?",
     answer:
-      "Mote Pro adds Video, Games, and Music PC Sync modes, global keyboard shortcuts, advanced and additional widgets, a custom dashboard layout, and multiple saved Hue Bridges. Every Pro feature is free to try for 14 days, starting when you pair your first bridge. After that it is a one-time Microsoft Store purchase rather than a subscription.",
+      "Mote Pro adds Video, Games, and Music PC Sync modes, global keyboard shortcuts, automations for calls and for locking your PC, advanced and additional widgets, a custom dashboard layout, and multiple saved Hue Bridges. Every Pro feature is free to try for 14 days, starting when you pair your first bridge. After that it is a one-time Microsoft Store purchase rather than a subscription.",
   },
   {
     question: "Can I sync my lights with my screen?",

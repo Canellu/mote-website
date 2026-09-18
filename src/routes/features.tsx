@@ -205,6 +205,9 @@ const comparisonRows: { name: string; free: ComparisonValue; pro: ComparisonValu
   { name: "Widget theme, size, corners, and placement", free: false, pro: true },
   { name: "Dashboard layout", free: "Standard", pro: "Custom" },
   { name: "Global keyboard shortcuts", free: false, pro: true },
+  // The on-air light and the away automation. Mirrors the in-app comparison in
+  // mote-desktop's PlanOverview; change the two together.
+  { name: "Automations: on air and away", free: false, pro: true },
   // Building and testing an entertainment area is free; only driving one from
   // the PC is paid. The two used to share a row, which made the free half look
   // like it was behind the purchase.
@@ -327,8 +330,8 @@ function FeaturesPage() {
           <p>
             Mote keeps Philips Hue lights, rooms, zones, and scenes available while you use your PC.
             Everyday control is free. Mote Pro adds multiple bridges, advanced widgets, custom
-            dashboard layouts, global shortcuts, and PC Sync, and all of it is free to try for 14
-            days.
+            dashboard layouts, global shortcuts, automations, and PC Sync, and all of it is free to
+            try for 14 days.
           </p>
         </PageIntro>
 
