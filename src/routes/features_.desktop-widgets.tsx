@@ -6,23 +6,22 @@ import { pageHead } from "../lib/seo";
 
 /**
  * Sourced from `mote-desktop/docs/free-pro-feature-matrix.md` and
- * `docs/known-limitations.md`, reviewed 2026-09-01.
+ * `docs/known-limitations.md`, reviewed 2026-09-18.
  *
- * The widget count was contested — `/features` and the Store listing spec both
- * described a one-widget free allowance the feature matrix contradicts — and was
- * settled by reading the app: no command limits how many widget windows exist,
- * and the capability the matrix reserves is named `advanced_widgets` because it
- * gates composition, not creation. Both other surfaces were corrected to match.
+ * Free is one widget. Until 2026-09-18 the app set no limit on how many widgets
+ * existed and only charged for what one widget held; the owner narrowed Free
+ * that day, and `open-widget-window` now refuses a second widget without Pro.
  */
 const freeCapabilities = [
-  "As many widgets as you want on the desktop — the app sets no limit",
-  "One single-target control per widget — a room, a zone, or a light each count as one target",
-  "Standard widget size, the system theme, and ordinary window behaviour",
+  "One widget on the desktop",
+  "One room, zone, or light in it — each counts as one target",
+  "Standard widget size and corners, the system theme, and ordinary window behaviour",
 ];
 
 const proCapabilities = [
+  "As many widgets as you want",
   "More than one control in a widget, and multi-target toggle groups",
-  "Widget theme, size, and placement chosen rather than inherited",
+  "Widget theme, size, corners, and placement chosen rather than inherited",
   "Pinning and always-on-top behaviour",
 ];
 
@@ -31,9 +30,9 @@ function DesktopWidgetsPage() {
     <main id="main" className="page-shell">
       <PageIntro title="Desktop widgets for your Hue lights">
         <p>
-          A widget is a small always-available window that controls one room, zone, or light without
-          opening the full dashboard. Keep as many as you like — the free app sets no limit on how
-          many sit on your desktop.
+          A widget is a small always-available window that controls your lights without opening the
+          full dashboard. The free app gives you one, for one room, zone, or light. Mote Pro lets
+          you keep as many as you like and fill each with several controls.
         </p>
       </PageIntro>
 
@@ -85,16 +84,16 @@ function DesktopWidgetsPage() {
         <p className="mt-5 leading-7 text-mote-muted">
           A room is one target. So is a zone, and so is a single light — a widget pointed at the
           living room is one control even though the room holds several bulbs. What requires Pro is
-          putting more than one control in the same widget, or a toggle that acts on several targets
-          at once.
+          a second widget, more than one control in the same widget, or a toggle that acts on
+          several targets at once.
         </p>
       </section>
 
       <section className="readable py-12 sm:py-16">
         <h2 className="text-2xl font-semibold tracking-tight">Try it free</h2>
         <p className="mt-5 leading-7 text-mote-muted">
-          Widgets work on the free app as soon as a bridge is paired, and pairing also starts a
-          14-day Mote Pro trial, so multi-control widgets are free to try too. See the{" "}
+          Your free widget works as soon as a bridge is paired, and pairing also starts a 14-day
+          Mote Pro trial, so extra widgets and multi-control widgets are free to try too. See the{" "}
           <Link to="/features">full feature and tier comparison</Link>, or start with the{" "}
           <Link to="/guides/control-philips-hue-from-windows">Windows setup guide</Link>.
         </p>
@@ -116,7 +115,7 @@ export const Route = createFileRoute("/features_/desktop-widgets")({
     pageHead({
       title: "Philips Hue desktop widgets for Windows — Mote Desktop",
       description:
-        "Keep a room, zone, or light in a small always-available window on your Windows desktop. What the free app includes and what Mote Pro adds.",
+        "Keep a room, zone, or light in a small always-available window on your Windows desktop. The free app includes one widget; Mote Pro adds more.",
       path: "/features/desktop-widgets",
     }),
   component: DesktopWidgetsPage,

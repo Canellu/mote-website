@@ -81,15 +81,15 @@ const featureGroups = [
     tiers: ["Free", "Mote Pro"],
     title: "Desktop widgets",
     summary: "Keep the controls you use most pinned beside your work.",
-    // The tier split here is composition, not count: the app has never limited
-    // how many widget windows you open. Sourced from the Free/Pro feature matrix
-    // in mote-desktop, which the `advanced_widgets` capability is named after.
+    // Free is one widget with one target, since 2026-09-18. Sourced from the
+    // Free/Pro feature matrix in mote-desktop, which gates both the count and the
+    // composition under the `advanced_widgets` capability.
     points: [
       "Name each widget so it is easy to recognize later",
-      "Free keeps one room, zone, or light in each widget",
+      "Free includes one widget with one room, zone, or light",
       "Arrange the controls, choose the density and appearance, and preview the result",
-      "Mote Pro combines several controls, or a whole toggle group, in one widget",
-      "Mote Pro also chooses each widget's theme, size, placement, and always-on-top behavior",
+      "Mote Pro adds as many widgets as you like, each with several controls or a whole toggle group",
+      "Mote Pro also chooses each widget's theme, size, corners, placement, and always-on-top behavior",
     ],
     src: "/product/mote-widget-stack-dark.png",
     alt: "A stack of colorful Mote Desktop widgets for rooms, scenes, and lights",
@@ -198,12 +198,11 @@ const comparisonRows: { name: string; free: ComparisonValue; pro: ComparisonValu
   { name: "Color and white temperature inspector", free: true, pro: true },
   { name: "Hue Play HDMI Sync Box", free: "One box", pro: "One box" },
   { name: "Hue Bridges", free: "One", pro: "Multiple" },
-  // The widget row counts nothing on purpose. The app has never limited how many
-  // widget windows are open; the paid boundary is how much one widget may hold,
-  // which is the row below it.
-  { name: "Desktop widgets", free: true, pro: true },
+  // Free is one widget since 2026-09-18; what one widget may hold is the row
+  // below it.
+  { name: "Desktop widgets", free: "One", pro: "Unlimited" },
   { name: "Multiple controls in one widget", free: false, pro: true },
-  { name: "Widget theme, size, and placement", free: false, pro: true },
+  { name: "Widget theme, size, corners, and placement", free: false, pro: true },
   { name: "Dashboard layout", free: "Standard", pro: "Custom" },
   { name: "Global keyboard shortcuts", free: false, pro: true },
   // Building and testing an entertainment area is free; only driving one from
