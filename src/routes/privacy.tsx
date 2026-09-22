@@ -73,7 +73,10 @@ function PrivacyPage() {
             <li>Hue Bridge and Hue Play HDMI Sync Box connection details</li>
             <li>Application preferences, including appearance and window behavior</li>
             <li>Your dashboard layout and the widgets you have configured</li>
-            <li>The automations you have set up</li>
+            <li>
+              The automations you have set up, including selected presence devices and calendar
+              rules
+            </li>
             <li>The names of the rooms, zones, lights, and scenes your bridge reports</li>
             <li>When this copy of Mote started its Mote Pro trial, and when it last ran</li>
           </ul>
@@ -138,6 +141,19 @@ function PrivacyPage() {
             only on your PC and send nothing anywhere. The one thing either keeps is what you
             choose: apps you tell the on-air light to ignore are saved with your automation
             settings.
+          </p>
+          <p>
+            If you set up presence, Mote looks for devices on your home network and saves the names,
+            network addresses, and device identifiers you select. It checks for those devices while
+            Mote is running to decide whether someone is home. These checks stay on your local
+            network; Mote does not send the device list to the publisher.
+          </p>
+          <p>
+            If you connect a calendar, Mote requests the iCal address you provide from its calendar
+            provider over HTTPS. That provider receives the request from your PC and may see your IP
+            address. Mote keeps the address in the Windows credential store and the connection name
+            and rules in local settings. It reads event details to match your rules but does not
+            save event content or send it to the publisher.
           </p>
         </section>
 
