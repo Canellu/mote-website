@@ -130,7 +130,7 @@ const featureGroups = [
       "Pick which HDMI source the box follows",
       "Video, Game, and Music styles with an intensity setting",
       "Fine-tune how strongly the entertainment lights react",
-      "Power and sync controls for a single Sync Box in both Free and Mote Pro",
+      "One Sync Box is free; pair more and switch between them with Mote Pro",
     ],
     src: "/product/mote-sync-hdmi-box-dark.png",
     alt: "Mote Desktop Sync Box screen showing HDMI sources and sync style controls",
@@ -196,7 +196,7 @@ const comparisonRows: { name: string; free: ComparisonValue; pro: ComparisonValu
   { name: "Rooms, zones, lights, and scenes", free: true, pro: true },
   { name: "Devices and entertainment areas", free: true, pro: true },
   { name: "Color and white temperature inspector", free: true, pro: true },
-  { name: "Hue Play HDMI Sync Box", free: "One box", pro: "One box" },
+  { name: "Hue Play HDMI Sync Box", free: "One box", pro: "Multiple" },
   { name: "Hue Bridges", free: "One", pro: "Multiple" },
   // Free is one widget since 2026-09-18; what one widget may hold is the row
   // below it.
@@ -329,9 +329,9 @@ function FeaturesPage() {
         <PageIntro title="Everything Mote Desktop does">
           <p>
             Mote keeps Philips Hue lights, rooms, zones, and scenes available while you use your PC.
-            Everyday control is free. Mote Pro adds multiple bridges, advanced widgets, custom
-            dashboard layouts, global shortcuts, automations, and PC Sync, and all of it is free to
-            try for 14 days.
+            Everyday control is free. Mote Pro adds multiple bridges and Sync Boxes, advanced
+            widgets, custom dashboard layouts, global shortcuts, automations, and PC Sync, and all
+            of it is free to try for 14 days.
           </p>
         </PageIntro>
 

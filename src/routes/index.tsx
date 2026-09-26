@@ -88,7 +88,7 @@ const HERO_POSTER = "/product/derived/mote-hero-poster-hd-1440.webp";
 // widths.
 const SYNC_TITLE = "Light that follows what is on screen.";
 const SYNC_INTRO =
-  "PC Sync, a Mote Pro feature, drives a compatible entertainment area from your display. A Hue Play HDMI Sync Box can drive the same area instead, in Free and Mote Pro.";
+  "PC Sync, a Mote Pro feature, drives a compatible entertainment area from your display. A Hue Play HDMI Sync Box can drive the same area instead: one box in Free, several with Mote Pro.";
 
 const faqItems = [
   {
