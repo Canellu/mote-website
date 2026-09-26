@@ -115,10 +115,9 @@ function PrivacyPage() {
         <section>
           <h2 id="pc-sync">PC Sync, screen capture, and audio</h2>
           <p>
-            PC Sync, a Mote Pro feature, follows what is on your display or coming out of your
-            speakers. To do that it reads captured display frames or the system-audio loopback while
-            sync is running, and reduces them to the color and brightness values sent to your
-            entertainment area.
+            PC Sync follows what is on your display or coming out of your speakers. To do that it
+            reads captured display frames or the system-audio loopback while sync is running, and
+            reduces them to the color and brightness values sent to your entertainment area.
           </p>
           <p>
             That reduction happens on your PC. Captured pixels and audio are not written to disk,

@@ -194,11 +194,11 @@ function SetupGuidePage() {
                       </figcaption>
                     </figure>
                     <p className="setup-free-note">
-                      You’re set. Essential Hue control is included in Free, and pairing also starts
-                      a free 14-day trial of everything in Mote Pro.{" "}
+                      You’re set. Essential Hue control and PC Sync are included in Free, and
+                      pairing also starts a free 14-day trial of everything in Mote Pro.{" "}
                       <Link to="/features">Compare Free and Mote Pro</Link> for widgets, custom
-                      dashboards, multiple bridges, and PC Sync. Mote Pro can save multiple bridges,
-                      with one active at a time.
+                      dashboards, automations, and multiple bridges. Mote Pro can save multiple
+                      bridges, with one active at a time.
                     </p>
                   </div>
                 </li>

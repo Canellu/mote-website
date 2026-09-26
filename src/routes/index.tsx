@@ -88,7 +88,7 @@ const HERO_POSTER = "/product/derived/mote-hero-poster-hd-1440.webp";
 // widths.
 const SYNC_TITLE = "Light that follows what is on screen.";
 const SYNC_INTRO =
-  "PC Sync, a Mote Pro feature, drives a compatible entertainment area from your display. A Hue Play HDMI Sync Box can drive the same area instead: one box in Free, several with Mote Pro.";
+  "PC Sync, free in Mote Desktop, drives a compatible entertainment area from your display. A Hue Play HDMI Sync Box can drive the same area instead: one box in Free, several with Mote Pro.";
 
 const faqItems = [
   {
@@ -128,12 +128,12 @@ const faqItems = [
   {
     question: "What is included in Mote Pro?",
     answer:
-      "Mote Pro adds Video, Games, and Music PC Sync modes, global keyboard shortcuts, automations for calls and for locking your PC, advanced and additional widgets, a custom dashboard layout, and multiple saved Hue Bridges. Every Pro feature is free to try for 14 days, starting when you pair your first bridge. After that it is a one-time Microsoft Store purchase rather than a subscription.",
+      "Mote Pro adds global keyboard shortcuts, automations for calls, locking your PC, focus sessions, presence, and calendars, advanced and additional widgets, a custom dashboard layout, and multiple saved Hue Bridges. Every Pro feature is free to try for 14 days, starting when you pair your first bridge. After that it is a one-time Microsoft Store purchase rather than a subscription.",
   },
   {
     question: "Can I sync my lights with my screen?",
     answer:
-      "Yes, with Mote Pro and a compatible Hue entertainment area. PC Sync can follow a supported display in Video or Games mode; Music mode follows system-audio loopback rather than the microphone. Display, driver, HDR, audio, and hardware conditions can affect availability.",
+      "Yes, for free, with a compatible Hue entertainment area. PC Sync can follow a supported display in Video or Games mode; Music mode follows system-audio loopback rather than the microphone. Display, driver, HDR, audio, and hardware conditions can affect availability.",
   },
   {
     question: "Does Mote Desktop work without internet?",

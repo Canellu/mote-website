@@ -116,8 +116,8 @@ function TermsPage() {
           <h2 id="pro">Mote Pro</h2>
           <p>
             Everyday Hue control is free. Mote Pro is a paid tier that adds multiple bridges,
-            advanced widgets, custom dashboard layouts, global keyboard shortcuts, and PC Sync. It
-            is a one-time purchase through the Microsoft Store rather than a subscription.
+            advanced widgets, custom dashboard layouts, global keyboard shortcuts, and automations.
+            It is a one-time purchase through the Microsoft Store rather than a subscription.
           </p>
           <p>
             Each copy of Mote Desktop can try Mote Pro free for 14 days. The trial starts when that

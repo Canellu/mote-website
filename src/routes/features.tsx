@@ -104,13 +104,13 @@ const featureGroups = [
   {
     id: "pc-sync",
     weight: "hero",
-    tiers: ["Mote Pro"],
+    tiers: ["Free"],
     title: "PC Sync",
     summary: "Match a compatible entertainment area to what is happening on your PC.",
     points: [
       "Video, Games, and Music modes for a compatible entertainment area",
       "Choose which part of the display each light follows",
-      "Set up the entertainment area and place its lights in a 3D view — that part is free, so you can confirm your hardware before buying",
+      "Set up the entertainment area and place its lights in a 3D view",
       "Processing happens on your PC; captured pixels and audio are not uploaded",
     ],
     src: "/product/mote-sync-placement-screen-dark.png",
@@ -208,11 +208,8 @@ const comparisonRows: { name: string; free: ComparisonValue; pro: ComparisonValu
   // The on-air light and the away automation. Mirrors the in-app comparison in
   // mote-desktop's PlanOverview; change the two together.
   { name: "Automations: on air and away", free: false, pro: true },
-  // Building and testing an entertainment area is free; only driving one from
-  // the PC is paid. The two used to share a row, which made the free half look
-  // like it was behind the purchase.
   { name: "Entertainment area setup and testing", free: true, pro: true },
-  { name: "PC Sync: Video, Games, and Music", free: false, pro: true },
+  { name: "PC Sync: Video, Games, and Music", free: true, pro: true },
 ];
 
 /**
@@ -329,8 +326,8 @@ function FeaturesPage() {
         <PageIntro title="Everything Mote Desktop does">
           <p>
             Mote keeps Philips Hue lights, rooms, zones, and scenes available while you use your PC.
-            Everyday control is free. Mote Pro adds multiple bridges and Sync Boxes, advanced
-            widgets, custom dashboard layouts, global shortcuts, automations, and PC Sync, and all
+            Everyday control and PC Sync are free. Mote Pro adds multiple bridges and Sync Boxes,
+            advanced widgets, custom dashboard layouts, global shortcuts, and automations, and all
             of it is free to try for 14 days.
           </p>
         </PageIntro>

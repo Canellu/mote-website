@@ -33,14 +33,12 @@ const requirements = [
   "A compatible Hue Bridge on the same local network",
   "A compatible Hue entertainment area, created and positioned in Mote Desktop",
   "An entertainment credential, provisioned when the area is first set up",
-  "Mote Pro, to start a session",
 ];
 
 const limits = [
   "Which displays, HDR modes, and audio devices work depends on Windows, your drivers, and your hardware. That behaviour is still being finalised through acceptance testing, so treat your own setup as the test.",
   "Music mode uses system-audio loopback rather than the microphone. Audio routed away from the system mixer will not reach it.",
   "PC Sync runs against one bridge. Syncing across several bridges at once is not part of the first release.",
-  "Without Pro, Mote Desktop shows the requirements and the upgrade entry point but cannot start a session.",
 ];
 
 function PcSyncPage() {
@@ -49,9 +47,7 @@ function PcSyncPage() {
       <PageIntro title="PC Sync: lights that follow your screen">
         <p>
           PC Sync drives a Hue entertainment area from your Windows PC — from a display, or from
-          what the PC is playing. It needs compatible Hue entertainment hardware and Mote Pro, which
-          is free to try for 14 days and then a one-time purchase through the Microsoft Store rather
-          than a subscription.
+          what the PC is playing. It is free and needs compatible Hue entertainment hardware.
         </p>
       </PageIntro>
 
@@ -77,8 +73,7 @@ function PcSyncPage() {
             sizes="(min-width: 1024px) 40vw, 92vw"
           />
           <figcaption className="mt-4 text-sm leading-6 text-mote-muted">
-            PC Sync in Mote Desktop. Starting a session requires Mote Pro and a configured
-            entertainment area.
+            PC Sync in Mote Desktop. It is free and needs a configured entertainment area.
           </figcaption>
         </figure>
       </div>
@@ -112,9 +107,8 @@ function PcSyncPage() {
       <section className="readable py-12 sm:py-16">
         <h2 className="text-2xl font-semibold tracking-tight">Start with the free app</h2>
         <p className="mt-5 leading-7 text-mote-muted">
-          Mote Desktop is free on the Microsoft Store, and entertainment areas can be created,
-          positioned, and tested without Pro. Pairing your first bridge also starts a 14-day Mote
-          Pro trial, so you can run PC Sync itself before anything is charged for. See the{" "}
+          Mote Desktop is free on the Microsoft Store, and so is PC Sync: create an entertainment
+          area, position its lights, and start syncing without buying anything. See the{" "}
           <Link to="/features">full feature and tier comparison</Link>, or follow the{" "}
           <Link to="/guides/control-philips-hue-from-windows">Windows setup guide</Link> to pair a
           bridge first.

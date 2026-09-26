@@ -95,7 +95,7 @@ export function softwareApplicationJsonLd() {
       "Per-room scene tiles, individual light controls, and a color inspector",
       "Desktop widgets pinned beside your work",
       "Hue Play HDMI Sync Box controls",
-      "PC Sync with Video, Games, and Music modes (Mote Pro)",
+      "PC Sync with Video, Games, and Music modes",
     ],
   };
 }
