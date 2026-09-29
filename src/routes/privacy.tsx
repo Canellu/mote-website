@@ -176,9 +176,9 @@ function PrivacyPage() {
           <p>
             The application has no Mote accounts, no advertising, no automatic analytics, no
             automatic crash uploads, and no session replay. Nothing is uploaded unless you fill in
-            the feedback form and press Send. Mote does not send the publisher your Hue names,
-            bridge or Sync Box addresses, credentials, screenshots, captured frames, audio,
-            clipboard contents, or file paths.
+            the feedback form or open a diagnostics report and press Send. Mote does not send the
+            publisher your Hue names, bridge or Sync Box addresses, credentials, screenshots,
+            captured frames, audio, clipboard contents, or file paths.
           </p>
           <p>
             Nothing about your lighting or your PC is sold, rented, or handed to advertisers or data
@@ -240,6 +240,19 @@ function PrivacyPage() {
             and stored in a Cloudflare D1 database in the European Union, together with the
             application version, the platform, the release channel, and the time. You get back a
             short reference such as <code>f_abc123</code> so you can quote the report later.
+          </p>
+          <p>
+            A report can also carry diagnostics: when an error screen offers Send diagnostics, and
+            when you leave Include diagnostics ticked in the feedback form. Diagnostics are a short
+            technical summary of what Mote tried recently and how each step ended — for example,
+            that a search of your network found no bridge after three seconds — along with facts
+            about your PC's network setup: whether the network is marked public or private, whether
+            Windows Firewall allows or blocks Mote, whether a VPN is active, whether your PC and the
+            device Mote was reaching are on the same subnet, and the Windows version. They are made
+            of fixed codes, counts, and yes-or-no answers; they never contain names, addresses,
+            identifiers, or credentials, and the hosted endpoint refuses any that do. Mote keeps
+            them only in memory while it runs and sends them only with a report you send. You can
+            expand the form to read exactly what will be sent first.
           </p>
           <p>
             Before your message leaves your PC, Mote removes text that looks like an email address,

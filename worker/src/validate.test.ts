@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vite-plus/test";
-import { LIMITS, validateSubmission } from "./validate";
+import { DIAGNOSTICS_LIMITS, LIMITS, validateDiagnostics, validateSubmission } from "./validate";
 
 const valid = {
   category: "bug",
@@ -76,5 +76,65 @@ describe("validateSubmission", () => {
   it("rejects a non-object body", () => {
     expect(validateSubmission("hello").ok).toBe(false);
     expect(validateSubmission(null).ok).toBe(false);
+  });
+});
+
+const diagnostics = {
+  v: 1,
+  code: "mdns_empty_cloud_busy",
+  facts: {
+    network: "public",
+    firewall_mote_rule: "blocked",
+    vpn_active: false,
+    windows_build: 26200,
+  },
+  steps: [
+    { t: 1200, step: "mdns_discovery", outcome: "empty", ms: 3000 },
+    { t: 1500, step: "cloud_lookup", outcome: "busy", status: 429 },
+  ],
+};
+
+describe("validateDiagnostics", () => {
+  it("accepts codes, flags, and numbers", () => {
+    expect(validateDiagnostics(diagnostics)).toEqual(diagnostics);
+  });
+
+  it("stores accepted diagnostics and their code with the report", () => {
+    const result = validateSubmission({ ...valid, diagnostics });
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.diagnosticsCode).toBe("mdns_empty_cloud_busy");
+      expect(JSON.parse(result.value.diagnostics ?? "null")).toEqual(diagnostics);
+    }
+  });
+
+  it("cannot carry an address, an id, or a name in any text field", () => {
+    const leaks = [
+      { ...diagnostics, code: "192.168.1.7" },
+      { ...diagnostics, facts: { network: "ECB5FAFFFE903489" } },
+      { ...diagnostics, facts: { bridge: "Living Room" } },
+      { ...diagnostics, steps: [{ t: 1, step: "pairing", outcome: "ip_10_0_0_2" }] },
+    ];
+    for (const leak of leaks) expect(validateDiagnostics(leak)).toBeNull();
+  });
+
+  it("refuses unknown step fields rather than storing them", () => {
+    const extra = { ...diagnostics, steps: [{ t: 1, step: "pairing", outcome: "ok", ip: "x" }] };
+    expect(validateDiagnostics(extra)).toBeNull();
+  });
+
+  it("drops invalid diagnostics but keeps the report", () => {
+    const result = validateSubmission({ ...valid, diagnostics: { v: 2 } });
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.diagnostics).toBeNull();
+      expect(result.value.diagnosticsCode).toBeNull();
+    }
+  });
+
+  it("caps how much a report can carry", () => {
+    const step = { t: 1, step: "pairing", outcome: "ok" };
+    const tooMany = { ...diagnostics, steps: Array(DIAGNOSTICS_LIMITS.steps + 1).fill(step) };
+    expect(validateDiagnostics(tooMany)).toBeNull();
   });
 });

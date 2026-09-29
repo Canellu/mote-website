@@ -21,6 +21,8 @@ export interface NotifyInput {
   contactEmail: string | null;
   appVersion: string | null;
   source: string;
+  diagnosticsCode?: string | null;
+  hasDiagnostics?: boolean;
 }
 
 const PREVIEW_LIMIT = 1500;
@@ -35,6 +37,9 @@ function summarise(input: NotifyInput): string {
     `New ${input.category} feedback — ${input.reportId}`,
     `from ${input.source}${input.appVersion ? ` v${input.appVersion}` : ""}`,
     input.contactEmail ? `reply to: ${input.contactEmail}` : "no reply requested",
+    input.hasDiagnostics
+      ? `diagnostics attached${input.diagnosticsCode ? `: ${input.diagnosticsCode}` : ""}`
+      : "no diagnostics",
     "",
     preview,
   ].join("\n");

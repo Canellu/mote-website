@@ -26,6 +26,102 @@ export interface FeedbackSubmission {
   platform: string | null;
   releaseChannel: string | null;
   source: Source;
+  /** Serialised {@link Diagnostics}, or null when none were sent or valid. */
+  diagnostics: string | null;
+  /** The diagnostics' error code, kept separately so it can be filtered on. */
+  diagnosticsCode: string | null;
+}
+
+type FactValue = string | number | boolean;
+
+interface DiagnosticsStep {
+  t: number;
+  step: string;
+  outcome: string;
+  ms?: number;
+  n?: number;
+  status?: number;
+}
+
+export interface Diagnostics {
+  v: 1;
+  code: string | null;
+  facts: Record<string, FactValue>;
+  steps: DiagnosticsStep[];
+}
+
+// `number` covers step times in milliseconds for a Mote left running ~24 days.
+export const DIAGNOSTICS_LIMITS = { facts: 24, steps: 60, number: 2_147_483_647 } as const;
+
+/**
+ * Diagnostics carry codes, never text. A code is lowercase letters and
+ * underscores only: with no digits, dots, colons, or capitals, an IP address, a
+ * bridge id, a MAC, or a Hue name cannot be expressed in one, whatever a client
+ * sends.
+ */
+const CODE = /^[a-z][a-z_]{0,59}$/;
+const KEY = /^[a-z][a-z_]{0,31}$/;
+
+const isCode = (value: unknown): value is string => typeof value === "string" && CODE.test(value);
+
+const isCount = (value: unknown): value is number =>
+  typeof value === "number" &&
+  Number.isInteger(value) &&
+  value >= 0 &&
+  value <= DIAGNOSTICS_LIMITS.number;
+
+const STEP_NUMBERS = ["ms", "n", "status"] as const;
+const STEP_KEYS = new Set<string>(["t", "step", "outcome", ...STEP_NUMBERS]);
+
+function validateStep(value: unknown): DiagnosticsStep | null {
+  if (typeof value !== "object" || value === null || Array.isArray(value)) return null;
+  const input = value as Record<string, unknown>;
+  if (Object.keys(input).some((key) => !STEP_KEYS.has(key))) return null;
+  if (!isCount(input.t) || !isCode(input.step) || !isCode(input.outcome)) return null;
+
+  const step: DiagnosticsStep = { t: input.t, step: input.step, outcome: input.outcome };
+  for (const key of STEP_NUMBERS) {
+    const number = input[key];
+    if (number === undefined) continue;
+    if (!isCount(number)) return null;
+    step[key] = number;
+  }
+  return step;
+}
+
+/**
+ * Accepts the whole block or none of it. A report is worth keeping without its
+ * diagnostics, so anything unexpected drops them rather than the report.
+ */
+export function validateDiagnostics(value: unknown): Diagnostics | null {
+  if (typeof value !== "object" || value === null || Array.isArray(value)) return null;
+  const input = value as Record<string, unknown>;
+  if (input.v !== 1) return null;
+
+  const code = input.code === undefined || input.code === null ? null : input.code;
+  if (code !== null && !isCode(code)) return null;
+
+  if (typeof input.facts !== "object" || input.facts === null || Array.isArray(input.facts)) {
+    return null;
+  }
+  const factEntries = Object.entries(input.facts);
+  if (factEntries.length > DIAGNOSTICS_LIMITS.facts) return null;
+  const facts: Record<string, FactValue> = {};
+  for (const [key, fact] of factEntries) {
+    if (!KEY.test(key)) return null;
+    if (typeof fact !== "boolean" && !isCount(fact) && !isCode(fact)) return null;
+    facts[key] = fact;
+  }
+
+  if (!Array.isArray(input.steps) || input.steps.length > DIAGNOSTICS_LIMITS.steps) return null;
+  const steps: DiagnosticsStep[] = [];
+  for (const raw of input.steps) {
+    const step = validateStep(raw);
+    if (!step) return null;
+    steps.push(step);
+  }
+
+  return { v: 1, code: code as string | null, facts, steps };
 }
 
 export type ValidationResult =
@@ -93,9 +189,13 @@ export function validateSubmission(body: unknown): ValidationResult {
     return { ok: false, error: "A valid email address is required to receive a reply." };
   }
 
+  const diagnostics = validateDiagnostics(input.diagnostics);
+
   return {
     ok: true,
     value: {
+      diagnostics: diagnostics ? JSON.stringify(diagnostics) : null,
+      diagnosticsCode: diagnostics?.code ?? null,
       category: input.category,
       message,
       contactEmail: contactPreference === "none" ? null : email,

@@ -75,8 +75,9 @@ async function handleSubmit(request: Request, env: Env, ctx: ExecutionContext) {
     `insert into feedback (
        id, category, message, contact_email, contact_preference,
        app_version, platform, release_channel, source,
-       created_at, updated_at, email_purge_after
-     ) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+       created_at, updated_at, email_purge_after,
+       diagnostics, diagnostics_code
+     ) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
   )
     .bind(
       id,
@@ -91,6 +92,8 @@ async function handleSubmit(request: Request, env: Env, ctx: ExecutionContext) {
       now,
       now,
       submission.contactEmail ? now + RETENTION_SECONDS : null,
+      submission.diagnostics,
+      submission.diagnosticsCode,
     )
     .run();
 
@@ -106,6 +109,8 @@ async function handleSubmit(request: Request, env: Env, ctx: ExecutionContext) {
         contactEmail: submission.contactEmail,
         appVersion: submission.appVersion,
         source: submission.source,
+        diagnosticsCode: submission.diagnosticsCode,
+        hasDiagnostics: submission.diagnostics !== null,
       },
       env.NOTIFY_TARGET,
     ),
