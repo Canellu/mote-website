@@ -167,7 +167,9 @@ function PrivacyPage() {
           <p>
             Opening a website, privacy, terms, support, or release-note link from inside Mote hands
             the address to your default browser; nothing about the visit comes back to the
-            application. Updates are delivered by the Microsoft Store, not by Mote.
+            application. Updates are delivered by the Microsoft Store, not by Mote. Mote asks the
+            Microsoft Store whether this copy owns Mote Pro and whether an update is waiting; those
+            questions go to Microsoft, not to the publisher.
           </p>
         </section>
 
@@ -207,7 +209,7 @@ function PrivacyPage() {
           <h2 id="store">The Microsoft Store</h2>
           <p>
             Mote Desktop is distributed through the Microsoft Store. Your Store account, the
-            download, and any future purchase are handled by Microsoft under the{" "}
+            download, and a Mote Pro purchase are handled by Microsoft under the{" "}
             <a
               className="footer-link"
               href={MICROSOFT_PRIVACY_URL}

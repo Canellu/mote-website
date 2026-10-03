@@ -115,9 +115,10 @@ function TermsPage() {
         <section>
           <h2 id="pro">Mote Pro</h2>
           <p>
-            Everyday Hue control is free. Mote Pro is a paid tier that adds multiple bridges,
-            advanced widgets, custom dashboard layouts, global keyboard shortcuts, and automations.
-            It is a one-time purchase through the Microsoft Store rather than a subscription.
+            Everyday Hue control is free. Mote Pro is a paid tier that adds multiple bridges, more
+            than one Sync Box, advanced widgets, custom dashboard layouts, global keyboard
+            shortcuts, and automations. It is a one-time purchase through the Microsoft Store rather
+            than a subscription.
           </p>
           <p>
             Each copy of Mote Desktop can try Mote Pro free for 14 days. The trial starts when that
@@ -144,6 +145,13 @@ function TermsPage() {
             and its configuration, your backups, and the physical environment the lights are in.
             Mote reads and changes the state your bridge reports; it cannot verify what is
             physically attached to it.
+          </p>
+          <p>
+            Mote sends your Hue Bridge and Sync Box only the standard commands any Hue app sends,
+            through Signify&apos;s documented local interfaces. It does not update firmware,
+            factory-reset devices, or change how your bridge&apos;s network is set up. Removing a
+            device, room, or scene, or replacing what a switch or sensor does, changes your setup on
+            the bridge, and you can add or set it up again in Mote or the Hue app.
           </p>
           <p>
             Features may be unavailable or behave differently because of hardware, bridge firmware,
@@ -214,6 +222,11 @@ function TermsPage() {
             To the extent the law allows, the publisher is not liable for indirect or consequential
             loss, lost profits, lost data, or damage arising from your use of Mote Desktop —
             including from lighting behavior, an interrupted sync, or a bridge or network failure.
+          </p>
+          <p>
+            To the extent the law allows, the publisher is not liable for damage to your lights,
+            bridge, Sync Box, PC, or other devices from using Mote Desktop as intended, and the
+            publisher&apos;s total liability to you is limited to the amount you paid for Mote Pro.
           </p>
           <p>
             Nothing here excludes or limits liability that cannot lawfully be excluded, including
