@@ -9,7 +9,7 @@
     "check:fix": "vp check --fix",
     "test": "vp test run",
     "test:watch": "vp test",
-    "build": "vp check && vp test run && bun scripts/generate-sitemap.ts && bun scripts/encode-product-images.ts && vp build && node scripts/verify-static-output.mjs",
+    "build": "vp check && vp test run && bun scripts/generate-sitemap.ts && bun scripts/encode-product-images.ts && vp build && node scripts/write-404.mjs && node scripts/verify-static-output.mjs",
     "preview": "vp preview",
     "worker:dev": "wrangler dev --config worker/wrangler.jsonc",
     "worker:deploy": "wrangler deploy --config worker/wrangler.jsonc",

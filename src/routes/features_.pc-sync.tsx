@@ -109,8 +109,8 @@ function PcSyncPage() {
         <p className="mt-5 leading-7 text-mote-muted">
           Mote Desktop is free on the Microsoft Store, and so is PC Sync: create an entertainment
           area, position its lights, and start syncing without buying anything. See the{" "}
-          <Link to="/features">full feature and tier comparison</Link>, or follow the{" "}
-          <Link to="/guides/control-philips-hue-from-windows">Windows setup guide</Link> to pair a
+          <Link to="/features/">full feature and tier comparison</Link>, or follow the{" "}
+          <Link to="/guides/control-philips-hue-from-windows/">Windows setup guide</Link> to pair a
           bridge first.
         </p>
         <a

@@ -196,7 +196,7 @@ function SetupGuidePage() {
                     <p className="setup-free-note">
                       You’re set. Essential Hue control and PC Sync are included in Free, and
                       pairing also starts a free 14-day trial of everything in Mote Pro.{" "}
-                      <Link to="/features">Compare Free and Mote Pro</Link> for widgets, custom
+                      <Link to="/features/">Compare Free and Mote Pro</Link> for widgets, custom
                       dashboards, automations, and multiple bridges. Mote Pro can save multiple
                       bridges, with one active at a time.
                     </p>
@@ -264,7 +264,7 @@ function SetupGuidePage() {
               <div className="setup-support">
                 <p>
                   <strong>Still need a hand?</strong> Follow the{" "}
-                  <Link to="/support">support checklist</Link> to send a request.
+                  <Link to="/support/">support checklist</Link> to send a request.
                 </p>
                 <p>
                   Leave out application keys, bridge credentials, addresses, and unrelated personal
@@ -282,7 +282,7 @@ function SetupGuidePage() {
               <p>
                 Internet access can still be needed for Microsoft Store installation, licensing,
                 updates, and fallback bridge discovery. Read the{" "}
-                <Link to="/privacy">privacy policy</Link> for the full data-handling details.
+                <Link to="/privacy/">privacy policy</Link> for the full data-handling details.
               </p>
             </section>
             <p className="setup-reviewed">

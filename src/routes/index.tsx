@@ -815,7 +815,7 @@ function HomePage() {
               <a className="cx-button" href={storeUrl("web-hero")} target="_blank" rel="noreferrer">
                 Get Mote Desktop on Microsoft Store
               </a>
-              <Link className="cx-button cx-button--quiet" to="/features">
+              <Link className="cx-button cx-button--quiet" to="/features/">
                 See all features
               </Link>
               <span>
@@ -894,19 +894,19 @@ function HomePage() {
             release documentation.
           </p>
           <nav className="cx-faq__links" aria-label="FAQ next steps">
-            <Link to="/guides/control-philips-hue-from-windows">
+            <Link to="/guides/control-philips-hue-from-windows/">
               <span>Read the setup guide</span>
               <svg aria-hidden="true" viewBox="0 0 20 20">
                 <path d="M4 10h12m-5-5 5 5-5 5" />
               </svg>
             </Link>
-            <Link to="/features">
+            <Link to="/features/">
               <span>Compare Free and Mote Pro</span>
               <svg aria-hidden="true" viewBox="0 0 20 20">
                 <path d="M4 10h12m-5-5 5 5-5 5" />
               </svg>
             </Link>
-            <Link to="/support">
+            <Link to="/support/">
               <span>Get support</span>
               <svg aria-hidden="true" viewBox="0 0 20 20">
                 <path d="M4 10h12m-5-5 5 5-5 5" />

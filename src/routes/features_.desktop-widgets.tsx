@@ -94,8 +94,8 @@ function DesktopWidgetsPage() {
         <p className="mt-5 leading-7 text-mote-muted">
           Your free widget works as soon as a bridge is paired, and pairing also starts a 14-day
           Mote Pro trial, so extra widgets and multi-control widgets are free to try too. See the{" "}
-          <Link to="/features">full feature and tier comparison</Link>, or start with the{" "}
-          <Link to="/guides/control-philips-hue-from-windows">Windows setup guide</Link>.
+          <Link to="/features/">full feature and tier comparison</Link>, or start with the{" "}
+          <Link to="/guides/control-philips-hue-from-windows/">Windows setup guide</Link>.
         </p>
         <a
           className="mt-8 inline-flex min-h-11 items-center rounded-xl bg-mote-mint px-5 py-3 font-semibold text-mote-ink no-underline outline-offset-4 transition-transform duration-150 active:scale-[0.97]"

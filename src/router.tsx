@@ -6,6 +6,12 @@ export function getRouter() {
     routeTree,
     scrollRestoration: true,
     /*
+     * Pages serves each prerendered route from its own directory and 308s the
+     * slashless form, so a link to /features is a redirect hop that Search
+     * Console then lists under "Page with redirect". Links match the canonical.
+     */
+    trailingSlash: "always",
+    /*
      * The stylesheet asks for smooth scrolling so in-page anchors glide. A
      * navigation is not an anchor: left on `auto`, the router's reset to the
      * top inherits that smoothness and the reader watches the page they are
