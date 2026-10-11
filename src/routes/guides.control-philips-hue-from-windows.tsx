@@ -100,8 +100,8 @@ function SetupGuidePage() {
                 </li>
               </ul>
               <p className="setup-requirements__note">
-                A Hue Bridge is required. Bluetooth-only light setups cannot connect directly to
-                Mote.
+                A Hue Bridge is required. Hue’s own Bluetooth and Matter setups work without one,
+                but not with Mote.
               </p>
             </section>
             <section id="connect" className="setup-connect">
@@ -133,6 +133,8 @@ function SetupGuidePage() {
                     <p>
                       Choose <strong>Connect</strong> to scan your local network. If Mote finds more
                       than one bridge, select the one you want and choose <strong>Continue</strong>.
+                      If it finds none, or the wrong one, choose{" "}
+                      <strong>Enter the bridge’s IP address instead</strong>.
                     </p>
                     <figure className="setup-bridge-figure">
                       <div className="setup-bridge-image">
@@ -229,6 +231,10 @@ function SetupGuidePage() {
                         Check whether firewall rules, router client isolation, or multicast
                         filtering are blocking discovery, then try again.
                       </li>
+                      <li>
+                        Still nothing? Choose <strong>Enter the bridge’s IP address instead</strong>{" "}
+                        and type the address shown in the Hue app or your router’s device list.
+                      </li>
                     </ul>
                   </div>
                 </details>
@@ -255,8 +261,10 @@ function SetupGuidePage() {
                   </summary>
                   <div>
                     <p>
-                      Mote needs a compatible Hue Bridge to control your lighting. It does not
-                      connect directly to a Bluetooth-only setup.
+                      Mote controls lights through a compatible Hue Bridge on your local network.
+                      Hue’s own Bluetooth and Matter setups can run without a Bridge, but they are
+                      limited to a handful of nearby lights and cannot provide the scenes, rooms,
+                      and PC Sync that Mote is built around.
                     </p>
                   </div>
                 </details>

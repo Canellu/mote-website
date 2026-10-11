@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageIntro } from "../components/page-intro";
 import { ProductCapture } from "../components/product-capture";
 import { storeUrl } from "../lib/links";
@@ -47,6 +47,7 @@ const featureGroups = [
       "Scene tiles and per-light controls side by side",
       "A color inspector for precise color and white temperature",
       "Controls for lights, rooms, zones, and devices",
+      "Set up what Hue switches, dimmers, and motion sensors do, and group a multi-light fixture into one card",
     ],
     src: "/product/mote-space-controls-dark.png",
     alt: "Mote Desktop room view with scene tiles, individual light controls, and a color inspector",
@@ -89,7 +90,7 @@ const featureGroups = [
       "Free includes one widget with one room, zone, or light",
       "Arrange the controls, choose the density and appearance, and preview the result",
       "Mote Pro adds as many widgets as you like, each with several controls or a whole toggle group",
-      "Mote Pro also chooses each widget's theme, size, corners, placement, and always-on-top behavior",
+      "Mote Pro also chooses each widget's theme, size, corners, translucent tiles, placement, and always-on-top behavior",
     ],
     src: "/product/mote-widget-stack-dark.png",
     alt: "A stack of colorful Mote Desktop widgets for rooms, scenes, and lights",
@@ -205,9 +206,10 @@ const comparisonRows: { name: string; free: ComparisonValue; pro: ComparisonValu
   { name: "Widget theme, size, corners, and placement", free: false, pro: true },
   { name: "Dashboard layout", free: "Standard", pro: "Custom" },
   { name: "Global keyboard shortcuts", free: false, pro: true },
-  // The on-air light and the away automation. Mirrors the in-app comparison in
-  // mote-desktop's PlanOverview; change the two together.
-  { name: "Automations: on air and away", free: false, pro: true },
+  // Every automation since app 0.6.0. Mirrors the in-app comparison in
+  // mote-desktop's PlanOverview, which as of 0.10.1 still reads "on air and
+  // away"; bring that row up to this one rather than this one down to it.
+  { name: "Automations: calls, locking, focus, presence, and calendar", free: false, pro: true },
   { name: "Entertainment area setup and testing", free: true, pro: true },
   { name: "PC Sync: Video, Games, and Music", free: true, pro: true },
 ];
@@ -430,6 +432,56 @@ function FeaturesPage() {
       </div>
 
       <div className="features-shell">
+        {/*
+         * Automations are the largest part of Mote Pro but have no capture yet,
+         * so they are words rather than a catalog block. A block with a stock
+         * or mocked picture would be the first image on the site that is not
+         * the product. Promote this to a block when a real capture exists.
+         */}
+        <section className="readable pt-12" aria-labelledby="automations-title">
+          <span className="feature-tier feature-tier--pro">Mote Pro</span>
+          <h2
+            id="automations-title"
+            className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl"
+          >
+            Automations
+          </h2>
+          <p className="mt-5 leading-7 text-mote-muted">
+            Lights that follow what you are doing on the PC, and put themselves back afterwards.
+          </p>
+          <ul className="mt-6 list-disc space-y-3 pl-5 leading-7 text-mote-muted">
+            <li>
+              <strong className="text-mote-ink">On-air light.</strong> Chosen lights turn a color, a
+              white, or a scene while any app uses your microphone or camera, then go back when the
+              call ends.
+            </li>
+            <li>
+              <strong className="text-mote-ink">Stepping away.</strong> When the PC locks or sleeps,
+              lights turn off, dim, or set a scene, and return when you unlock it.
+            </li>
+            <li>
+              <strong className="text-mote-ink">Focus sessions.</strong> Pick a rhythm, lights, and
+              a vibe; the lights keep time through focus blocks and breaks.
+            </li>
+            <li>
+              <strong className="text-mote-ink">Presence.</strong> When every chosen phone has left
+              the home Wi-Fi for ten minutes, lights turn off; when someone is back, a scene comes
+              on.
+            </li>
+            <li>
+              <strong className="text-mote-ink">Calendar.</strong> Add a Google, Outlook, or iCloud
+              calendar by its iCal address, and lights change around matching events.
+            </li>
+          </ul>
+          <p className="mt-6 leading-7 text-mote-muted">
+            When two automations want the same light, a priority order you arrange decides, and PC
+            Sync can be part of it. Every automation can be set up on Free; running one needs Mote
+            Pro or the 14-day trial. Automations run on your PC; a calendar is read from the address
+            you give it. The <Link to="/privacy/">privacy policy</Link> says exactly what each one
+            reads.
+          </p>
+        </section>
+
         <aside className="readable py-12 text-mote-muted">
           <h2 className="text-xl font-semibold text-mote-ink">PC Sync requirements</h2>
           <p className="mt-4 leading-7">
@@ -448,7 +500,7 @@ export const Route = createFileRoute("/features")({
     pageHead({
       title: "Features — Mote Desktop",
       description:
-        "Every Mote Desktop feature, from the home dashboard and desktop widgets to PC Sync, with a full Free and Mote Pro comparison.",
+        "Every Mote Desktop feature, from the home dashboard and desktop widgets to PC Sync and automations, with a full Free and Mote Pro comparison.",
       path: "/features",
     }),
   component: FeaturesPage,

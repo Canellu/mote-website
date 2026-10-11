@@ -6,6 +6,7 @@ import { pageHead } from "../lib/seo";
 const checks = [
   "Check that your PC and Hue Bridge or Sync Box are powered on and connected to the same local network.",
   "Check whether Windows Firewall, a VPN, or other security software is blocking local discovery.",
+  "If Mote cannot find the bridge, choose Enter the bridge's IP address instead and type the address from the Hue app or your router.",
   "If the bridge is unreachable, restart Mote Desktop and use the reconnect action.",
   "Write down what you expected, what happened, and the steps needed to reproduce the problem.",
 ];

@@ -119,7 +119,7 @@ const faqItems = [
   {
     question: "Do I need a Hue Bridge?",
     answer:
-      "Yes. A compatible Hue Bridge is required for lighting control. Mote Desktop does not connect directly to Bluetooth-only lights.",
+      "Yes. Mote Desktop controls lights through a compatible Hue Bridge on your local network. Hue's own Bluetooth and Matter setups can run without a Bridge, but they are limited to a handful of nearby lights and cannot provide the scenes, rooms, and PC Sync that Mote is built around.",
   },
   {
     question: "Which Windows versions are supported?",
@@ -128,7 +128,7 @@ const faqItems = [
   {
     question: "What is included in Mote Pro?",
     answer:
-      "Mote Pro adds global keyboard shortcuts, automations for calls, locking your PC, focus sessions, presence, and calendars, advanced and additional widgets, a custom dashboard layout, and multiple saved Hue Bridges. Every Pro feature is free to try for 14 days, starting when you pair your first bridge. After that it is a one-time Microsoft Store purchase rather than a subscription.",
+      "Mote Pro adds global keyboard shortcuts, automations for calls, locking your PC, focus sessions, presence, and calendars, advanced and additional widgets, a custom dashboard layout, more than one Sync Box, and multiple saved Hue Bridges. Every Pro feature is free to try for 14 days, starting when you pair your first bridge. After that it is a one-time Microsoft Store purchase rather than a subscription.",
   },
   {
     question: "Can I sync my lights with my screen?",
@@ -153,7 +153,7 @@ const faqItems = [
   {
     question: "What should I do if my lights are not found?",
     answer:
-      "Check that the Hue Bridge is powered, connected to your router, and on the same local network as the PC. Network isolation, VPNs, firewalls, multicast filtering, and guest Wi-Fi can prevent discovery. Then try the setup flow again or contact support.",
+      "Check that the Hue Bridge is powered, connected to your router, and on the same local network as the PC. Network isolation, VPNs, firewalls, multicast filtering, and guest Wi-Fi can prevent discovery. If Mote still cannot find the bridge, choose Enter the bridge's IP address instead and type the address shown in the Hue app or your router. If that fails too, contact support.",
   },
 ] as const;
 

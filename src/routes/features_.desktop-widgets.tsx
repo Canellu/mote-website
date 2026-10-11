@@ -21,7 +21,7 @@ const freeCapabilities = [
 const proCapabilities = [
   "As many widgets as you want",
   "More than one control in a widget, and multi-target toggle groups",
-  "Widget theme, size, corners, and placement chosen rather than inherited",
+  "Widget theme, size, corners, translucent tiles, and placement chosen rather than inherited",
   "Pinning and always-on-top behaviour",
 ];
 
