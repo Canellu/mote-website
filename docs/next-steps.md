@@ -29,21 +29,19 @@ desktop side of the same picture is `mote-desktop/docs/website-launch-plan.md` a
   ([worker/README.md](../worker/README.md)). The public roadmap has not started
   ([roadmap-and-feedback.md](./roadmap-and-feedback.md)).
 
-## 0. Ship what is already written
-
-The copy changes made on 4 October (automations section and row, connecting by IP, the Hue Bridge
-answer, translucent tiles, switch and sensor setup) are uncommitted, so production still serves the
-3 October site. Commit and push before anything below.
-
 ## 1. Copy and pages
+
+The 4 October copy (automations section and row, connecting by IP, the Hue Bridge answer,
+translucent tiles, switch and sensor setup) went live on 12 October in `cf22488`.
 
 - **When 0.11.0 publishes:** the room and light control block on `/features` can mention the All
   lights page (every light by room or as one list, and one color wheel for the whole home) and
   fixtures showing as one tile. Free, and no comparison row changes.
-
-- **In-app comparison row.** `mote-desktop/src/features/pro/PlanOverview.tsx` still reads
-  "Automations: on air and away". The site's row now names all five, so bring the app's row up to
-  it in the next desktop release.
+- **In-app comparison row.** The app's Free vs Mote Pro table
+  (`mote-desktop/src/features/pro/PlanOverview.tsx`) has the row "Automations: on air and away",
+  which leaves out focus sessions, presence, and calendar rules, all Pro since 0.6.0. The site's
+  row reads "Automations: calls, locking, focus, presence, and calendar". Bring the app's row up
+  to it in the next desktop release.
 - **Automations capture, then a block or page.** `/features` describes automations in words
   because no real capture exists. Take one (the Automations screen, or a focus session) through
   the `public/product/PROVENANCE.md` process. Then promote the section to a catalog block, or to
