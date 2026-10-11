@@ -23,6 +23,12 @@ changing behaviour here, and keep `src/routes/privacy.tsx` in step with it.
 | `POST` | `/api/feedback`       | `X-Mote-App-Token`        | Submit one report           |
 | `GET`  | `/api/feedback/admin` | `Authorization: Bearer …` | Read recent reports as JSON |
 
+A report may carry diagnostics (app 0.9.0 and later): recent steps and their
+outcomes, and network facts such as whether Windows Firewall blocks Mote. They
+are accepted only as lowercase codes, whole numbers, and booleans, and land in
+the `diagnostics` and `diagnostics_code` columns from migration 0002. Invalid
+diagnostics are dropped and the report kept.
+
 A daily cron at 03:00 UTC clears contact addresses that have outlived their
 retention window.
 

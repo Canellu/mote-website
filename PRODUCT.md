@@ -26,14 +26,17 @@ People use Mote while working, playing, watching video, or listening to music at
 
 - Control compatible Hue lights, rooms, zones, scenes, devices, and entertainment areas.
 - Save one Hue Bridge for free; Mote Pro supports switching among multiple bridges.
-- Use one standard desktop widget for free; Mote Pro supports unlimited advanced customizable widgets.
+- Use one standard desktop widget for free; Mote Pro supports unlimited advanced customizable widgets, including translucent tiles.
 - Use standard dashboard grouping layouts for free; Mote Pro supports reordering cards and saving a custom layout.
-- PC Sync includes Video, Games, and Music modes for compatible entertainment areas and is a Mote Pro feature.
+- PC Sync includes Video, Games, and Music modes for compatible entertainment areas and is free (since app 0.8.0, 26 September 2026).
 - PC Sync availability can depend on display capture, system-audio loopback, networking, firewall, VPN, and hardware conditions.
+- One Hue Play HDMI Sync Box is free; Mote Pro pairs more and switches between them (since 0.7.0).
+- Switch, dimmer, and motion sensor setup, fixtures, units and formats, and connecting to a bridge by IP address when discovery fails are free (0.9.0–0.10.0).
 - The initial release targets Windows. Core product language should describe Mote as a desktop product; mention Windows only for current availability, requirements, or platform-specific behavior.
-- The Microsoft Store listing is live and the free tier can be downloaded today. The one-time Mote Pro purchase is not yet available, so the website must not imply that visitors can buy Pro today.
-- A Mote Pro base retail price of NOK 149 is saved in Partner Center, but the site must not show it. The add-on was submitted on 11 September 2026 and remains hidden from Store discovery, purchasable only from inside the app, and set to publish manually; its market conversions are unreviewed, and the sibling repository's `docs/website-launch-plan.md` forbids advertising a price before it appears in approved Store listing copy. Source: `mote-desktop/docs/windows-store-commerce-spike.md`.
-- Publishing the add-on is a website event too. `/features` and `/terms` both state that Mote Pro "is not yet available to buy", which is accurate now and wrong the moment it is published, so the two changes belong in the same window.
+- Global keyboard shortcuts and automations are Mote Pro features. Automations are the on-air light, lights that follow the PC locking or sleeping, focus sessions, presence from phones on the home Wi-Fi, and calendar rules (0.6.0). Setting one up is free; starting one needs Pro. The priority order between them is free.
+- The Microsoft Store listing is live and the free tier can be downloaded today. Mote Pro is on sale as a one-time purchase made from inside the app, never a subscription, and every installation gets a 14-day Mote Pro trial from its first paired bridge, with no account or payment details.
+- Mote Pro's base price is NOK 149, but the site does not show it. The add-on is hidden from Store discovery and bought only inside the app, its market conversions are unreviewed, and a price belongs in approved Store listing copy before it appears here. Source: `mote-desktop/docs/windows-store-commerce-spike.md`.
+- Site copy follows the version live in the Store, not the version in the desktop repository. As of 11 October 2026 that is 0.10.1. 0.11.0 (the All lights page, fixtures as one tile, and fixes) is in certification and changes no tier, privacy, or legal claim. Privacy and terms changes go live before the app version that needs them. Source of truth for tiers: `mote-desktop/docs/free-pro-feature-matrix.md`; for release state: `mote-desktop/docs/windows-store-commerce-spike.md`.
 
 ## Brand Commitments
 

@@ -1,6 +1,10 @@
 # Microsoft Store listing specification
 
-Status: submitted to certification on 11 September 2026; Partner Center is now the record
+Status: superseded. Partner Center is the record, and the source-controlled copy is
+`mote-desktop/docs/microsoft-store-listing-copy.md`, which already carries the trial, the one-time
+purchase and the current features. Kept only as the 11 September submission record: Mote Pro has
+been on sale since app 0.2.0, Free is limited to one widget since 18 September, and the "hold
+until purchase is live" insert below was overtaken by that listing copy.
 
 Prepared: 11 September 2026
 

@@ -1,6 +1,6 @@
 # Roadmap and feedback — website side
 
-Status: **feedback API built and deployed; roadmap not started.**
+Status: **feedback API built and deployed; roadmap not started.** Last reviewed 24 September 2026. The website's overall next steps are in [next-steps.md](./next-steps.md).
 
 The plan of record is
 `mote-desktop/docs/feedback-and-roadmap-delivery-plan.md`. Read it before

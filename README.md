@@ -4,7 +4,13 @@ Statically prerendered React website for Mote Desktop, built with TypeScript,
 Vite+, Bun, TanStack Start, and Tailwind CSS. Vite+ provides the development
 server and production build, Vitest, Oxlint, Oxfmt, and type-aware TypeScript
 checks. TanStack Start generates complete HTML for every public route at build
-time; v1 does not require a production server.
+time, so the site itself needs no production server. The one piece of runtime
+code is the separate `mote-api` Cloudflare Worker in `worker/`, which receives
+feedback from the desktop app; see [worker/README.md](worker/README.md).
+
+What comes next, and where each decision is owned, is in
+[docs/next-steps.md](docs/next-steps.md). Product facts and claim rules live in
+[PRODUCT.md](PRODUCT.md), design rules in [DESIGN.md](DESIGN.md).
 
 ## Development
 

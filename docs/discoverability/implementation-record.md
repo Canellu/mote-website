@@ -4,6 +4,36 @@ Status: complete and live. The discoverability build and the trailing-slash cano
 production on 11 September 2026, and the three Cloudflare dashboard actions were applied and
 verified the same day. Search Console sitemap submission and the Partner Center review remain open.
 
+Update, 24 September 2026: Mote Pro went on sale with app 0.2.0, and the site said so on
+14 September (`469ef8e`). The "still not purchasable" statements in the Mote Pro section below are
+history, not current state. Free has been limited to one widget since 18 September (`7b3d127`),
+which supersedes the "no limit on widget windows" note in the same section. Open items and the
+day-30 review are tracked in [../next-steps.md](../next-steps.md).
+
+Update, 4 October 2026: PC Sync has been free since app 0.8.0 (site `ff85f42`), so the
+"Mote Pro features" ledger row no longer lists it. The 404 status and trailing-slash internal
+links were fixed in `ea9a31b` after Search Console reported "Page with redirect" URLs. The sitemap was
+submitted in Search Console on 4 October 2026 and read the same day: status Success, 8 pages
+discovered. Bing Webmaster Tools is not set up yet.
+
+Search Console page indexing, read on 11 October 2026 (report data to 4 October): 7 indexed, 9 not
+indexed for two reasons. Neither is a site defect.
+
+- **Page with redirect (8, validation "Failed").** The URLs are `/terms`, `/features`,
+  `/privacy`, `/support` and the setup guide without their trailing slash, which 308 to the
+  slashed canonicals, plus `http://motedesktop.com/`, `http://www.motedesktop.com/` and
+  `https://www.motedesktop.com/`, which 301 to the apex. These are meant to redirect, and the
+  canonicals they lead to are what gets indexed. Google learned the slashless forms from the
+  internal links fixed in `ea9a31b`; the live HTML now links only to slashed URLs. The earlier validation
+  can only "fail", because a fix would mean those URLs stop redirecting.
+  Do not start another; the count falls as Google stops recrawling them.
+- **Discovered, currently not indexed (1).** `/features/desktop-widgets/`, known since
+  15 September and never crawled. On a new, small site this is Google's crawl budget, not an
+  error. Request indexing for it from URL inspection.
+- `http://www.motedesktop.com/` takes two hops (HTTP to HTTPS, then www to apex) because the
+  redirect rule matches only `https://www.*`. Harmless; widening the rule to both schemes in the
+  Cloudflare dashboard would make it one hop.
+
 Checked: 11 September 2026
 
 Next review: 11 October 2026
@@ -22,8 +52,8 @@ repository work, and owner-only account actions.
 | Pairing workflow       | “Choose Connect, select a discovered bridge when needed, then press the round bridge link button.”                                                | `mote-desktop/src/features/setup-wizard/steps/WelcomeStep.tsx`, `SelectBridgeStep.tsx`, and `PairingStep.tsx`                                                     | Implementation checked 2026-09-11                                    | Anton Vo | Verified                                                                         | Setup guide; FAQ                                        |
 | Local-network behavior | “Core lighting commands travel between the PC and Hue Bridge across the local network.”                                                           | `mote-desktop/docs/known-limitations.md`; website privacy policy; Hue client architecture                                                                         | Repository checked 2026-09-11                                        | Anton Vo | Verified with explicit exceptions                                                | Homepage; setup guide; FAQ; Store draft                 |
 | Free tier availability | “Mote Desktop is free on the Microsoft Store.”                                                                                                    | Live Store product ID `9P910JMMP9SZ`; website `PRODUCT.md`; `src/lib/links.ts`                                                                                    | Store and repositories checked 2026-09-11                            | Anton Vo | Verified                                                                         | Header, homepage, footer, features, schema, setup guide |
-| Mote Pro availability  | “Mote Pro is a one-time Microsoft Store purchase and is not yet available to buy.”                                                                | Website `PRODUCT.md`; `mote-desktop/docs/windows-store-commerce-spike.md`; hidden add-on state                                                                    | Repositories checked 2026-09-11                                      | Anton Vo | Verified current state; must change when the add-on is published                 | Features; FAQ; Store draft notes                        |
-| Mote Pro features      | “Mote Pro adds PC Sync, advanced widget composition and customization, a custom dashboard layout, and multiple saved Hue Bridges.”                | `mote-desktop/docs/free-pro-feature-matrix.md`; `docs/known-limitations.md`; current app implementation                                                           | Docs reviewed 2026-08-14; implementation checked 2026-09-11          | Anton Vo | Verified as entitlement plan; purchase/restore acceptance remains a release gate | Homepage PC Sync section; features; FAQ; Store draft    |
+| Mote Pro availability  | “Mote Pro is a one-time Microsoft Store purchase, not a subscription.”                                                                            | Website `PRODUCT.md`; `mote-desktop/docs/windows-store-commerce-spike.md`; add-on live since 0.2.0                                                                | Repositories checked 2026-09-24                                      | Anton Vo | Verified; purchase acceptance on a Store-installed build still open              | Features; FAQ; Store draft notes                        |
+| Mote Pro features      | “Mote Pro adds automations, global shortcuts, advanced widgets, a custom layout, more Sync Boxes, and multiple bridges.”                          | `mote-desktop/docs/free-pro-feature-matrix.md`; `docs/known-limitations.md`; current app implementation                                                           | Matrix checked 2026-10-04 (PC Sync free since 0.8.0)                 | Anton Vo | Verified as entitlement plan; purchase/restore acceptance remains a release gate | Homepage PC Sync section; features; FAQ; Store draft    |
 | Multiple bridges       | “Mote Pro can save and switch among multiple Hue Bridges, with one active at a time.”                                                             | `mote-desktop/docs/free-pro-feature-matrix.md`; `docs/known-limitations.md`                                                                                       | Docs reviewed 2026-08-14                                             | Anton Vo | Verified                                                                         | Features; setup guide; FAQ; Store draft                 |
 | PC Sync                | “PC Sync can run Video, Games, and Music modes with compatible Hue entertainment hardware; Music uses system-audio loopback, not the microphone.” | `mote-desktop/docs/v1-feature-inventory.md`; `docs/known-limitations.md`; PC Sync UI and host commands                                                            | Docs reviewed 2026-08-14; implementation checked 2026-09-11          | Anton Vo | Verified with display/HDR/audio/hardware acceptance caveat                       | Homepage; features; FAQ; Store draft                    |
 | Publisher relationship | “Mote Desktop is not affiliated with, authorized by, sponsored by, or endorsed by Signify.”                                                       | `mote-desktop/docs/microsoft-store-listing-copy.md`; website legal copy                                                                                           | Listing draft reviewed 2026-08-14; website checked 2026-09-11        | Anton Vo | Owner-approved repository wording; final legal review remains required           | FAQ; Store draft                                        |
