@@ -13,8 +13,9 @@ desktop side of the same picture is `mote-desktop/docs/website-launch-plan.md` a
   `/features/pc-sync`, `/features/desktop-widgets`, the Windows Hue setup guide, `/privacy`,
   `/terms`, `/support`, and a real 404. Every item in [SITE-AUDIT.md](../SITE-AUDIT.md) is
   resolved.
-- **The Store serves Mote Desktop 0.10.1.** 0.11.0 is in certification as Submission 21 and needs
-  no tier, privacy, or legal change on the site. Source:
+- **The Store serves Mote Desktop 0.10.1.** 0.11.0 is in certification as Submission 21, and
+  0.11.1 (lights resync on focus, wake and a timer, plus Refresh in Settings > Bridge) is built to
+  follow it. Neither needs a tier, privacy, or legal change on the site. Source:
   `mote-desktop/docs/windows-store-commerce-spike.md`.
 - **Copy matches the feature matrix as of 0.10.1:**
   - Tiers: PC Sync free since 0.8.0, one Sync Box and one widget on Free, the 14-day trial, and
