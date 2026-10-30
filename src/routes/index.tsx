@@ -831,19 +831,17 @@ function HomePage() {
 
       <section className="cx-statement cx-shell cx-reveal" aria-labelledby="cx-statement-title">
         <div className="cx-section-head">
-          <MoteMascot className="mote-mascot--home" />
           <h2 id="cx-statement-title">Control the room from a desktop widget, not your phone.</h2>
           <p>
             Build a widget from the rooms, zones, and lights you actually use, then keep it pinned
-            beside your work with Mote Pro. Fold it into an animated moth, a named pill, or a bubble
-            when you need the space. The free app includes one widget and all five moth styles.
+            beside your work with Mote Pro. The free app includes one widget for one room, zone, or
+            light.
           </p>
           <Link
             className="cx-button cx-button--quiet justify-self-start max-sm:justify-self-center"
             to="/features/desktop-widgets/"
-            hash="mascot-title"
           >
-            Explore widgets and moth styles
+            Explore desktop widgets
           </Link>
         </div>
         <figure className="cx-statement-visual">
@@ -859,6 +857,31 @@ function HomePage() {
             Pinned on your desktop
           </figcaption>
         </figure>
+      </section>
+
+      <section className="cx-mascot cx-shell cx-reveal" aria-labelledby="cx-mascot-title">
+        <div className="cx-section-head">
+          <h2 id="cx-mascot-title">Meet Mote’s mascot.</h2>
+          <p>
+            A little company for your desktop. Your widget can fold into an animated mascot when you
+            need the space, ready to open your controls again with a click.
+          </p>
+          <p>
+            Choose from five mascot styles, set which way it faces, or keep it still. All five
+            styles are included with your free widget.
+          </p>
+          <Link
+            className="cx-button cx-button--quiet justify-self-start max-sm:justify-self-center"
+            to="/features/desktop-widgets/"
+            hash="mascot-title"
+          >
+            Explore mascot styles
+          </Link>
+        </div>
+        <div className="cx-mascot-art">
+          <MoteMascot className="mote-mascot--feature" />
+          <p>Hover to flutter. Click or tap to say hello.</p>
+        </div>
       </section>
 
       <Carousel

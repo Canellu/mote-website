@@ -37,8 +37,8 @@
 .mote-mascot[data-style="pixel-art"] {
   image-rendering: pixelated;
 }
-.mote-mascot--home {
-  width: clamp(7rem, 12vw, 10rem);
+.mote-mascot--feature {
+  width: clamp(12rem, 25vw, 19rem);
 }
 .mote-mascot--footer {
   width: 4.5rem;

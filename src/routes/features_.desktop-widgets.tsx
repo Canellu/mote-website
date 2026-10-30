@@ -16,8 +16,8 @@ import { pageHead } from "../lib/seo";
 const freeCapabilities = [
   "One widget on the desktop",
   "One room, zone, or light in it — each counts as one target",
-  "Collapse into a moth, named pill, or bubble, then click to open or drag to move",
-  "Five moth styles, optional animation, and a choice of facing direction",
+  "Collapse into a mascot, named pill, or bubble, then click to open or drag to move",
+  "Five mascot styles, optional animation, and a choice of facing direction",
   "Stacking or fading, expansion direction, and an optional auto-collapse delay",
   "Standard widget size and corners, the system theme, and ordinary window behaviour",
 ];
@@ -95,13 +95,13 @@ function DesktopWidgetsPage() {
       <section className="py-12 sm:py-16" aria-labelledby="mascot-title">
         <div className="readable">
           <h2 id="mascot-title" className="scroll-mt-28 text-2xl font-semibold tracking-tight">
-            A moth for your desktop
+            A mascot for your desktop
           </h2>
           <p className="mt-5 leading-7 text-mote-muted">
-            Fold your widget away and leave a little moth beside your work. It idles, blinks, glows,
-            and flutters on hover. Choose one of five styles, turn it to face the other way, or
-            switch its animation off. Prefer something simpler? Use a pill with the widget's name or
-            a round bubble instead.
+            Fold your widget away and leave a little mascot beside your work. It idles, blinks,
+            glows, and flutters on hover. Choose one of five styles, turn it to face the other way,
+            or switch its animation off. Prefer something simpler? Use a pill with the widget's name
+            or a round bubble instead.
           </p>
         </div>
         <div className="mt-8 grid grid-cols-2 gap-6 sm:grid-cols-5">
@@ -109,17 +109,17 @@ function DesktopWidgetsPage() {
             <figure key={style} className="m-0 text-center">
               <MoteMascot
                 style={style}
-                label={`Play with the ${label} moth`}
+                label={`Play with the ${label} mascot`}
                 className="mote-mascot--gallery"
               />
               <figcaption className="mt-3 text-sm text-mote-muted">{label}</figcaption>
             </figure>
           ))}
         </div>
-        <p className="mt-5 text-sm text-mote-muted">Hover or tap a moth to see it move.</p>
+        <p className="mt-5 text-sm text-mote-muted">Hover or tap a mascot to see it move.</p>
         <p className="readable mt-8 leading-7 text-mote-muted">
           In widget settings, choose cards that stack one by one or a panel that fades as it folds.
-          Set the direction it opens, or open evenly around the moth. Auto collapse folds it away
+          Set the direction it opens, or open evenly around the mascot. Auto collapse folds it away
           after the pointer leaves for the delay you choose. With Mote Pro, set open and collapsed
           sizes separately; pinned controls float without a background until you hover the top edge
           for the toolbar.
@@ -162,7 +162,7 @@ export const Route = createFileRoute("/features_/desktop-widgets")({
     pageHead({
       title: "Philips Hue desktop widgets for Windows — Mote Desktop",
       description:
-        "Keep Hue controls beside your work, then fold them into a moth, pill, or bubble. Five mascot styles and auto collapse, with one widget free.",
+        "Keep Hue controls beside your work, then fold them into a mascot, pill, or bubble. Five mascot styles and auto collapse, with one widget free.",
       path: "/features/desktop-widgets",
     }),
   component: DesktopWidgetsPage,

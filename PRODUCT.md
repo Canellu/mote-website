@@ -42,11 +42,12 @@ People use Mote while working, playing, watching video, or listening to music at
 ## Brand Commitments
 
 - Product name: Mote Desktop; paid tier: Mote Pro.
-- The moth is the free product mascot: one interactive Cartoon moth in the
-  home widget section and a smaller footer signature. The widget page shows
+- The mascot is part of the free product: one interactive Cartoon mascot in
+  its own home-page section and a smaller footer signature. The widget page shows
   all five styles using the app's animation sheets. Hover/focus flutters and
   click bobs; unattended motion settles, offscreen playback stops, and reduced
-  motion holds the moth still. Keep the app icon as the navigation identity.
+  motion holds the mascot still. Call it the mascot in website copy. Keep the
+  app icon as the navigation identity.
 - Keep the voice direct, calm, and factual.
 - The landing page uses a single light presentation, with the interactive lighting control sitting in its brightest field.
 

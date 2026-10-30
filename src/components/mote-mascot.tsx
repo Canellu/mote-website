@@ -13,7 +13,7 @@ const animations: Record<Animation, { start: number; durations: number[] }> = {
 
 export function MoteMascot({
   style = "cel-shaded",
-  label = "Play with Mote's moth",
+  label = "Play with Mote's mascot",
   className = "",
 }: {
   style?: MascotStyle;

@@ -644,6 +644,34 @@ body:has(.home-page) :focus-visible {
   background: var(--c-accent);
 }
 
+.cx-mascot {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 5rem);
+  margin-top: var(--c-section);
+  padding-block: clamp(3rem, 6vw, 5rem);
+  border-block: 1px solid var(--c-line);
+}
+.cx-mascot-art {
+  display: grid;
+  justify-items: center;
+  gap: 1.25rem;
+}
+.cx-mascot-art p {
+  color: var(--c-muted);
+  font-size: 0.875rem;
+  text-align: center;
+}
+@media (max-width: 800px) {
+  .cx-mascot {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .cx-mascot-art {
+    order: -1;
+  }
+}
+
 /* ---------------------------------------------------------------- switcher */
 /* Choices left, capture right, inside one bordered stage. */
 .cx-switcher {

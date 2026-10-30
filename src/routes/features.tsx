@@ -88,7 +88,7 @@ const featureGroups = [
     points: [
       "Name each widget so it is easy to recognize later",
       "Free includes one widget with one room, zone, or light",
-      "Fold into a moth, pill, or bubble; choose from five moth styles, optional animation, and facing direction",
+      "Fold into a mascot, pill, or bubble; choose from five mascot styles, optional animation, and facing direction",
       "Choose stacking or fading, expansion direction, and an auto-collapse delay",
       "Arrange the controls, choose the density and appearance, and preview the result",
       "Mote Pro adds as many widgets as you like, each with several controls or a whole toggle group",
