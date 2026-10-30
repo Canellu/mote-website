@@ -27,6 +27,7 @@ People use Mote while working, playing, watching video, or listening to music at
 - Control compatible Hue lights, rooms, zones, scenes, devices, and entertainment areas.
 - Save one Hue Bridge for free; Mote Pro supports switching among multiple bridges.
 - Use one standard desktop widget for free; Mote Pro supports unlimited advanced customizable widgets, including translucent tiles.
+- Prepared for 0.12.0: the free widget can collapse into a moth, named pill, or bubble. All five moth styles, animation on/off, facing, stack/fade transitions, expansion direction, and auto collapse are free. Separate open/collapsed sizing and pinning remain Pro. Source: the desktop widget settings and `set-widget-config` entitlement checks. Publish these website changes alongside Store availability of 0.12.0.
 - Use standard dashboard grouping layouts for free; Mote Pro supports reordering cards and saving a custom layout.
 - PC Sync includes Video, Games, and Music modes for compatible entertainment areas and is free (since app 0.8.0, 26 September 2026).
 - PC Sync availability can depend on display capture, system-audio loopback, networking, firewall, VPN, and hardware conditions.

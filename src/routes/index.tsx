@@ -833,7 +833,8 @@ function HomePage() {
           <h2 id="cx-statement-title">Control the room from a desktop widget, not your phone.</h2>
           <p>
             Build a widget from the rooms, zones, and lights you actually use, then keep it pinned
-            beside your work.
+            beside your work with Mote Pro. Fold it into an animated moth, a named pill, or a bubble
+            when you need the space. The free app includes one widget and all five moth styles.
           </p>
         </div>
         <figure className="cx-statement-visual">

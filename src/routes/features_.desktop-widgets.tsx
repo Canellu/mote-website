@@ -6,7 +6,7 @@ import { pageHead } from "../lib/seo";
 
 /**
  * Sourced from `mote-desktop/docs/free-pro-feature-matrix.md` and
- * `docs/known-limitations.md`, reviewed 2026-09-18.
+ * `docs/known-limitations.md` and the 0.12.0 widget settings, reviewed 2026-10-30.
  *
  * Free is one widget. Until 2026-09-18 the app set no limit on how many widgets
  * existed and only charged for what one widget held; the owner narrowed Free
@@ -15,6 +15,9 @@ import { pageHead } from "../lib/seo";
 const freeCapabilities = [
   "One widget on the desktop",
   "One room, zone, or light in it — each counts as one target",
+  "Collapse into a moth, named pill, or bubble, then click to open or drag to move",
+  "Five moth styles, optional animation, and a choice of facing direction",
+  "Stacking or fading, expansion direction, and an optional auto-collapse delay",
   "Standard widget size and corners, the system theme, and ordinary window behaviour",
 ];
 
@@ -23,6 +26,15 @@ const proCapabilities = [
   "More than one control in a widget, and multi-target toggle groups",
   "Widget theme, size, corners, translucent tiles, and placement chosen rather than inherited",
   "Pinning and always-on-top behaviour",
+  "Separate sizes for the open widget and its collapsed look",
+];
+
+const mascotStyles = [
+  ["cel-shaded", "Cartoon"],
+  ["low-poly", "Low poly"],
+  ["pixel-art", "Pixel art"],
+  ["paper-cutout", "Paper"],
+  ["watercolor", "Watercolor"],
 ];
 
 function DesktopWidgetsPage() {
@@ -79,6 +91,42 @@ function DesktopWidgetsPage() {
         </figure>
       </div>
 
+      <section className="py-12 sm:py-16" aria-labelledby="mascot-title">
+        <div className="readable">
+          <h2 id="mascot-title" className="text-2xl font-semibold tracking-tight">
+            A moth for your desktop
+          </h2>
+          <p className="mt-5 leading-7 text-mote-muted">
+            Fold your widget away and leave a little moth beside your work. It idles, blinks, glows,
+            and flutters on hover. Choose one of five styles, turn it to face the other way, or
+            switch its animation off. Prefer something simpler? Use a pill with the widget's name or
+            a round bubble instead.
+          </p>
+        </div>
+        <div className="mt-8 grid grid-cols-2 gap-6 sm:grid-cols-5">
+          {mascotStyles.map(([style, label]) => (
+            <figure key={style} className="m-0 text-center">
+              <img
+                src={`/mascot/moth-${style}.webp`}
+                alt=""
+                width={256}
+                height={256}
+                loading="lazy"
+                className="mx-auto h-28 w-28 object-contain sm:h-32 sm:w-32"
+              />
+              <figcaption className="mt-3 text-sm text-mote-muted">{label}</figcaption>
+            </figure>
+          ))}
+        </div>
+        <p className="readable mt-8 leading-7 text-mote-muted">
+          In widget settings, choose cards that stack one by one or a panel that fades as it folds.
+          Set the direction it opens, or open evenly around the moth. Auto collapse folds it away
+          after the pointer leaves for the delay you choose. With Mote Pro, set open and collapsed
+          sizes separately; pinned controls float without a background until you hover the top edge
+          for the toolbar.
+        </p>
+      </section>
+
       <section className="readable py-12 sm:py-16">
         <h2 className="text-2xl font-semibold tracking-tight">What counts as one target</h2>
         <p className="mt-5 leading-7 text-mote-muted">
@@ -115,7 +163,7 @@ export const Route = createFileRoute("/features_/desktop-widgets")({
     pageHead({
       title: "Philips Hue desktop widgets for Windows — Mote Desktop",
       description:
-        "Keep a room, zone, or light in a small always-available window on your Windows desktop. The free app includes one widget; Mote Pro adds more.",
+        "Keep Hue controls beside your work, then fold them into a moth, pill, or bubble. Five mascot styles and auto collapse, with one widget free.",
       path: "/features/desktop-widgets",
     }),
   component: DesktopWidgetsPage,
