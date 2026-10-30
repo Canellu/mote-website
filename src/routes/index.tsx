@@ -836,6 +836,13 @@ function HomePage() {
             beside your work with Mote Pro. Fold it into an animated moth, a named pill, or a bubble
             when you need the space. The free app includes one widget and all five moth styles.
           </p>
+          <Link
+            className="cx-button cx-button--quiet justify-self-start max-sm:justify-self-center"
+            to="/features/desktop-widgets/"
+            hash="mascot-title"
+          >
+            Explore widgets and moth styles
+          </Link>
         </div>
         <figure className="cx-statement-visual">
           <ProductCapture

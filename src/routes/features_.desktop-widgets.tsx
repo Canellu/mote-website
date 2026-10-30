@@ -93,7 +93,7 @@ function DesktopWidgetsPage() {
 
       <section className="py-12 sm:py-16" aria-labelledby="mascot-title">
         <div className="readable">
-          <h2 id="mascot-title" className="text-2xl font-semibold tracking-tight">
+          <h2 id="mascot-title" className="scroll-mt-28 text-2xl font-semibold tracking-tight">
             A moth for your desktop
           </h2>
           <p className="mt-5 leading-7 text-mote-muted">
