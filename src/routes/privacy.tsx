@@ -250,8 +250,9 @@ function PrivacyPage() {
             that a search of your network found no bridge after three seconds — along with facts
             about your PC's network setup: whether the network is marked public or private, whether
             Windows Firewall allows or blocks Mote, whether a VPN is active, whether your PC and the
-            device Mote was reaching are on the same subnet, and the Windows version. They are made
-            of fixed codes, counts, and yes-or-no answers; they never contain names, addresses,
+            device Mote was reaching are on the same subnet, and the Windows version. They also say
+            which plan Mote is on: Free, the trial, an ended trial, or Mote Pro. They are made of
+            fixed codes, counts, and yes-or-no answers; they never contain names, addresses,
             identifiers, or credentials, and the hosted endpoint refuses any that do. Mote keeps
             them only in memory while it runs and sends them only with a report you send. You can
             expand the form to read exactly what will be sent first.
