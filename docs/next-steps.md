@@ -7,6 +7,16 @@ restating them. When an item ships, delete it here and record it where its plan 
 desktop side of the same picture is `mote-desktop/docs/website-launch-plan.md` and
 `mote-desktop/docs/plan-index.md`; keep the two in step.
 
+## 0.12.0 launch preparation — 30 October 2026
+
+The home widget section, feature comparison, and desktop widgets page now have
+prepared copy for the moth mascot and widget folding options. The widget page
+shows all five actual mascot stills. Checks, all 21 tests, production build,
+and static output verification pass. These changes are committed locally and
+have not been deployed. Publish them when 0.12.0 is available in the Store;
+the release record is `mote-desktop/docs/releases/0.12.0.md`. The dated launch
+status below is historical, not a fresh Store availability check.
+
 ## Where things stand
 
 - **Live at `https://motedesktop.com`** through Cloudflare Pages: home, `/features`,
