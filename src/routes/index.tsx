@@ -8,6 +8,7 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { ProductCapture } from "../components/product-capture";
+import { MoteMascot } from "../components/mote-mascot";
 import { faqPageJsonLd, pageHead, softwareApplicationJsonLd } from "../lib/seo";
 import { storeUrl } from "../lib/links";
 import homeStyles from "../home.css?url";
@@ -830,6 +831,7 @@ function HomePage() {
 
       <section className="cx-statement cx-shell cx-reveal" aria-labelledby="cx-statement-title">
         <div className="cx-section-head">
+          <MoteMascot className="mote-mascot--home" />
           <h2 id="cx-statement-title">Control the room from a desktop widget, not your phone.</h2>
           <p>
             Build a widget from the rooms, zones, and lights you actually use, then keep it pinned

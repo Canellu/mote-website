@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageIntro } from "../components/page-intro";
 import { ProductCapture } from "../components/product-capture";
+import { MoteMascot } from "../components/mote-mascot";
 import { storeUrl } from "../lib/links";
 import { pageHead } from "../lib/seo";
 
@@ -35,7 +36,7 @@ const mascotStyles = [
   ["pixel-art", "Pixel art"],
   ["paper-cutout", "Paper"],
   ["watercolor", "Watercolor"],
-];
+] as const;
 
 function DesktopWidgetsPage() {
   return (
@@ -106,18 +107,16 @@ function DesktopWidgetsPage() {
         <div className="mt-8 grid grid-cols-2 gap-6 sm:grid-cols-5">
           {mascotStyles.map(([style, label]) => (
             <figure key={style} className="m-0 text-center">
-              <img
-                src={`/mascot/moth-${style}.webp`}
-                alt=""
-                width={256}
-                height={256}
-                loading="lazy"
-                className="mx-auto h-28 w-28 object-contain sm:h-32 sm:w-32"
+              <MoteMascot
+                style={style}
+                label={`Play with the ${label} moth`}
+                className="mote-mascot--gallery"
               />
               <figcaption className="mt-3 text-sm text-mote-muted">{label}</figcaption>
             </figure>
           ))}
         </div>
+        <p className="mt-5 text-sm text-mote-muted">Hover or tap a moth to see it move.</p>
         <p className="readable mt-8 leading-7 text-mote-muted">
           In widget settings, choose cards that stack one by one or a panel that fades as it folds.
           Set the direction it opens, or open evenly around the moth. Auto collapse folds it away

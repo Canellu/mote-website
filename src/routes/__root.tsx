@@ -8,6 +8,7 @@ import {
   useRouterState,
 } from "@tanstack/react-router";
 import { NotFound } from "../components/not-found";
+import { MoteMascot } from "../components/mote-mascot";
 import { analyticsScripts } from "../lib/analytics";
 import { storeUrl } from "../lib/links";
 import styles from "../styles.css?url";
@@ -108,6 +109,7 @@ function SiteClose() {
 
       <div className="site-close__inner">
         <section className="site-close__cta" aria-labelledby="site-close-title">
+          <MoteMascot className="mote-mascot--footer" />
           <h2 id="site-close-title">Mote Desktop for Windows.</h2>
           <p>
             Free on the Microsoft Store. Mote Pro: 14-day trial, one-time purchase, no subscription.
