@@ -1,6 +1,6 @@
 # Website next steps
 
-Last reviewed: **11 October 2026**.
+Last reviewed: **31 October 2026**.
 
 This is the website's working list. It points at the plans that own each decision rather than
 restating them. When an item ships, delete it here and record it where its plan says. The
@@ -33,7 +33,8 @@ status below is historical, not a fresh Store availability check.
   - `/features` covers all five automations and the IP-address route. It also mentions
     translucent widget tiles, and switch, dimmer, motion sensor and fixture setup.
   - The Hue Bridge answer uses the wording from the bridgeless spike.
-- **Legal effective date: 3 October 2026**, in `src/lib/legal.ts`. 0.10.1's What's new links to it.
+- **Legal effective date: 31 October 2026**, in `src/lib/legal.ts`, bumped for the plan now listed
+  among the diagnostics facts (app 0.12.0). Deploy it with the 0.12.0 changes.
 - **Search Console:** the sitemap was submitted on 4 October 2026 and read the same day (Success,
   8 pages).
 - **Feedback API live** as the `mote-api` Worker, with diagnostics
@@ -48,11 +49,6 @@ translucent tiles, switch and sensor setup) went live on 12 October in `cf22488`
 - **When 0.11.0 publishes:** the room and light control block on `/features` can mention the All
   lights page (every light by room or as one list, and one color wheel for the whole home) and
   fixtures showing as one tile. Free, and no comparison row changes.
-- **In-app comparison row.** The app's Free vs Mote Pro table
-  (`mote-desktop/src/features/pro/PlanOverview.tsx`) has the row "Automations: on air and away",
-  which leaves out focus sessions, presence, and calendar rules, all Pro since 0.6.0. The site's
-  row reads "Automations: calls, locking, focus, presence, and calendar". Bring the app's row up
-  to it in the next desktop release.
 - **Automations capture, then a block or page.** `/features` describes automations in words
   because no real capture exists. Take one (the Automations screen, or a focus session) through
   the `public/product/PROVENANCE.md` process. Then promote the section to a catalog block, or to

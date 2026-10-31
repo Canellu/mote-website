@@ -212,8 +212,7 @@ const comparisonRows: { name: string; free: ComparisonValue; pro: ComparisonValu
   { name: "Dashboard layout", free: "Standard", pro: "Custom" },
   { name: "Global keyboard shortcuts", free: false, pro: true },
   // Every automation since app 0.6.0. Mirrors the in-app comparison in
-  // mote-desktop's PlanOverview, which as of 0.10.1 still reads "on air and
-  // away"; bring that row up to this one rather than this one down to it.
+  // mote-desktop's PlanOverview, which matches it from app 0.12.0.
   { name: "Automations: calls, locking, focus, presence, and calendar", free: false, pro: true },
   { name: "Entertainment area setup and testing", free: true, pro: true },
   { name: "PC Sync: Video, Games, and Music", free: true, pro: true },
