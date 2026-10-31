@@ -17,13 +17,14 @@ const freeCapabilities = [
   "One widget on the desktop",
   "One room, zone, or light in it — each counts as one target",
   "Collapse into a mascot, named pill, or bubble, then click to open or drag to move",
-  "Five mascot styles, optional animation, and a choice of facing direction",
+  "The Cartoon mascot, optional animation, and a choice of facing direction",
   "Stacking or fading, expansion direction, and an optional auto-collapse delay",
   "Standard widget size and corners, the system theme, and ordinary window behaviour",
 ];
 
 const proCapabilities = [
   "As many widgets as you want",
+  "Four more mascot styles: Low poly, Pixel art, Paper, and Watercolor",
   "More than one control in a widget, and multi-target toggle groups",
   "Widget theme, size, corners, translucent tiles, and placement chosen rather than inherited",
   "Pinning and always-on-top behaviour",
@@ -31,7 +32,6 @@ const proCapabilities = [
 ];
 
 const mascotStyles = [
-  ["cel-shaded", "Cartoon"],
   ["low-poly", "Low poly"],
   ["pixel-art", "Pixel art"],
   ["paper-cutout", "Paper"],
@@ -99,12 +99,19 @@ function DesktopWidgetsPage() {
           </h2>
           <p className="mt-5 leading-7 text-mote-muted">
             Fold your widget away and leave a little mascot beside your work. It idles, blinks,
-            glows, and flutters on hover. Choose one of five styles, turn it to face the other way,
+            glows, and flutters on hover. Cartoon is included free; turn it to face the other way,
             or switch its animation off. Prefer something simpler? Use a pill with the widget's name
             or a round bubble instead.
           </p>
         </div>
-        <div className="mt-8 grid grid-cols-2 gap-6 sm:grid-cols-5">
+        <figure className="mt-8 w-fit text-center">
+          <MoteMascot label="Play with the Cartoon mascot" className="mote-mascot--gallery" />
+          <figcaption className="mt-3 text-sm text-mote-muted">Cartoon · Free</figcaption>
+        </figure>
+        <h3 className="mt-10 text-xl font-semibold tracking-tight">
+          More mascot styles with Mote Pro
+        </h3>
+        <div className="mt-6 grid grid-cols-2 gap-6 sm:grid-cols-4">
           {mascotStyles.map(([style, label]) => (
             <figure key={style} className="m-0 text-center">
               <MoteMascot
@@ -162,7 +169,7 @@ export const Route = createFileRoute("/features_/desktop-widgets")({
     pageHead({
       title: "Philips Hue desktop widgets for Windows — Mote Desktop",
       description:
-        "Keep Hue controls beside your work, then fold them into a mascot, pill, or bubble. Five mascot styles and auto collapse, with one widget free.",
+        "Keep Hue controls beside your work. The Cartoon mascot and one widget are free; Mote Pro adds four more mascot styles and unlimited widgets.",
       path: "/features/desktop-widgets",
     }),
   component: DesktopWidgetsPage,

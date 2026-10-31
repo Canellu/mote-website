@@ -867,8 +867,8 @@ function HomePage() {
             need the space, ready to open your controls again with a click.
           </p>
           <p>
-            Choose from five mascot styles, set which way it faces, or keep it still. All five
-            styles are included with your free widget.
+            Cartoon is your free mascot, with animation and a choice of facing direction. Mote Pro
+            adds four more styles: Low poly, Pixel art, Paper, and Watercolor.
           </p>
           <Link
             className="cx-button cx-button--quiet justify-self-start max-sm:justify-self-center"

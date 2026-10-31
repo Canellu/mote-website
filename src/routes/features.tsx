@@ -88,7 +88,8 @@ const featureGroups = [
     points: [
       "Name each widget so it is easy to recognize later",
       "Free includes one widget with one room, zone, or light",
-      "Fold into a mascot, pill, or bubble; choose from five mascot styles, optional animation, and facing direction",
+      "Fold into the free Cartoon mascot, pill, or bubble, with optional animation and facing direction",
+      "Mote Pro adds Low poly, Pixel art, Paper, and Watercolor mascot styles",
       "Choose stacking or fading, expansion direction, and an auto-collapse delay",
       "Arrange the controls, choose the density and appearance, and preview the result",
       "Mote Pro adds as many widgets as you like, each with several controls or a whole toggle group",
@@ -205,7 +206,8 @@ const comparisonRows: { name: string; free: ComparisonValue; pro: ComparisonValu
   // below it.
   { name: "Desktop widgets", free: "One", pro: "Unlimited" },
   { name: "Multiple controls in one widget", free: false, pro: true },
-  { name: "Moth, pill, or bubble; fold and auto-collapse options", free: true, pro: true },
+  { name: "Mascot styles", free: "Cartoon", pro: "All five" },
+  { name: "Mascot, pill, or bubble; fold and auto-collapse options", free: true, pro: true },
   { name: "Widget theme, size, corners, and placement", free: false, pro: true },
   { name: "Dashboard layout", free: "Standard", pro: "Custom" },
   { name: "Global keyboard shortcuts", free: false, pro: true },
