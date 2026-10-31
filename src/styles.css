@@ -38,7 +38,13 @@
   image-rendering: pixelated;
 }
 .mote-mascot--feature {
-  width: clamp(12rem, 25vw, 19rem);
+  width: clamp(10rem, 21vw, 16rem);
+}
+/* Faces left, toward the section copy. The sprite flips, not the button,
+   which keeps its own hover and press transforms. */
+.mote-mascot--feature .mote-mascot__sprite,
+.mote-mascot--feature img {
+  transform: scaleX(-1);
 }
 .mote-mascot--footer {
   width: 4.5rem;
