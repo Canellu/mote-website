@@ -12,8 +12,8 @@ desktop side of the same picture is `mote-desktop/docs/website-launch-plan.md` a
 The home widget section, feature comparison, and desktop widgets page now have
 prepared copy for the moth mascot and widget folding options. The widget page
 shows all five actual mascot stills. Checks, all 21 tests, production build,
-and static output verification pass. These changes are committed locally and
-have not been deployed. Publish them when 0.12.0 is available in the Store;
+and static output verification pass. Deployed on 31 October 2026 while 0.12.0
+was in certification as Submission 24;
 the release record is `mote-desktop/docs/releases/0.12.0.md`. The dated launch
 status below is historical, not a fresh Store availability check.
 
@@ -34,7 +34,7 @@ status below is historical, not a fresh Store availability check.
     translucent widget tiles, and switch, dimmer, motion sensor and fixture setup.
   - The Hue Bridge answer uses the wording from the bridgeless spike.
 - **Legal effective date: 31 October 2026**, in `src/lib/legal.ts`, bumped for the plan now listed
-  among the diagnostics facts (app 0.12.0). Deploy it with the 0.12.0 changes.
+  among the diagnostics facts (app 0.12.0). Deployed 31 October 2026.
 - **Search Console:** the sitemap was submitted on 4 October 2026 and read the same day (Success,
   8 pages).
 - **Feedback API live** as the `mote-api` Worker, with diagnostics
