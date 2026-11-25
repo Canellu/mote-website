@@ -817,22 +817,20 @@ function HomePage() {
               <a className="cx-button" href={storeUrl("web-hero")} target="_blank" rel="noreferrer">
                 Get Mote Desktop on Microsoft Store
               </a>
-              <Link className="cx-button cx-button--quiet" to="/features/">
-                See all features
-              </Link>
+              <a className="cx-button cx-button--quiet" href="#mac-waitlist">
+                Join the Mac waitlist
+              </a>
               <span>
                 <span>Free on the Microsoft Store ·</span> <span>14-day Mote Pro trial ·</span>{" "}
                 <span>No subscription ·</span> <span>Windows 10 and 11</span>
-                {" · "}
-                <a className="cx-waitlist__link" href="#mac-waitlist">
-                  Interested in Mac?
-                </a>
               </span>
             </div>
           </div>
           <HeroMedia />
         </div>
       </section>
+
+      <MacWaitlist />
 
       <section className="cx-statement cx-shell cx-reveal" aria-labelledby="cx-statement-title">
         <div className="cx-section-head">
@@ -953,8 +951,6 @@ function HomePage() {
         label="PC Sync views"
         items={syncViews}
       />
-
-      <MacWaitlist />
 
       <section className="cx-faq cx-shell cx-reveal" aria-labelledby="cx-faq-title">
         <div className="cx-section-head">
