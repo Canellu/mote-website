@@ -293,6 +293,7 @@ function FeatureBlock({ group }: { group: FeatureGroup }) {
 
   return (
     <section
+      id={group.id}
       className="feature-block"
       data-weight={group.weight}
       data-side={group.side}

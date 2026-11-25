@@ -897,7 +897,7 @@ function HomePage() {
           <Link
             className="cx-button cx-button--quiet justify-self-start max-sm:justify-self-center"
             to="/features/"
-            hash="taskbar-title"
+            hash="taskbar"
           >
             Explore taskbar quick controls
           </Link>
