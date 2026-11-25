@@ -361,6 +361,7 @@ body[data-scrolled="true"] .site-header::after,
 }
 #cx-captures-title,
 #comparison-title,
+#taskbar-title,
 #pc-sync-title,
 #site-close-title {
   scroll-margin-top: calc(var(--site-header-height) + 4rem);
