@@ -67,6 +67,7 @@ const featureGroups = [
       "Edit and delete your own scenes without leaving the desktop",
       "Preview a scene before applying it",
       "Run supported dynamic scenes that move through their palette on their own",
+      "Copy scenes to another room or zone and adapt them to the lights there",
       "Recall any scene from the dashboard or a widget",
     ],
     src: "/product/mote-scene-gallery-dark.png",
@@ -101,8 +102,27 @@ const featureGroups = [
     height: 702,
     frame: "amber",
     side: "left",
-    // The one portrait capture on the page. A crop of a stack of widgets is a
-    // stack of widgets with the bottom one missing, so this one is fitted.
+    fit: "contain",
+  },
+  {
+    id: "taskbar",
+    weight: "standard",
+    tiers: ["Free", "Mote Pro"],
+    title: "Taskbar quick controls",
+    summary:
+      "Open a flyout with light switches, brightness sliders, and scenes from the Windows taskbar.",
+    points: [
+      "Drag Mote’s icon out of the hidden icons menu so it stays visible next to the clock, then click it",
+      "Switch all lights on or off, dim a room or zone, and apply or play supported scenes",
+      "Choose one room or zone in Free",
+      "With Mote Pro, show or hide rooms and zones, drag to reorder them, and choose which brightness sliders and scenes appear",
+    ],
+    src: "/product/mote-taskbar-quick-controls-dark.png",
+    alt: "Mote Pro taskbar panel with rooms, zones, brightness sliders, and scenes",
+    width: 744,
+    height: 970,
+    frame: "magenta",
+    side: "right",
     fit: "contain",
   },
   {
@@ -205,6 +225,7 @@ const comparisonRows: { name: string; free: ComparisonValue; pro: ComparisonValu
   // Free is one widget since 2026-09-18; what one widget may hold is the row
   // below it.
   { name: "Desktop widgets", free: "One", pro: "Unlimited" },
+  { name: "Taskbar quick controls", free: "One room or zone", pro: "All and customizable" },
   { name: "Multiple controls in one widget", free: false, pro: true },
   { name: "Mascot styles", free: "Cartoon", pro: "All five" },
   { name: "Mascot, pill, or bubble; fold and auto-collapse options", free: true, pro: true },

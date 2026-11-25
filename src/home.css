@@ -598,6 +598,19 @@ body:has(.home-page) :focus-visible {
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
   gap: clamp(3rem, 7vw, 6rem);
 }
+.cx-taskbar-visual > picture {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 0;
+}
+.cx-taskbar-visual picture img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
 /* A lit field rather than a dark panel: the widgets are dark UI and vanished
    against the near-black ground they used to sit on. */
 .cx-statement-visual {

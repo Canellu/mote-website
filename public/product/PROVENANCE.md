@@ -1,5 +1,9 @@
 # Product capture provenance
 
+`mote-taskbar-quick-controls-dark.png` is a 744×970 capture of the taskbar
+panel from the sibling app’s 0.13.1 source (`a2744aa`), rendered in Chrome
+with local sample rooms, scenes, and Mote Pro active.
+
 These are real Mote Desktop application captures sourced from the sibling `mote-desktop` repository. No interface content was generated for the website.
 
 The PNGs in this directory are the originals and the record. What a reader actually downloads is one of the AVIF or WebP encodes in `derived/`, written from these files by `scripts/encode-product-images.ts` at the widths the site paints them at. Nothing in `derived/` is a separate capture — regenerate it rather than editing it, and re-run the script after replacing any PNG here.

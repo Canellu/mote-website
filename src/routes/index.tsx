@@ -884,6 +884,36 @@ function HomePage() {
         </div>
       </section>
 
+      <section className="cx-statement cx-shell cx-reveal" aria-labelledby="cx-taskbar-title">
+        <div className="cx-section-head">
+          <h2 id="cx-taskbar-title">Your lights, one click from the taskbar.</h2>
+          <p>
+            Click Mote’s icon next to the Windows clock to open quick controls. Switch lights on or
+            off, dim a room, or set a scene without opening the main window.
+          </p>
+          <Link
+            className="cx-button cx-button--quiet justify-self-start max-sm:justify-self-center"
+            to="/features/"
+            hash="taskbar-title"
+          >
+            Explore taskbar quick controls
+          </Link>
+        </div>
+        <figure className="cx-statement-visual cx-taskbar-visual">
+          <ProductCapture
+            src="/product/mote-taskbar-quick-controls-dark.png"
+            alt="Taskbar flyout with room and zone switches, brightness sliders, and scenes"
+            width={744}
+            height={970}
+            sizes="(min-width: 60rem) 350px, 82vw"
+          />
+          <figcaption>
+            <i aria-hidden="true" />
+            Mote Pro taskbar panel
+          </figcaption>
+        </figure>
+      </section>
+
       <Carousel
         autoplay
         headingId="cx-captures-title"
