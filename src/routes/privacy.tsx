@@ -210,8 +210,9 @@ function PrivacyPage() {
           <h2 id="mac-interest">Mac interest list</h2>
           <p>
             If you opt in, {PUBLISHER} uses your email to count interest in a possible macOS version
-            of Mote Desktop. Signing up is optional and does not affect the Windows app. Your
-            address will not be used to send newsletters or launch emails.
+            of Mote Desktop. Cloudflare Email Service sends one signup confirmation with a private
+            removal link. Signing up is optional and does not affect the Windows app. Your address
+            will not be used to send newsletters or launch emails.
           </p>
           <p>
             The email, time and version of your consent, and a hash of your private removal key are
@@ -221,12 +222,8 @@ function PrivacyPage() {
             cleanup.
           </p>
           <p>
-            To withdraw and remove your entry sooner, use the private removal link shown after
-            signup, or email{" "}
-            <a className="footer-link" href={supportHref}>
-              {SUPPORT_EMAIL}
-            </a>{" "}
-            from the address you signed up with.
+            To withdraw and remove your entry sooner, use the private removal link in the
+            confirmation email.
           </p>
         </section>
 

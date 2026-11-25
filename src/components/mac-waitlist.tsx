@@ -1,12 +1,11 @@
 import { Link } from "@tanstack/react-router";
 import { type FormEvent, useEffect, useRef, useState } from "react";
-import { SUPPORT_EMAIL } from "../lib/legal";
 
 type Status =
   | { kind: "idle" }
   | { kind: "pending" }
   | { kind: "error"; message: string }
-  | { kind: "joined"; removalUrl: string }
+  | { kind: "joined" }
   | { kind: "removed" };
 
 const removalFragment = "leave-mac-waitlist=";
@@ -14,7 +13,6 @@ const tokenPattern = /^[a-f0-9]{32}$/;
 
 export function MacWaitlist() {
   const section = useRef<HTMLElement>(null);
-  const signup = useRef<{ email: string; token: string }>(null);
   const [status, setStatus] = useState<Status>({ kind: "idle" });
   const [removalToken, setRemovalToken] = useState("");
   const [ready, setReady] = useState(false);
@@ -49,20 +47,23 @@ export function MacWaitlist() {
     if (!removalToken && (typeof email !== "string" || !consent)) return;
     setStatus({ kind: "pending" });
     try {
-      if (typeof email === "string" && signup.current?.email !== email) {
-        signup.current = { email, token: crypto.randomUUID().replaceAll("-", "") };
-      }
-      const token = removalToken || signup.current?.token;
       const response = await fetch(
         removalToken ? "/api/mac-waitlist/remove" : "/api/mac-waitlist",
         {
           method: "POST",
           headers: { "content-type": "application/json" },
-          body: JSON.stringify(removalToken ? { token } : { email, consent, token }),
+          body: JSON.stringify(removalToken ? { token: removalToken } : { email, consent }),
         },
       );
       if (response.status === 429) {
         setStatus({ kind: "error", message: "Too many signups. Try again in a little while." });
+        return;
+      }
+      if (response.status === 503) {
+        setStatus({
+          kind: "error",
+          message: "The confirmation email could not be sent. Please try again.",
+        });
         return;
       }
       if (!response.ok) throw new Error();
@@ -70,9 +71,7 @@ export function MacWaitlist() {
         setStatus({ kind: "removed" });
         return;
       }
-      const url = new URL(window.location.href);
-      url.hash = removalFragment + token;
-      setStatus({ kind: "joined", removalUrl: url.href });
+      setStatus({ kind: "joined" });
     } catch {
       setStatus({ kind: "error", message: "Something went wrong. Please try again." });
     }
@@ -105,12 +104,9 @@ export function MacWaitlist() {
           <>
             <p role="status">Thanks for registering your interest.</p>
             <p>
-              Save your private removal link. If you already joined, use the original link or email
-              support.
+              Check your inbox for a confirmation email with a private removal link. If you already
+              joined, use your original email.
             </p>
-            <a href={status.removalUrl} className="cx-waitlist__link">
-              Manage this signup
-            </a>
           </>
         ) : (
           <form onSubmit={submit} method="post" action="/api/mac-waitlist">
@@ -127,7 +123,7 @@ export function MacWaitlist() {
               <input name="consent" type="checkbox" required />
               <span>
                 I agree to let Mote Desktop store my email for up to one year to measure interest in
-                a Mac version.
+                a Mac version and send me one confirmation email.
               </span>
             </label>
             <button className="cx-button cx-button--quiet" type="submit" disabled={!ready || busy}>
@@ -139,17 +135,10 @@ export function MacWaitlist() {
         {status.kind === "error" && <p role="alert">{status.message}</p>}
         {!removalToken && (
           <p className="cx-waitlist__privacy">
-            This signup is only for measuring interest.{" "}
+            The confirmation email includes a link to remove your signup.{" "}
             <Link to="/privacy/" hash="mac-interest" className="cx-waitlist__link">
               Privacy policy
             </Link>
-            {" · "}
-            <a
-              className="cx-waitlist__link"
-              href={`mailto:${SUPPORT_EMAIL}?subject=Mac%20interest%20list%20removal`}
-            >
-              Email support to withdraw
-            </a>
           </p>
         )}
       </div>

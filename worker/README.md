@@ -35,20 +35,25 @@ diagnostics are dropped and the report kept.
 A daily cron at 03:00 UTC clears contact addresses that have outlived their
 retention window.
 
-The same cron deletes Mac interest entries after one year. The interest list
-does not send email or call the feedback notification webhook. For a removal
-request to support, verify ownership via the email received from that address
-and delete the matching entry from `mac_waitlist` in D1. Keep the frontend
-consent text, the privacy policy and the Worker consent version in sync.
+The same cron deletes Mac interest entries after one year. Each new signup
+sends one confirmation with a private removal link from
+`support@motedesktop.com`. Duplicate submissions do not send another message.
+Keep the frontend consent text, the privacy policy and the Worker consent
+version in sync.
 
 To try the form locally, apply migrations with
 `bunx wrangler d1 migrations apply mote-feedback --local --config worker/wrangler.jsonc`,
 then run `bun run worker:dev` (port 8787) and `vp dev` in separate terminals.
 Vite forwards the waitlist requests to the local Worker. For local testing,
 provide dummy values for `APP_TOKEN`, `ADMIN_TOKEN` and `RATE_LIMIT_SALT`.
+Set `MAC_WAITLIST_SITE_URL` to the local Vite origin so the removal link opens
+the preview. Wrangler simulates delivery and prints where it saved the email.
 
-When publishing is approved, apply migration 0003 and deploy the Worker
-before publishing the site.
+When publishing is approved, onboard `motedesktop.com` for
+[Cloudflare Email Sending](https://developers.cloudflare.com/email-service/get-started/send-emails/).
+Sending to arbitrary recipients requires Workers Paid. Keep the existing inbox
+MX records in place. Apply migration 0003 and deploy the Worker before
+publishing the site.
 
 ## Resources
 
@@ -69,7 +74,7 @@ them are in the repository.
 | Secret               | Purpose                                                   |
 | -------------------- | --------------------------------------------------------- |
 | `APP_TOKEN`          | Must match the desktop build's `MOTE_FEEDBACK_APP_TOKEN`  |
-| `ADMIN_TOKEN`        | Guards `/api/feedback/admin`                              |
+| `ADMIN_TOKEN`        | Guards the feedback and Mac interest admin routes         |
 | `RATE_LIMIT_SALT`    | Salts the hashed-address counters                         |
 | `NOTIFY_WEBHOOK_URL` | Where a new report is announced                           |
 | `NOTIFY_TARGET`      | Destination for channels that need one (Telegram chat id) |
@@ -87,9 +92,8 @@ id. Rotate the token with `/revoke` in @BotFather, then re-put the secret.
 `NOTIFY_WEBHOOK_URL` is any URL that accepts a POST: a Discord or Slack webhook,
 an ntfy topic, a Telegram bot, or something personal. Set `NOTIFY_FORMAT` in
 `wrangler.jsonc` to `discord`, `slack`, `ntfy` or `json` to match it. Unset, the
-Worker stores the report and sends no notification. Cloudflare's own
-`send_email` binding was not used: it wants Email Routing enabled on the zone,
-and `motedesktop.com`'s MX records point at the existing mailbox provider.
+Worker stores the report and sends no notification. Mac signup confirmations
+use a separate outbound email binding and do not go through the feedback bot.
 
 ## Commands
 

@@ -22,12 +22,15 @@
   ],
 
   "kv_namespaces": [{ "binding": "RATE_LIMIT", "id": "d2975a376a674418a71b29709c531d27" }],
+  "send_email": [
+    { "name": "MAC_WAITLIST_EMAIL", "allowed_sender_addresses": ["support@motedesktop.com"] },
+  ],
 
   // Which shape the notification webhook expects: telegram | discord | slack |
   // ntfy | json. The channel itself is the NOTIFY_WEBHOOK_URL secret, and
   // NOTIFY_TARGET carries a destination where the channel needs one (a Telegram
   // chat id). With either unset the Worker stores the report and stays silent.
-  "vars": { "NOTIFY_FORMAT": "telegram" },
+  "vars": { "NOTIFY_FORMAT": "telegram", "MAC_WAITLIST_SITE_URL": "https://motedesktop.com" },
 
   // Retention, per the feedback plan: a contact address outlives its report by
   // at most 90 days once resolved, and never by more than a year.

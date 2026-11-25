@@ -5,14 +5,17 @@ interface WaitlistEnv {
   RATE_LIMIT: KVNamespace;
   RATE_LIMIT_SALT: string;
   ADMIN_TOKEN: string;
+  MAC_WAITLIST_EMAIL: SendEmail;
+  MAC_WAITLIST_SITE_URL: string;
 }
 
-const CONSENT_VERSION = "mac-interest-v1";
+const CONSENT_VERSION = "mac-interest-v2";
 const RETENTION_SECONDS = 365 * 24 * 60 * 60;
 const MAX_BODY_BYTES = 2048;
 const signupLimits = [{ prefix: "mac-waitlist", windowSeconds: 3600, limit: 5 }];
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const tokenPattern = /^[a-f0-9]{32}$/;
+const senderAddress = "support@motedesktop.com";
 
 function respond(status: number, body: unknown) {
   return Response.json(body, { status, headers: { "cache-control": "no-store" } });
@@ -22,6 +25,19 @@ async function hashToken(token: string) {
   const bytes = new TextEncoder().encode(token);
   const digest = new Uint8Array(await crypto.subtle.digest("SHA-256", bytes));
   return Array.from(digest, (byte) => byte.toString(16).padStart(2, "0")).join("");
+}
+
+function sendConfirmation(env: WaitlistEnv, email: string, token: string) {
+  const link = new URL("/", env.MAC_WAITLIST_SITE_URL);
+  link.hash = `leave-mac-waitlist=${token}`;
+  return env.MAC_WAITLIST_EMAIL.send({
+    from: { email: senderAddress, name: "Mote Desktop" },
+    to: email,
+    subject: "You’re on the Mote Desktop Mac waitlist",
+    text: `Thanks for registering your interest in Mote Desktop for Mac.\n\nRemove me from the waitlist: ${link.href}\n`,
+    html: `<p>Thanks for registering your interest in Mote Desktop for Mac.</p>
+      <p><a href="${link.href}" style="display:inline-block;padding:12px 18px;background:#182337;color:#fff;text-decoration:none;border-radius:6px">Remove me from the waitlist</a></p>`,
+  });
 }
 
 export async function handleMacWaitlist(request: Request, env: WaitlistEnv) {
@@ -58,17 +74,14 @@ export async function handleMacWaitlist(request: Request, env: WaitlistEnv) {
   } catch {
     return respond(400, { error: "Invalid request." });
   }
-  if (
-    typeof body !== "object" ||
-    body === null ||
-    !("token" in body) ||
-    typeof body.token !== "string" ||
-    !tokenPattern.test(body.token)
-  ) {
+  if (typeof body !== "object" || body === null) {
     return respond(400, { error: "Invalid request." });
   }
 
   if (removing) {
+    if (!("token" in body) || typeof body.token !== "string" || !tokenPattern.test(body.token)) {
+      return respond(400, { error: "Invalid removal key." });
+    }
     const hash = await hashToken(body.token);
     await env.DB.prepare("delete from mac_waitlist where removal_hash = ?").bind(hash).run();
     return respond(200, { ok: true });
@@ -86,8 +99,9 @@ export async function handleMacWaitlist(request: Request, env: WaitlistEnv) {
     return respond(429, { error: "Too many signups. Try again later." });
   }
   const now = Math.floor(Date.now() / 1000);
-  const hash = await hashToken(body.token);
-  await env.DB.prepare(
+  const token = crypto.randomUUID().replaceAll("-", "");
+  const hash = await hashToken(token);
+  const signup = await env.DB.prepare(
     `insert into mac_waitlist (email, consent_version, consented_at, removal_hash)
      values (?, ?, ?, ?) on conflict(email) do update set
        consent_version = excluded.consent_version,
@@ -97,6 +111,15 @@ export async function handleMacWaitlist(request: Request, env: WaitlistEnv) {
   )
     .bind(email, CONSENT_VERSION, now, hash, now - RETENTION_SECONDS)
     .run();
+  if (signup.meta.changes === 0) return respond(200, { ok: true });
+
+  try {
+    await sendConfirmation(env, email, token);
+  } catch {
+    // Release this signup so a retry can send a receipt. Leave any newer entry alone.
+    await env.DB.prepare("delete from mac_waitlist where removal_hash = ?").bind(hash).run();
+    return respond(503, { error: "The confirmation email could not be sent. Please try again." });
+  }
   return respond(200, { ok: true });
 }
 

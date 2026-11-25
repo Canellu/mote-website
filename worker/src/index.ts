@@ -20,6 +20,8 @@ export interface Env {
   NOTIFY_TARGET?: string;
   NOTIFY_FORMAT?: string;
   RATE_LIMIT_SALT: string;
+  MAC_WAITLIST_EMAIL: SendEmail;
+  MAC_WAITLIST_SITE_URL: string;
 }
 
 const JSON_HEADERS = { "content-type": "application/json; charset=utf-8" } as const;
