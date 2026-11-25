@@ -1,4 +1,5 @@
 import { notify, type NotifyFormat } from "./notify";
+import { handleMacWaitlist, purgeExpiredMacSignups } from "./mac-waitlist";
 import { FEEDBACK_RULES, isRateLimited } from "./ratelimit";
 import { validateSubmission } from "./validate";
 
@@ -157,6 +158,9 @@ export default {
     if (pathname === "/api/feedback/admin" && request.method === "GET") {
       return handleAdminList(request, env);
     }
+    if (pathname === "/api/mac-waitlist" || pathname.startsWith("/api/mac-waitlist/")) {
+      return handleMacWaitlist(request, env);
+    }
 
     if (pathname === "/api/health") {
       return json({ ok: true });
@@ -184,5 +188,6 @@ export default {
          where contact_email is not null and status = 'resolved' and updated_at <= ?`,
       ).bind(now, now - RESOLVED_GRACE_SECONDS),
     ]);
+    await purgeExpiredMacSignups(env.DB, now);
   },
 };

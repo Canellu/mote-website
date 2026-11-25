@@ -6,6 +6,7 @@ dist
 *.local
 *.tsbuildinfo
 .DS_Store
+.wrangler/
 
 # Local visual QA state and generated comparison artifacts.
 .impeccable/*

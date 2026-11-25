@@ -9,6 +9,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { ProductCapture } from "../components/product-capture";
 import { MoteMascot } from "../components/mote-mascot";
+import { MacWaitlist } from "../components/mac-waitlist";
 import { faqPageJsonLd, pageHead, softwareApplicationJsonLd } from "../lib/seo";
 import { storeUrl } from "../lib/links";
 import homeStyles from "../home.css?url";
@@ -822,6 +823,10 @@ function HomePage() {
               <span>
                 <span>Free on the Microsoft Store ·</span> <span>14-day Mote Pro trial ·</span>{" "}
                 <span>No subscription ·</span> <span>Windows 10 and 11</span>
+                {" · "}
+                <a className="cx-waitlist__link" href="#mac-waitlist">
+                  Interested in Mac?
+                </a>
               </span>
             </div>
           </div>
@@ -948,6 +953,8 @@ function HomePage() {
         label="PC Sync views"
         items={syncViews}
       />
+
+      <MacWaitlist />
 
       <section className="cx-faq cx-shell cx-reveal" aria-labelledby="cx-faq-title">
         <div className="cx-section-head">

@@ -17,11 +17,14 @@ changing behaviour here, and keep `src/routes/privacy.tsx` in step with it.
 
 ## Routes
 
-| Method | Path                  | Auth                      | Purpose                     |
-| ------ | --------------------- | ------------------------- | --------------------------- |
-| `GET`  | `/api/health`         | none                      | Liveness check              |
-| `POST` | `/api/feedback`       | `X-Mote-App-Token`        | Submit one report           |
-| `GET`  | `/api/feedback/admin` | `Authorization: Bearer …` | Read recent reports as JSON |
+| Method | Path                       | Auth                      | Purpose                          |
+| ------ | -------------------------- | ------------------------- | -------------------------------- |
+| `GET`  | `/api/health`              | none                      | Liveness check                   |
+| `POST` | `/api/feedback`            | `X-Mote-App-Token`        | Submit one report                |
+| `GET`  | `/api/feedback/admin`      | `Authorization: Bearer …` | Read recent reports as JSON      |
+| `POST` | `/api/mac-waitlist`        | Explicit consent          | Register interest once per email |
+| `POST` | `/api/mac-waitlist/remove` | Private removal key       | Withdraw and delete a signup     |
+| `GET`  | `/api/mac-waitlist/admin`  | `Authorization: Bearer …` | Count active signups             |
 
 A report may carry diagnostics (app 0.9.0 and later): recent steps and their
 outcomes, and network facts such as whether Windows Firewall blocks Mote. They
@@ -31,6 +34,21 @@ diagnostics are dropped and the report kept.
 
 A daily cron at 03:00 UTC clears contact addresses that have outlived their
 retention window.
+
+The same cron deletes Mac interest entries after one year. The interest list
+does not send email or call the feedback notification webhook. For a removal
+request to support, verify ownership via the email received from that address
+and delete the matching entry from `mac_waitlist` in D1. Keep the frontend
+consent text, the privacy policy and the Worker consent version in sync.
+
+To try the form locally, apply migrations with
+`bunx wrangler d1 migrations apply mote-feedback --local --config worker/wrangler.jsonc`,
+then run `bun run worker:dev` (port 8787) and `vp dev` in separate terminals.
+Vite forwards the waitlist requests to the local Worker. For local testing,
+provide dummy values for `APP_TOKEN`, `ADMIN_TOKEN` and `RATE_LIMIT_SALT`.
+
+When publishing is approved, apply migration 0003 and deploy the Worker
+before publishing the site.
 
 ## Resources
 
