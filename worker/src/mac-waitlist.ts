@@ -112,7 +112,8 @@ export async function handleMacWaitlist(request: Request, env: WaitlistEnv) {
 
   try {
     await sendConfirmation(env, email, token);
-  } catch {
+  } catch (error) {
+    console.error("Mac waitlist confirmation email failed", error);
     // Release this signup so a retry can send a receipt.
     await env.DB.prepare("delete from mac_waitlist where unsubscribe_token = ?").bind(token).run();
     return respond(503, { error: "The confirmation email could not be sent. Please try again." });
