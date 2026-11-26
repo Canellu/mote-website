@@ -22,9 +22,6 @@
   ],
 
   "kv_namespaces": [{ "binding": "RATE_LIMIT", "id": "d2975a376a674418a71b29709c531d27" }],
-  "send_email": [
-    { "name": "MAC_WAITLIST_EMAIL", "allowed_sender_addresses": ["hello@motedesktop.com"] },
-  ],
 
   // Which shape the notification webhook expects: telegram | discord | slack |
   // ntfy | json. The channel itself is the NOTIFY_WEBHOOK_URL secret, and

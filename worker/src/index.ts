@@ -20,7 +20,7 @@ export interface Env {
   NOTIFY_TARGET?: string;
   NOTIFY_FORMAT?: string;
   RATE_LIMIT_SALT: string;
-  MAC_WAITLIST_EMAIL: SendEmail;
+  RESEND_API_KEY: string;
   MAC_WAITLIST_SITE_URL: string;
 }
 

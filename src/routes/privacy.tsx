@@ -211,8 +211,9 @@ function PrivacyPage() {
           <p>
             If you opt in, {PUBLISHER} uses your email to gauge interest in a possible macOS version
             of Mote Desktop and to email you about it. Your address is not used for anything else,
-            and signing up is optional and does not affect the Windows app. Cloudflare Email Service
-            sends the emails, starting with a signup confirmation.
+            and signing up is optional and does not affect the Windows app. Resend, an email
+            delivery service, sends the emails, starting with a signup confirmation, and so
+            processes your address for that purpose.
           </p>
           <p>
             Your email, the time and version of your consent, and your personal unsubscribe key are

@@ -39,9 +39,10 @@ Mac waitlist entries are kept until the person unsubscribes. Their unsubscribe
 token is stored as issued so every later email can carry the same link
 (`/#leave-mac-waitlist=<token>`). Each new signup sends one confirmation from
 `hello@motedesktop.com`, so replies reach a person without mixing into support.
-That address must exist at the mail host (Essential Hosting, per the MX
-records); do not enable Cloudflare Email Routing, which would replace those MX
-records. Duplicate submissions do not send another message.
+Mail goes out through [Resend](https://resend.com) using the `RESEND_API_KEY`
+secret. `hello@` is a forwarder to `support@` at Domeneshop, the mail host
+named by the MX records; do not enable Cloudflare Email Routing, which would
+replace those MX records. Duplicate submissions do not send another message.
 Keep the frontend consent text, the privacy policy and the Worker consent
 version in sync.
 
@@ -50,14 +51,13 @@ To try the form locally, apply migrations with
 then run `bun run worker:dev` (port 8787) and `vp dev` in separate terminals.
 Vite forwards the waitlist requests to the local Worker. For local testing,
 provide dummy values for `APP_TOKEN`, `ADMIN_TOKEN` and `RATE_LIMIT_SALT`.
-Set `MAC_WAITLIST_SITE_URL` to the local Vite origin so the removal link opens
-the preview. Wrangler simulates delivery and prints where it saved the email.
+Set `MAC_WAITLIST_SITE_URL` to the local Vite origin so the unsubscribe link
+opens the preview. Signups send a real email through Resend, so locally use a
+real `RESEND_API_KEY` and your own address.
 
-When publishing is approved, onboard `motedesktop.com` for
-[Cloudflare Email Sending](https://developers.cloudflare.com/email-service/get-started/send-emails/).
-Sending to arbitrary recipients requires Workers Paid. Keep the existing inbox
-MX records in place. Apply migration 0003 and deploy the Worker before
-publishing the site.
+Before publishing the site, verify `motedesktop.com` in Resend (its DNS records
+live in Cloudflare), set the key with `wrangler secret put RESEND_API_KEY`,
+apply migration 0003 and deploy the Worker.
 
 ## Resources
 

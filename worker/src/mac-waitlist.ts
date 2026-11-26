@@ -5,7 +5,7 @@ interface WaitlistEnv {
   RATE_LIMIT: KVNamespace;
   RATE_LIMIT_SALT: string;
   ADMIN_TOKEN: string;
-  MAC_WAITLIST_EMAIL: SendEmail;
+  RESEND_API_KEY: string;
   MAC_WAITLIST_SITE_URL: string;
 }
 
@@ -27,20 +27,31 @@ function unsubscribeLink(siteUrl: string, token: string) {
   return link.href;
 }
 
-function sendConfirmation(env: WaitlistEnv, email: string, token: string) {
+async function sendConfirmation(env: WaitlistEnv, email: string, token: string) {
   const unsubscribe = unsubscribeLink(env.MAC_WAITLIST_SITE_URL, token);
   const thanks =
     "Thanks for showing interest in Mote Desktop for Mac and signing up for the waitlist.";
   const update = "I’ll keep you updated.";
-  return env.MAC_WAITLIST_EMAIL.send({
-    from: { email: senderAddress, name: "Mote Desktop" },
-    to: email,
-    subject: "You’re on the Mote Desktop Mac waitlist",
-    text: `${thanks}\n\n${update}\n\nUnsubscribe: ${unsubscribe}\n`,
-    html: `<p>${thanks}</p>
+  const response = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      authorization: `Bearer ${env.RESEND_API_KEY}`,
+      "content-type": "application/json",
+    },
+    body: JSON.stringify({
+      from: `Mote Desktop <${senderAddress}>`,
+      to: [email],
+      subject: "You’re on the Mote Desktop Mac waitlist",
+      text: `${thanks}\n\n${update}\n\nUnsubscribe: ${unsubscribe}\n`,
+      html: `<p>${thanks}</p>
       <p>${update}</p>
       <p><a href="${unsubscribe}" style="color:#62665f">Unsubscribe</a></p>`,
+      headers: { "List-Unsubscribe": `<${unsubscribe}>` },
+    }),
   });
+  if (!response.ok) {
+    throw new Error(`Resend answered ${response.status}: ${await response.text()}`);
+  }
 }
 
 export async function handleMacWaitlist(request: Request, env: WaitlistEnv) {
