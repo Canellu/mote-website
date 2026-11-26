@@ -91,6 +91,14 @@ export function MacWaitlist() {
         </p>
       </div>
       <div className="cx-waitlist__panel">
+        <div className="cx-waitlist__titlebar" aria-hidden="true">
+          <span className="cx-waitlist__lights">
+            <i />
+            <i />
+            <i />
+          </span>
+          Mac interest list
+        </div>
         {status.kind === "removed" ? (
           <p role="status">There is no longer an active signup for this link.</p>
         ) : removalToken ? (
