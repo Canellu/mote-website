@@ -220,8 +220,10 @@ function PrivacyPage() {
             stored with Cloudflare. Short-lived, hashed network counters help limit spam signups.
           </p>
           <p>
-            Every email has an unsubscribe link, and unsubscribing deletes your entry. Until then it
-            is kept. If the publisher decides not to build a Mac version, the whole list is deleted.
+            Every email has an unsubscribe link, and unsubscribing deletes your entry. When you
+            unsubscribe you can say why by ticking a few boxes; that answer is stored without your
+            email. Until then it is kept. If the publisher decides not to build a Mac version, the
+            whole list is deleted.
           </p>
         </section>
 

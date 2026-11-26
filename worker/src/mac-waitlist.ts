@@ -16,20 +16,52 @@ const signupLimits = [{ prefix: "mac-waitlist", windowSeconds: 3600, limit: 5 }]
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const tokenPattern = /^[a-f0-9]{32}$/;
 const senderAddress = "hello@motedesktop.com";
+/** Kept in step with the checkboxes on src/routes/unsubscribe.tsx. */
+const unsubscribeReasons = new Set([
+  "not-interested",
+  "too-many-emails",
+  "did-not-sign-up",
+  "other-app",
+  "other",
+]);
+
+/** The optional reasons the unsubscribe page sends; a mail client's one-click form has none. */
+async function readReasons(request: Request) {
+  if (request.headers.get("content-type")?.split(";")[0] !== "application/json") return [];
+  try {
+    const text = await request.text();
+    if (text.length > MAX_BODY_BYTES) return [];
+    const body: unknown = JSON.parse(text);
+    if (typeof body !== "object" || body === null || !("reasons" in body)) return [];
+    if (!Array.isArray(body.reasons)) return [];
+    return [...new Set(body.reasons)].filter(
+      (reason): reason is string => typeof reason === "string" && unsubscribeReasons.has(reason),
+    );
+  } catch {
+    return [];
+  }
+}
 
 function respond(status: number, body: unknown) {
   return Response.json(body, { status, headers: { "cache-control": "no-store" } });
 }
 
-/** The link every waitlist email carries; it stays valid until the person unsubscribes. */
-function unsubscribeLink(siteUrl: string, token: string) {
-  const link = new URL("/", siteUrl);
-  link.hash = `leave-mac-waitlist=${token}`;
+/** The page every waitlist email links to; the token stays valid until the person unsubscribes. */
+function unsubscribePage(siteUrl: string, token: string) {
+  const link = new URL("/unsubscribe/", siteUrl);
+  link.hash = token;
+  return link.href;
+}
+
+/** Where mail clients post a one-click unsubscribe (RFC 8058), and where the page posts too. */
+function unsubscribeEndpoint(siteUrl: string, token: string) {
+  const link = new URL("/api/mac-waitlist/unsubscribe", siteUrl);
+  link.searchParams.set("token", token);
   return link.href;
 }
 
 async function sendConfirmation(env: WaitlistEnv, email: string, token: string) {
-  const unsubscribe = unsubscribeLink(env.MAC_WAITLIST_SITE_URL, token);
+  const unsubscribe = unsubscribePage(env.MAC_WAITLIST_SITE_URL, token);
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
@@ -40,7 +72,10 @@ async function sendConfirmation(env: WaitlistEnv, email: string, token: string) 
       from: `Mote Desktop <${senderAddress}>`,
       to: [email],
       ...confirmationEmail(env.MAC_WAITLIST_SITE_URL, unsubscribe),
-      headers: { "List-Unsubscribe": `<${unsubscribe}>` },
+      headers: {
+        "List-Unsubscribe": `<${unsubscribeEndpoint(env.MAC_WAITLIST_SITE_URL, token)}>`,
+        "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+      },
     }),
   });
   if (!response.ok) {
@@ -49,7 +84,7 @@ async function sendConfirmation(env: WaitlistEnv, email: string, token: string) 
 }
 
 export async function handleMacWaitlist(request: Request, env: WaitlistEnv) {
-  const { pathname } = new URL(request.url);
+  const { pathname, searchParams } = new URL(request.url);
   if (pathname === "/api/mac-waitlist/admin" && request.method === "GET") {
     if (!env.ADMIN_TOKEN || request.headers.get("authorization") !== `Bearer ${env.ADMIN_TOKEN}`) {
       return respond(401, { error: "Not authorised." });
@@ -60,8 +95,27 @@ export async function handleMacWaitlist(request: Request, env: WaitlistEnv) {
     return respond(200, { count });
   }
 
-  const removing = pathname === "/api/mac-waitlist/remove";
-  if (request.method !== "POST" || (!removing && pathname !== "/api/mac-waitlist")) {
+  // Mail clients post a form body here, so the token travels in the URL.
+  if (pathname === "/api/mac-waitlist/unsubscribe" && request.method === "POST") {
+    const token = searchParams.get("token") ?? "";
+    if (!tokenPattern.test(token)) return respond(400, { error: "Invalid unsubscribe link." });
+    const reasons = await readReasons(request);
+    const removed = await env.DB.prepare("delete from mac_waitlist where unsubscribe_token = ?")
+      .bind(token)
+      .run();
+    // Stored without the address, and only for a real unsubscribe, so the
+    // reasons cannot be tied to a person or padded by anyone without a link.
+    if (removed.meta.changes > 0 && reasons.length > 0) {
+      await env.DB.prepare(
+        "insert into mac_unsubscribe_reasons (created_at, reasons) values (?, ?)",
+      )
+        .bind(Math.floor(Date.now() / 1000), reasons.join(","))
+        .run();
+    }
+    return respond(200, { ok: true });
+  }
+
+  if (request.method !== "POST" || pathname !== "/api/mac-waitlist") {
     return respond(404, { error: "Not found." });
   }
   if (request.headers.get("content-type")?.split(";")[0] !== "application/json") {
@@ -81,16 +135,6 @@ export async function handleMacWaitlist(request: Request, env: WaitlistEnv) {
   }
   if (typeof body !== "object" || body === null) {
     return respond(400, { error: "Invalid request." });
-  }
-
-  if (removing) {
-    if (!("token" in body) || typeof body.token !== "string" || !tokenPattern.test(body.token)) {
-      return respond(400, { error: "Invalid unsubscribe link." });
-    }
-    await env.DB.prepare("delete from mac_waitlist where unsubscribe_token = ?")
-      .bind(body.token)
-      .run();
-    return respond(200, { ok: true });
   }
 
   if (!("consent" in body) || body.consent !== true) {

@@ -17,14 +17,14 @@ changing behaviour here, and keep `src/routes/privacy.tsx` in step with it.
 
 ## Routes
 
-| Method | Path                       | Auth                      | Purpose                          |
-| ------ | -------------------------- | ------------------------- | -------------------------------- |
-| `GET`  | `/api/health`              | none                      | Liveness check                   |
-| `POST` | `/api/feedback`            | `X-Mote-App-Token`        | Submit one report                |
-| `GET`  | `/api/feedback/admin`      | `Authorization: Bearer …` | Read recent reports as JSON      |
-| `POST` | `/api/mac-waitlist`        | Explicit consent          | Register interest once per email |
-| `POST` | `/api/mac-waitlist/remove` | Unsubscribe key           | Unsubscribe and delete a signup  |
-| `GET`  | `/api/mac-waitlist/admin`  | `Authorization: Bearer …` | Count active signups             |
+| Method | Path                                    | Auth                      | Purpose                                     |
+| ------ | --------------------------------------- | ------------------------- | ------------------------------------------- |
+| `GET`  | `/api/health`                           | none                      | Liveness check                              |
+| `POST` | `/api/feedback`                         | `X-Mote-App-Token`        | Submit one report                           |
+| `GET`  | `/api/feedback/admin`                   | `Authorization: Bearer …` | Read recent reports as JSON                 |
+| `POST` | `/api/mac-waitlist`                     | Explicit consent          | Register interest once per email            |
+| `POST` | `/api/mac-waitlist/unsubscribe?token=…` | Unsubscribe key           | Delete a signup; optional anonymous reasons |
+| `GET`  | `/api/mac-waitlist/admin`               | `Authorization: Bearer …` | Count active signups                        |
 
 A report may carry diagnostics (app 0.9.0 and later): recent steps and their
 outcomes, and network facts such as whether Windows Firewall blocks Mote. They
@@ -37,7 +37,9 @@ retention window.
 
 Mac waitlist entries are kept until the person unsubscribes. Their unsubscribe
 token is stored as issued so every later email can carry the same link
-(`/#leave-mac-waitlist=<token>`). Each new signup sends one confirmation from
+(`/unsubscribe/#<token>`), and the `List-Unsubscribe` headers point mail clients'
+own one-click button at the same endpoint (RFC 8058). Reasons picked on that page
+go to `mac_unsubscribe_reasons` without the address, only when a signup was removed. Each new signup sends one confirmation from
 `hello@motedesktop.com`, so replies reach a person without mixing into support.
 Mail goes out through [Resend](https://resend.com) using the `RESEND_API_KEY`
 secret. `hello@` is a forwarder to `support@` at Domeneshop, the mail host

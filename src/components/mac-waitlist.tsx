@@ -1,42 +1,19 @@
 import { Link } from "@tanstack/react-router";
-import { type FormEvent, useEffect, useRef, useState } from "react";
+import { type FormEvent, useEffect, useState } from "react";
 
 type Status =
   | { kind: "idle" }
   | { kind: "pending" }
   | { kind: "error"; message: string }
-  | { kind: "joined" }
-  | { kind: "removed" };
-
-const removalFragment = "leave-mac-waitlist=";
-const tokenPattern = /^[a-f0-9]{32}$/;
+  | { kind: "joined" };
 
 export function MacWaitlist() {
-  const section = useRef<HTMLElement>(null);
   const [status, setStatus] = useState<Status>({ kind: "idle" });
-  const [removalToken, setRemovalToken] = useState("");
+  // The button waits for hydration, so a click never falls through to the bare form post.
   const [ready, setReady] = useState(false);
   const busy = status.kind === "pending";
 
-  useEffect(() => {
-    function showRemovalForm() {
-      const fragment = window.location.hash.slice(1);
-      const token = fragment.startsWith(removalFragment)
-        ? fragment.slice(removalFragment.length)
-        : "";
-      if (!tokenPattern.test(token)) {
-        setRemovalToken("");
-        return;
-      }
-      setRemovalToken(token);
-      section.current?.scrollIntoView({ behavior: "instant" });
-    }
-
-    showRemovalForm();
-    setReady(true);
-    window.addEventListener("hashchange", showRemovalForm);
-    return () => window.removeEventListener("hashchange", showRemovalForm);
-  }, []);
+  useEffect(() => setReady(true), []);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -44,17 +21,14 @@ export function MacWaitlist() {
     const fields = new FormData(event.currentTarget);
     const email = fields.get("email");
     const consent = fields.has("consent");
-    if (!removalToken && (typeof email !== "string" || !consent)) return;
+    if (typeof email !== "string" || !consent) return;
     setStatus({ kind: "pending" });
     try {
-      const response = await fetch(
-        removalToken ? "/api/mac-waitlist/remove" : "/api/mac-waitlist",
-        {
-          method: "POST",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify(removalToken ? { token: removalToken } : { email, consent }),
-        },
-      );
+      const response = await fetch("/api/mac-waitlist", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ email, consent }),
+      });
       if (response.status === 429) {
         setStatus({ kind: "error", message: "Too many signups. Try again in a little while." });
         return;
@@ -67,10 +41,6 @@ export function MacWaitlist() {
         return;
       }
       if (!response.ok) throw new Error();
-      if (removalToken) {
-        setStatus({ kind: "removed" });
-        return;
-      }
       setStatus({ kind: "joined" });
     } catch {
       setStatus({ kind: "error", message: "Something went wrong. Please try again." });
@@ -81,7 +51,6 @@ export function MacWaitlist() {
     <section
       className="cx-waitlist cx-shell"
       id="mac-waitlist"
-      ref={section}
       aria-labelledby="mac-waitlist-title"
     >
       <div className="cx-section-head">
@@ -99,16 +68,7 @@ export function MacWaitlist() {
           </span>
           Mac interest list
         </div>
-        {status.kind === "removed" ? (
-          <p role="status">You are unsubscribed from the Mac waitlist.</p>
-        ) : removalToken ? (
-          <form onSubmit={submit} method="post" action="/api/mac-waitlist/remove">
-            <p>Unsubscribe from the Mac waitlist and delete your email from it.</p>
-            <button className="cx-button cx-button--quiet" type="submit" disabled={busy}>
-              {busy ? "Unsubscribing…" : "Unsubscribe"}
-            </button>
-          </form>
-        ) : status.kind === "joined" ? (
+        {status.kind === "joined" ? (
           <>
             <p role="status">Thanks, you’re on the list.</p>
             <p>
@@ -138,14 +98,12 @@ export function MacWaitlist() {
           </form>
         )}
         {status.kind === "error" && <p role="alert">{status.message}</p>}
-        {!removalToken && (
-          <p className="cx-waitlist__privacy">
-            Every email has an unsubscribe link.{" "}
-            <Link to="/privacy/" hash="mac-interest" className="cx-waitlist__link">
-              Privacy policy
-            </Link>
-          </p>
-        )}
+        <p className="cx-waitlist__privacy">
+          Every email has an unsubscribe link.{" "}
+          <Link to="/privacy/" hash="mac-interest" className="cx-waitlist__link">
+            Privacy policy
+          </Link>
+        </p>
       </div>
     </section>
   );
