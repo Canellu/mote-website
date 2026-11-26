@@ -100,20 +100,20 @@ export function MacWaitlist() {
           Mac interest list
         </div>
         {status.kind === "removed" ? (
-          <p role="status">There is no longer an active signup for this link.</p>
+          <p role="status">You are unsubscribed from the Mac waitlist.</p>
         ) : removalToken ? (
           <form onSubmit={submit} method="post" action="/api/mac-waitlist/remove">
-            <p>Remove the email associated with this private link from the Mac interest list.</p>
+            <p>Unsubscribe from the Mac waitlist and delete your email from it.</p>
             <button className="cx-button cx-button--quiet" type="submit" disabled={busy}>
-              {busy ? "Removing…" : "Remove my email"}
+              {busy ? "Unsubscribing…" : "Unsubscribe"}
             </button>
           </form>
         ) : status.kind === "joined" ? (
           <>
-            <p role="status">Thanks for registering your interest.</p>
+            <p role="status">Thanks, you’re on the list.</p>
             <p>
-              Check your inbox for a confirmation email with a private removal link. If you already
-              joined, use your original email.
+              Check your inbox for a confirmation email. Every email from the waitlist has an
+              unsubscribe link. If you had already joined, nothing changes.
             </p>
           </>
         ) : (
@@ -130,12 +130,12 @@ export function MacWaitlist() {
             <label className="cx-waitlist__consent">
               <input name="consent" type="checkbox" required />
               <span>
-                I agree to let Mote Desktop store my email for up to one year to measure interest in
-                a Mac version and send me one confirmation email.
+                Email me about Mote for Mac: news, and now and then a question or a short survey.
+                Unsubscribe anytime.
               </span>
             </label>
             <button className="cx-button cx-button--quiet" type="submit" disabled={!ready || busy}>
-              {busy ? "Saving…" : "Register my interest"}
+              {busy ? "Joining…" : "Join the waitlist"}
             </button>
             <noscript>Enable JavaScript to register your interest.</noscript>
           </form>
@@ -143,7 +143,7 @@ export function MacWaitlist() {
         {status.kind === "error" && <p role="alert">{status.message}</p>}
         {!removalToken && (
           <p className="cx-waitlist__privacy">
-            The confirmation email includes a link to remove your signup.{" "}
+            Every email has an unsubscribe link.{" "}
             <Link to="/privacy/" hash="mac-interest" className="cx-waitlist__link">
               Privacy policy
             </Link>

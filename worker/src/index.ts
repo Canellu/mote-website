@@ -1,5 +1,5 @@
 import { notify, type NotifyFormat } from "./notify";
-import { handleMacWaitlist, purgeExpiredMacSignups } from "./mac-waitlist";
+import { handleMacWaitlist } from "./mac-waitlist";
 import { FEEDBACK_RULES, isRateLimited } from "./ratelimit";
 import { validateSubmission } from "./validate";
 
@@ -190,6 +190,5 @@ export default {
          where contact_email is not null and status = 'resolved' and updated_at <= ?`,
       ).bind(now, now - RESOLVED_GRACE_SECONDS),
     ]);
-    await purgeExpiredMacSignups(env.DB, now);
   },
 };

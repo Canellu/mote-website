@@ -9,8 +9,7 @@ interface WaitlistEnv {
   MAC_WAITLIST_SITE_URL: string;
 }
 
-const CONSENT_VERSION = "mac-interest-v2";
-const RETENTION_SECONDS = 365 * 24 * 60 * 60;
+const CONSENT_VERSION = "mac-interest-v3";
 const MAX_BODY_BYTES = 2048;
 const signupLimits = [{ prefix: "mac-waitlist", windowSeconds: 3600, limit: 5 }];
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -21,22 +20,25 @@ function respond(status: number, body: unknown) {
   return Response.json(body, { status, headers: { "cache-control": "no-store" } });
 }
 
-async function hashToken(token: string) {
-  const bytes = new TextEncoder().encode(token);
-  const digest = new Uint8Array(await crypto.subtle.digest("SHA-256", bytes));
-  return Array.from(digest, (byte) => byte.toString(16).padStart(2, "0")).join("");
+/** The link every waitlist email carries; it stays valid until the person unsubscribes. */
+function unsubscribeLink(siteUrl: string, token: string) {
+  const link = new URL("/", siteUrl);
+  link.hash = `leave-mac-waitlist=${token}`;
+  return link.href;
 }
 
 function sendConfirmation(env: WaitlistEnv, email: string, token: string) {
-  const link = new URL("/", env.MAC_WAITLIST_SITE_URL);
-  link.hash = `leave-mac-waitlist=${token}`;
+  const unsubscribe = unsubscribeLink(env.MAC_WAITLIST_SITE_URL, token);
+  const about =
+    "I will email you about the Mac version: news when there is some, and now and then a question or a short survey to help shape it.";
   return env.MAC_WAITLIST_EMAIL.send({
     from: { email: senderAddress, name: "Mote Desktop" },
     to: email,
     subject: "You’re on the Mote Desktop Mac waitlist",
-    text: `Thanks for registering your interest in Mote Desktop for Mac.\n\nRemove me from the waitlist: ${link.href}\n`,
-    html: `<p>Thanks for registering your interest in Mote Desktop for Mac.</p>
-      <p><a href="${link.href}" style="display:inline-block;padding:12px 18px;background:#182337;color:#fff;text-decoration:none;border-radius:6px">Remove me from the waitlist</a></p>`,
+    text: `Thanks for joining the Mote Desktop for Mac waitlist.\n\n${about}\n\nUnsubscribe: ${unsubscribe}\n`,
+    html: `<p>Thanks for joining the Mote Desktop for Mac waitlist.</p>
+      <p>${about}</p>
+      <p><a href="${unsubscribe}" style="color:#62665f">Unsubscribe</a></p>`,
   });
 }
 
@@ -46,12 +48,9 @@ export async function handleMacWaitlist(request: Request, env: WaitlistEnv) {
     if (!env.ADMIN_TOKEN || request.headers.get("authorization") !== `Bearer ${env.ADMIN_TOKEN}`) {
       return respond(401, { error: "Not authorised." });
     }
-    const now = Math.floor(Date.now() / 1000);
-    const count = await env.DB.prepare(
-      "select count(*) as count from mac_waitlist where consented_at > ?",
-    )
-      .bind(now - RETENTION_SECONDS)
-      .first<number>("count");
+    const count = await env.DB.prepare("select count(*) as count from mac_waitlist").first<number>(
+      "count",
+    );
     return respond(200, { count });
   }
 
@@ -80,10 +79,11 @@ export async function handleMacWaitlist(request: Request, env: WaitlistEnv) {
 
   if (removing) {
     if (!("token" in body) || typeof body.token !== "string" || !tokenPattern.test(body.token)) {
-      return respond(400, { error: "Invalid removal key." });
+      return respond(400, { error: "Invalid unsubscribe link." });
     }
-    const hash = await hashToken(body.token);
-    await env.DB.prepare("delete from mac_waitlist where removal_hash = ?").bind(hash).run();
+    await env.DB.prepare("delete from mac_waitlist where unsubscribe_token = ?")
+      .bind(body.token)
+      .run();
     return respond(200, { ok: true });
   }
 
@@ -100,32 +100,21 @@ export async function handleMacWaitlist(request: Request, env: WaitlistEnv) {
   }
   const now = Math.floor(Date.now() / 1000);
   const token = crypto.randomUUID().replaceAll("-", "");
-  const hash = await hashToken(token);
+  // Already on the list: nothing changes and no second email goes out.
   const signup = await env.DB.prepare(
-    `insert into mac_waitlist (email, consent_version, consented_at, removal_hash)
-     values (?, ?, ?, ?) on conflict(email) do update set
-       consent_version = excluded.consent_version,
-       consented_at = excluded.consented_at,
-       removal_hash = excluded.removal_hash
-     where mac_waitlist.consented_at <= ?`,
+    `insert into mac_waitlist (email, consent_version, consented_at, unsubscribe_token)
+     values (?, ?, ?, ?) on conflict(email) do nothing`,
   )
-    .bind(email, CONSENT_VERSION, now, hash, now - RETENTION_SECONDS)
+    .bind(email, CONSENT_VERSION, now, token)
     .run();
   if (signup.meta.changes === 0) return respond(200, { ok: true });
 
   try {
     await sendConfirmation(env, email, token);
   } catch {
-    // Release this signup so a retry can send a receipt. Leave any newer entry alone.
-    await env.DB.prepare("delete from mac_waitlist where removal_hash = ?").bind(hash).run();
+    // Release this signup so a retry can send a receipt.
+    await env.DB.prepare("delete from mac_waitlist where unsubscribe_token = ?").bind(token).run();
     return respond(503, { error: "The confirmation email could not be sent. Please try again." });
   }
   return respond(200, { ok: true });
-}
-
-export async function purgeExpiredMacSignups(db: D1Database, now: number) {
-  await db
-    .prepare("delete from mac_waitlist where consented_at <= ?")
-    .bind(now - RETENTION_SECONDS)
-    .run();
 }

@@ -209,21 +209,19 @@ function PrivacyPage() {
         <section>
           <h2 id="mac-interest">Mac interest list</h2>
           <p>
-            If you opt in, {PUBLISHER} uses your email to count interest in a possible macOS version
-            of Mote Desktop. Cloudflare Email Service sends one signup confirmation with a private
-            removal link. Signing up is optional and does not affect the Windows app. Your address
-            will not be used to send newsletters or launch emails.
+            If you opt in, {PUBLISHER} uses your email to gauge interest in a possible macOS version
+            of Mote Desktop and to email you about it: news about the Mac version, and now and then
+            a question or a short survey to help shape it. Your address is not used for anything
+            else, and signing up is optional and does not affect the Windows app. Cloudflare Email
+            Service sends the emails, starting with a signup confirmation.
           </p>
           <p>
-            The email, time and version of your consent, and a hash of your private removal key are
+            Your email, the time and version of your consent, and your personal unsubscribe key are
             stored with Cloudflare. Short-lived, hashed network counters help limit spam signups.
-            The publisher uses the signup count to measure interest and can access an address to
-            handle a removal request. Entries expire after one year and are deleted by a daily
-            cleanup.
           </p>
           <p>
-            To withdraw and remove your entry sooner, use the private removal link in the
-            confirmation email.
+            Every email has an unsubscribe link, and unsubscribing deletes your entry. Until then it
+            is kept. If the publisher decides not to build a Mac version, the whole list is deleted.
           </p>
         </section>
 

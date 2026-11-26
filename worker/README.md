@@ -23,7 +23,7 @@ changing behaviour here, and keep `src/routes/privacy.tsx` in step with it.
 | `POST` | `/api/feedback`            | `X-Mote-App-Token`        | Submit one report                |
 | `GET`  | `/api/feedback/admin`      | `Authorization: Bearer …` | Read recent reports as JSON      |
 | `POST` | `/api/mac-waitlist`        | Explicit consent          | Register interest once per email |
-| `POST` | `/api/mac-waitlist/remove` | Private removal key       | Withdraw and delete a signup     |
+| `POST` | `/api/mac-waitlist/remove` | Unsubscribe key           | Unsubscribe and delete a signup  |
 | `GET`  | `/api/mac-waitlist/admin`  | `Authorization: Bearer …` | Count active signups             |
 
 A report may carry diagnostics (app 0.9.0 and later): recent steps and their
@@ -35,8 +35,9 @@ diagnostics are dropped and the report kept.
 A daily cron at 03:00 UTC clears contact addresses that have outlived their
 retention window.
 
-The same cron deletes Mac interest entries after one year. Each new signup
-sends one confirmation with a private removal link from
+Mac waitlist entries are kept until the person unsubscribes. Their unsubscribe
+token is stored as issued so every later email can carry the same link
+(`/#leave-mac-waitlist=<token>`). Each new signup sends one confirmation from
 `support@motedesktop.com`. Duplicate submissions do not send another message.
 Keep the frontend consent text, the privacy policy and the Worker consent
 version in sync.
