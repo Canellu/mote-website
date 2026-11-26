@@ -49,19 +49,21 @@ function UnsubscribePage() {
   return (
     <main
       id="main"
-      className="mx-auto grid min-h-[75vh] w-[min(32rem,calc(100%-2rem))] content-center pt-32 pb-20"
+      className="mx-auto grid min-h-[calc(100dvh-2.5rem)] w-[min(32rem,calc(100%-2rem))] content-center pt-20 pb-28"
     >
-      <div className="rounded-3xl border border-mote-line/60 bg-white/80 px-6 py-10 text-center shadow-[0_18px_40px_rgb(80_40_30/0.08)] backdrop-blur sm:px-10">
+      <div className="rounded-3xl border border-mote-line/60 bg-white/80 px-6 py-8 text-center shadow-[0_18px_40px_rgb(80_40_30/0.08)] backdrop-blur sm:px-10">
         <img
           src="/mascot/moth-cel-shaded.webp"
           alt=""
           width={256}
           height={256}
-          className="mx-auto size-24"
+          className="mx-auto size-20"
         />
         {status === "done" ? (
           <>
-            <h1 className="mt-6 text-3xl font-semibold tracking-tight">You’re unsubscribed</h1>
+            <h1 className="mt-4 text-[1.75rem] leading-tight font-semibold tracking-tight">
+              You’re unsubscribed
+            </h1>
             <p className="mt-4 leading-7 text-mote-muted" role="status">
               Your email has been deleted from the Mac waitlist, and you won’t hear about it again.
             </p>
@@ -74,7 +76,9 @@ function UnsubscribePage() {
           </>
         ) : status === "missing" ? (
           <>
-            <h1 className="mt-6 text-3xl font-semibold tracking-tight">This link is incomplete</h1>
+            <h1 className="mt-4 text-[1.75rem] leading-tight font-semibold tracking-tight">
+              This link is incomplete
+            </h1>
             <p className="mt-4 leading-7 text-mote-muted">
               Open the Unsubscribe link straight from a Mote Desktop email. If it still doesn’t
               work, email {SUPPORT_EMAIL} and I’ll remove you by hand.
@@ -82,13 +86,13 @@ function UnsubscribePage() {
           </>
         ) : (
           <form onSubmit={submit}>
-            <h1 className="mt-6 text-3xl font-semibold tracking-tight">
+            <h1 className="mt-4 text-[1.75rem] leading-tight font-semibold tracking-tight">
               Unsubscribe from the Mac waitlist?
             </h1>
             <p className="mt-4 leading-7 text-mote-muted">
               Your email will be deleted and you won’t get any more emails about Mote for Mac.
             </p>
-            <fieldset className="mt-8 text-left">
+            <fieldset className="mt-6 text-left">
               <legend className="text-sm font-semibold text-mote-ink">
                 Mind telling me why? <span className="font-normal text-mote-muted">Optional</span>
               </legend>
@@ -96,7 +100,7 @@ function UnsubscribePage() {
                 {reasons.map((reason) => (
                   <label
                     key={reason.value}
-                    className="flex cursor-pointer items-center gap-3 rounded-xl border border-mote-line/60 px-4 py-3 text-sm has-[:checked]:border-mote-ink/40 has-[:checked]:bg-mote-ink/5"
+                    className="flex cursor-pointer items-center gap-3 rounded-xl border border-mote-line/60 px-4 py-2.5 text-sm has-[:checked]:border-mote-ink/40 has-[:checked]:bg-mote-ink/5"
                   >
                     <input
                       type="checkbox"
@@ -112,7 +116,7 @@ function UnsubscribePage() {
             <button
               type="submit"
               disabled={status !== "ready" && status !== "error"}
-              className="mt-8 inline-flex min-h-11 w-full items-center justify-center rounded-full bg-[#ef4a15] px-5 font-semibold text-[#14160f] transition-transform duration-150 active:scale-[0.98] disabled:opacity-60"
+              className="mt-6 inline-flex min-h-11 w-full items-center justify-center rounded-full bg-[#ef4a15] px-5 font-semibold text-[#14160f] transition-transform duration-150 active:scale-[0.98] disabled:opacity-60"
             >
               {status === "pending" ? "Unsubscribing…" : "Unsubscribe"}
             </button>
