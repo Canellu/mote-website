@@ -1,4 +1,5 @@
 import { isRateLimited } from "./ratelimit";
+import { confirmationEmail } from "./waitlist-email";
 
 interface WaitlistEnv {
   DB: D1Database;
@@ -29,9 +30,6 @@ function unsubscribeLink(siteUrl: string, token: string) {
 
 async function sendConfirmation(env: WaitlistEnv, email: string, token: string) {
   const unsubscribe = unsubscribeLink(env.MAC_WAITLIST_SITE_URL, token);
-  const thanks =
-    "Thanks for showing interest in Mote Desktop for Mac and signing up for the waitlist.";
-  const update = "I’ll keep you updated.";
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
@@ -41,11 +39,7 @@ async function sendConfirmation(env: WaitlistEnv, email: string, token: string) 
     body: JSON.stringify({
       from: `Mote Desktop <${senderAddress}>`,
       to: [email],
-      subject: "You’re on the Mote Desktop Mac waitlist",
-      text: `${thanks}\n\n${update}\n\nUnsubscribe: ${unsubscribe}\n`,
-      html: `<p>${thanks}</p>
-      <p>${update}</p>
-      <p><a href="${unsubscribe}" style="color:#62665f">Unsubscribe</a></p>`,
+      ...confirmationEmail(env.MAC_WAITLIST_SITE_URL, unsubscribe),
       headers: { "List-Unsubscribe": `<${unsubscribe}>` },
     }),
   });
