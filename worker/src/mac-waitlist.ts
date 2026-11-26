@@ -14,7 +14,7 @@ const MAX_BODY_BYTES = 2048;
 const signupLimits = [{ prefix: "mac-waitlist", windowSeconds: 3600, limit: 5 }];
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const tokenPattern = /^[a-f0-9]{32}$/;
-const senderAddress = "support@motedesktop.com";
+const senderAddress = "hello@motedesktop.com";
 
 function respond(status: number, body: unknown) {
   return Response.json(body, { status, headers: { "cache-control": "no-store" } });

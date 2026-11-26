@@ -38,7 +38,10 @@ retention window.
 Mac waitlist entries are kept until the person unsubscribes. Their unsubscribe
 token is stored as issued so every later email can carry the same link
 (`/#leave-mac-waitlist=<token>`). Each new signup sends one confirmation from
-`support@motedesktop.com`. Duplicate submissions do not send another message.
+`hello@motedesktop.com`, so replies reach a person without mixing into support.
+That address must exist at the mail host (Essential Hosting, per the MX
+records); do not enable Cloudflare Email Routing, which would replace those MX
+records. Duplicate submissions do not send another message.
 Keep the frontend consent text, the privacy policy and the Worker consent
 version in sync.
 
