@@ -130,8 +130,8 @@ export function MacWaitlist() {
             <label className="cx-waitlist__consent">
               <input name="consent" type="checkbox" required />
               <span>
-                Email me about Mote for Mac: news, and now and then a question or a short survey.
-                Unsubscribe anytime.
+                Email me about Mote for Mac. Emails are rare, and there may be none. Unsubscribe
+                anytime.
               </span>
             </label>
             <button className="cx-button cx-button--quiet" type="submit" disabled={!ready || busy}>

@@ -29,8 +29,7 @@ function unsubscribeLink(siteUrl: string, token: string) {
 
 function sendConfirmation(env: WaitlistEnv, email: string, token: string) {
   const unsubscribe = unsubscribeLink(env.MAC_WAITLIST_SITE_URL, token);
-  const about =
-    "I will email you about the Mac version: news when there is some, and now and then a question or a short survey to help shape it.";
+  const about = "I will only email you about the Mac version, and rarely.";
   return env.MAC_WAITLIST_EMAIL.send({
     from: { email: senderAddress, name: "Mote Desktop" },
     to: email,
