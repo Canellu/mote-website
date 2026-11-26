@@ -1,5 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import type { CSSProperties } from "react";
 import { PageIntro } from "../components/page-intro";
+import { LoopingDemo } from "../components/looping-demo";
 import { ProductCapture } from "../components/product-capture";
 import { storeUrl } from "../lib/links";
 import { pageHead } from "../lib/seo";
@@ -96,6 +98,12 @@ const featureGroups = [
       "Mote Pro adds as many widgets as you like, each with several controls or a whole toggle group",
       "Mote Pro adds separate open and collapsed sizes, theme, corners, translucent tiles, placement, pinning, and always-on-top behavior",
     ],
+    demo: "/product/mote-widget-mascot-demo",
+    demoPoster: "/product/derived/mote-widget-mascot-demo-960.webp",
+    demoLabel:
+      "A Mote widget dims a room, folds into its animated mascot, and opens again with a click",
+    demoWidth: 600,
+    demoHeight: 460,
     src: "/product/mote-widget-stack-dark.png",
     alt: "A stack of colorful Mote Desktop widgets for rooms, scenes, and lights",
     width: 401,
@@ -117,6 +125,12 @@ const featureGroups = [
       "Choose one room or zone in Free",
       "With Mote Pro, show or hide rooms and zones, drag to reorder them, and choose which brightness sliders and scenes appear",
     ],
+    demo: "/product/mote-taskbar-flyout-demo",
+    demoPoster: "/product/derived/mote-taskbar-flyout-demo-920.webp",
+    demoLabel:
+      "Clicking Mote’s taskbar icon opens the flyout, where a room is dimmed, a scene is applied, and a room is switched off",
+    demoWidth: 460,
+    demoHeight: 720,
     src: "/product/mote-taskbar-quick-controls-dark.png",
     alt: "Mote Pro taskbar panel with rooms, zones, brightness sliders, and scenes",
     width: 744,
@@ -316,14 +330,33 @@ function FeatureBlock({ group }: { group: FeatureGroup }) {
           </ul>
         )}
       </div>
-      <figure className="feature-block__media" data-frame={group.frame} data-fit={fit}>
-        <ProductCapture
-          src={group.src}
-          alt={group.alt}
-          width={group.width}
-          height={group.height}
-          sizes={stageSizes(group.weight)}
-        />
+      <figure
+        className="feature-block__media"
+        data-frame={group.frame}
+        data-fit={"demo" in group ? "demo" : fit}
+        style={
+          "demo" in group
+            ? ({ "--demo-ratio": `${group.demoWidth} / ${group.demoHeight}` } as CSSProperties)
+            : undefined
+        }
+      >
+        {"demo" in group ? (
+          <LoopingDemo
+            src={group.demo}
+            poster={group.demoPoster}
+            label={group.demoLabel}
+            width={group.demoWidth}
+            height={group.demoHeight}
+          />
+        ) : (
+          <ProductCapture
+            src={group.src}
+            alt={group.alt}
+            width={group.width}
+            height={group.height}
+            sizes={stageSizes(group.weight)}
+          />
+        )}
       </figure>
     </section>
   );

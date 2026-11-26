@@ -37,15 +37,6 @@
 .mote-mascot[data-style="pixel-art"] {
   image-rendering: pixelated;
 }
-.mote-mascot--feature {
-  width: clamp(10rem, 21vw, 16rem);
-}
-/* Faces left, toward the section copy. The sprite flips, not the button,
-   which keeps its own hover and press transforms. */
-.mote-mascot--feature .mote-mascot__sprite,
-.mote-mascot--feature img {
-  transform: scaleX(-1);
-}
 .mote-mascot--footer {
   width: 4.5rem;
   margin: 0 auto 1.25rem;
@@ -1709,6 +1700,23 @@ body[data-scrolled="true"] .site-header::after,
 .feature-block__media[data-fit="contain"] {
   --feature-stage-ratio: 5 / 4;
 }
+/* A recorded clip has its own desktop behind the UI, so it is shown whole and
+   centred rather than cropped into the stage like a still. */
+.feature-block__media[data-fit="demo"] {
+  --feature-stage-ratio: 5 / 4;
+}
+.feature-block__media[data-fit="demo"] .looping-demo {
+  position: absolute;
+  inset: var(--feature-pad);
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: calc(100% - 2 * var(--feature-pad));
+  max-height: calc(100% - 2 * var(--feature-pad));
+  margin: auto;
+  border-radius: 0.75rem;
+  box-shadow: 0 1.25rem 2.5rem rgb(0 0 0 / 0.34);
+}
 .feature-block__media[data-fit="contain"] img {
   object-fit: contain;
   object-position: bottom center;
@@ -1718,6 +1726,10 @@ body[data-scrolled="true"] .site-header::after,
 }
 
 @media (max-width: 62rem) {
+  /* One column: a clip gets its own shape so its UI is not shrunk into the 5:4 stage. */
+  .feature-block__media[data-fit="demo"] {
+    --feature-stage-ratio: var(--demo-ratio);
+  }
   .feature-block,
   .feature-block[data-side="left"],
   .feature-block[data-weight="hero"] .feature-block__copy {

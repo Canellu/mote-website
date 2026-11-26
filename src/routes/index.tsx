@@ -8,11 +8,17 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { ProductCapture } from "../components/product-capture";
-import { MoteMascot } from "../components/mote-mascot";
+import { LoopingDemo } from "../components/looping-demo";
 import { MacWaitlist } from "../components/mac-waitlist";
 import { faqPageJsonLd, pageHead, softwareApplicationJsonLd } from "../lib/seo";
 import { storeUrl } from "../lib/links";
 import homeStyles from "../home.css?url";
+
+// CSS pixel sizes of the recorded stages in scripts/record-*-demo*.cjs.
+const FLYOUT_DEMO_WIDTH = 460;
+const FLYOUT_DEMO_HEIGHT = 720;
+const WIDGET_DEMO_WIDTH = 600;
+const WIDGET_DEMO_HEIGHT = 460;
 
 // One chapter proving Mote is a complete Hue client, rather than two that made
 // the same point with the same switcher.
@@ -836,55 +842,35 @@ function HomePage() {
         <div className="cx-section-head">
           <h2 id="cx-statement-title">Control the room from a desktop widget, not your phone.</h2>
           <p>
-            Build a widget from the rooms, zones, and lights you actually use, then keep it pinned
-            beside your work with Mote Pro. The free app includes one widget for one room, zone, or
-            light.
+            Build a widget from the rooms, zones, and lights you actually use and keep it beside
+            your work. When you need the space, it folds into an animated mascot that opens your
+            controls again with a click.
+          </p>
+          <p>
+            The free app includes one widget for one room, zone, or light, with the Cartoon mascot.
+            Mote Pro adds more widgets and four more mascot styles: Low poly, Pixel art, Paper, and
+            Watercolor.
           </p>
           <Link
             className="cx-button cx-button--quiet justify-self-start max-sm:justify-self-center"
             to="/features/desktop-widgets/"
           >
-            Explore desktop widgets
+            Explore widgets and mascots
           </Link>
         </div>
-        <figure className="cx-statement-visual">
-          <ProductCapture
-            src="/product/mote-widget-stack-dark.png"
-            alt="A stack of colorful Mote Desktop widgets for rooms, scenes, and lights"
-            width={401}
-            height={702}
-            sizes="401px"
+        <figure className="cx-statement-visual cx-statement-visual--demo">
+          <LoopingDemo
+            src="/product/mote-widget-mascot-demo"
+            poster="/product/derived/mote-widget-mascot-demo-960.webp"
+            label="A Mote widget dims a room, folds into its animated mascot, and opens again with a click"
+            width={WIDGET_DEMO_WIDTH}
+            height={WIDGET_DEMO_HEIGHT}
           />
           <figcaption>
             <i aria-hidden="true" />
-            Pinned on your desktop
+            Widget and Cartoon mascot
           </figcaption>
         </figure>
-      </section>
-
-      <section className="cx-mascot cx-shell cx-reveal" aria-labelledby="cx-mascot-title">
-        <div className="cx-section-head">
-          <h2 id="cx-mascot-title">Meet Mote’s mascot.</h2>
-          <p>
-            A little company for your desktop. Your widget can fold into an animated mascot when you
-            need the space, ready to open your controls again with a click.
-          </p>
-          <p>
-            Cartoon is your free mascot, with animation and a choice of facing direction. Mote Pro
-            adds four more styles: Low poly, Pixel art, Paper, and Watercolor.
-          </p>
-          <Link
-            className="cx-button cx-button--quiet justify-self-start max-sm:justify-self-center"
-            to="/features/desktop-widgets/"
-            hash="mascot-title"
-          >
-            Explore mascot styles
-          </Link>
-        </div>
-        <div className="cx-mascot-art">
-          <MoteMascot className="mote-mascot--feature" />
-          <p>Hover to flutter. Click or tap to say hello.</p>
-        </div>
       </section>
 
       <section className="cx-statement cx-shell cx-reveal" aria-labelledby="cx-taskbar-title">
@@ -902,17 +888,17 @@ function HomePage() {
             Explore taskbar quick controls
           </Link>
         </div>
-        <figure className="cx-statement-visual cx-taskbar-visual">
-          <ProductCapture
-            src="/product/mote-taskbar-quick-controls-dark.png"
-            alt="Taskbar flyout with room and zone switches, brightness sliders, and scenes"
-            width={744}
-            height={970}
-            sizes="(min-width: 60rem) 350px, 82vw"
+        <figure className="cx-statement-visual cx-statement-visual--demo">
+          <LoopingDemo
+            src="/product/mote-taskbar-flyout-demo"
+            poster="/product/derived/mote-taskbar-flyout-demo-920.webp"
+            label="Clicking Mote's taskbar icon opens the flyout, where a room is dimmed, a scene is applied, and a room is switched off"
+            width={FLYOUT_DEMO_WIDTH}
+            height={FLYOUT_DEMO_HEIGHT}
           />
           <figcaption>
             <i aria-hidden="true" />
-            Mote Pro taskbar panel
+            Mote Pro taskbar flyout
           </figcaption>
         </figure>
       </section>
